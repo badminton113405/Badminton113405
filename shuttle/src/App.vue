@@ -137,7 +137,7 @@ body {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
-  background-color: #fde0a6;
+  background-color: #ffecd5;
   margin-right: 10px;
 }
 
@@ -145,6 +145,6 @@ body {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
-  background-color: #ffecd5;
+  background-color: #fde0a6;
 }
 </style>
