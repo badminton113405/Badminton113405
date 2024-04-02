@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
       <video controls ref="videoPlayer">
-        <source src="../../images/t-hy.mp4" type="video/mp4"> 
+        <!--<source src="../../images/t-hy.mp4" type="video/mp4"> -->
         橫移
       </video>
     </div>
