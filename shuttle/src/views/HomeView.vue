@@ -141,10 +141,10 @@ export default {
 @media screen and (max-width: 320px) {
 
   /* iPhone SE 的寬度 */
-  /* 适应较小屏幕的调整 */
+  /* 適應較小屏幕的調整 */
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+    /* 減少填充 */
   }
 
   .g-footer-container {
