@@ -7,6 +7,9 @@
         橫移
       </video>
     </div>
+    <router-link to="/pq"><button class="i-button">左右/正反平球</button></router-link>
+    <router-link to="/xqtq"><button class="i-button">小球/挑球</button></router-link>
+    <router-link to="/"><button class="i-button">回首頁</button></router-link>
   </div>
 </template>
   
@@ -34,7 +37,7 @@
       /* 减少填充 */
     }
   
-    .m-button {
+    .i-button {
       margin-right: 5px;
       /* 减少边距 */
       font-size: 12px;

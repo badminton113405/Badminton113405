@@ -79,6 +79,9 @@
         </video>
       </div>
     </div>
+    殺球<br>
+    左右平球<br>
+    挑球小球<br>
 
     <div class="QA">
       <h2>羽球Q&A</h2>

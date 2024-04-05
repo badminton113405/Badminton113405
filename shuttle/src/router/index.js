@@ -13,7 +13,7 @@ import CYZView from '../views/coachviews/CYZView.vue';
 import ZZTView from '../views/coachviews/ZZTView.vue';
 import ZBYView from '../views/coachviews/ZBYView.vue';
 import HWHView from '../views/coachviews/HWHView.vue';
-import HYView from '../views/teachviews/HYView.vue';
+import PQView from '../views/teachviews/PQView.vue';
 import TQXQView from '../views/teachviews/TQXQView.vue';
 import SQView from '../views/teachviews/SQView.vue';
 
@@ -85,9 +85,9 @@ const routes = [
     component: HWHView
   },
   {
-    path: '/hy',
-    name: 'HY',
-    component: HYView
+    path: '/pq',
+    name: 'PQ',
+    component: PQView
   },
   {
     path: '/tqxq',
