@@ -1,7 +1,7 @@
 <template>
   <div class="beginner">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>This is an beginner page</h1>
+    <h1>課程npm </h1>
     <router-link to="/"><button class="i-button">回首頁</button></router-link>
   </div>
 </template>
