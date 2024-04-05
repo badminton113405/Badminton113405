@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
       <video controls ref="videoPlayer">
-        <!--<source src="../../images/t-hy.mp4" type="video/mp4"> -->
+        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4"> 
         左右/正反平球
       </video>
     </div>
@@ -18,6 +18,11 @@ export default {
   mounted() {
     this.resizeVideo(); // 初始化调整视频大小
     window.addEventListener('resize', this.resizeVideo);
+  },
+  methods: {
+    resizeVideo() {
+      // 添加 resizeVideo 函数的实际功能代码，用来调整视频大小
+    }
   }
 }
 </script>
@@ -81,5 +86,18 @@ video {
   /* 設定視頻寬度 */
   height: auto;
   /* 高度自動縮訪 */
+}
+.i-button {
+  font-family: "Zen Kurenaido", sans-serif;
+  border-radius: 16px;
+  color: #000;
+  background-color: #AFCCDC;
+}
+
+.i-button:hover {
+  font-family: "Zen Kurenaido", sans-serif;
+  border-radius: 16px;
+  color: #AFCCDC;
+  background-color: #000;
 }
 </style>
