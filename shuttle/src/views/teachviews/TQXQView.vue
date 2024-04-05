@@ -1,5 +1,5 @@
 <template>
-  <div class="tqxq">
+  <div class="TQXQ">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
       <video controls ref="videoPlayer">
@@ -45,7 +45,7 @@
     }
   }
   
-  .tqxq {
+  .TQXQ {
     font-family: "Zen Kurenaido", sans-serif;
     margin-top: 30px;
     margin-left: 10px;

@@ -78,10 +78,12 @@
           介紹影片
         </video>
       </div>
+      <router-link to="/sq"><button class="t-button">殺球</button></router-link>
+      <router-link to="/pq"><button class="t-button">左右平球</button></router-link>
+      <router-link to="/tqxq"><button class="t-button">小球/挑球</button></router-link>
     </div>
-    殺球<br>
-    左右平球<br>
-    挑球小球<br>
+
+
 
     <div class="QA">
       <h2>羽球Q&A</h2>
@@ -302,6 +304,20 @@ video {
 }
 
 .co-button:hover {
+  font-family: "Zen Kurenaido", sans-serif;
+  border-radius: 16px;
+  color: #000;
+  background-color: #93a9d8;
+}
+
+.t-button {
+  font-family: "Zen Kurenaido", sans-serif;
+  border-radius: 16px;
+  color: #000;
+  background-color: #c2cae7;
+}
+
+.t-button:hover {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
