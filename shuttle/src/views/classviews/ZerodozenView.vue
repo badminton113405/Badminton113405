@@ -1,7 +1,31 @@
 <template>
   <div class="zerodozen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>This is an zerodozen page</h1>
+    <h2>課程介紹</h2>
+    <div class="title">
+      <h1>零打班</h1>
+      <div class="title1">(適合羽球全階級)</div>
+    </div>
+
+    <div class="about">
+      <p>招生對象：不限制，只要想打羽球、想來揮灑汗水的所有人皆可以參加！</p>
+      <p1>(需自備球具)</p1>
+
+      <h3>基礎零打班：適用羽球階級7以下</h3>      
+      <p2>課程費用：350/次</p2>
+
+      <h3>進階零打班：適用羽球階級8以上</h3>
+      <p2>課程費用：350/次</p2>
+    </div> 
+
+    <div class="time">
+      <p>課程時段:</p> 
+      <p>星期五&星期六&星期日 晚上7:00~10:00</p>
+      <P>指導教練:</P>
+      <li>蔡元振 教練、張秉洋 教練(五)</li>
+      <li>林奕勝 教練、張詒婷 教練(六)</li>
+      <li>張秉洋 教練、林奕勝 教練(日)</li>
+    </div>
     <router-link to="/"><button class="i-button">回首頁</button></router-link>
   </div>
 </template>
@@ -49,7 +73,12 @@ export default {
   /* Arrange content vertically */
 }
 
+.zerodozen h2 {
+  margin-top: 5;
+}
+
 .i-button {
+  margin-top: 10pt;
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
@@ -62,4 +91,34 @@ export default {
   color: #000;
   background-color: #93a9d8;
 }
+
+.title {
+  display:flex;
+}
+
+.title1 {
+  margin-top: 28pt;
+  margin-left: 5pt;
+}
+
+.about p1{
+  font-size: 10pt;
+}
+
+.about h3 {
+  margin-top: 5%;
+}
+
+.about p2 {
+  font-size: 10pt;
+  color:#616161;
+}
+
+.time{
+  
+  list-style-type: none;
+  font-size: 10pt;
+  margin-top: 10pt;
+}
+
 </style>
