@@ -1,27 +1,28 @@
 <template>
   <div class="zerodozen">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h2>課程介紹</h2>
     <div class="title">
       <h1>零打班</h1>
       <div class="title1">(適合羽球全階級)</div>
     </div>
 
+    <img src="../../images/c-zerodozen.jpg" alt="初階班" class="class-img">
+
     <div class="about">
       <p>招生對象：不限制，只要想打羽球、想來揮灑汗水的所有人皆可以參加！</p>
       <p1>(需自備球具)</p1>
 
-      <h3>基礎零打班：適用羽球階級7以下</h3>      
+      <h2>基礎零打班：適用羽球階級7以下</h2>      
       <p2>課程費用：350/次</p2>
 
-      <h3>進階零打班：適用羽球階級8以上</h3>
+      <h2>進階零打班：適用羽球階級8以上</h2>
       <p2>課程費用：350/次</p2>
     </div> 
 
     <div class="time">
-      <p>課程時段:</p> 
+      <h2>課程時段:</h2> 
       <p>星期五&星期六&星期日 晚上7:00~10:00</p>
-      <P>指導教練:</P>
+      <h2>指導教練:</h2>
       <li>蔡元振 教練、張秉洋 教練(五)</li>
       <li>林奕勝 教練、張詒婷 教練(六)</li>
       <li>張秉洋 教練、林奕勝 教練(日)</li>
@@ -101,23 +102,10 @@ export default {
   margin-left: 5pt;
 }
 
-.about p1{
-  font-size: 10pt;
-}
-
-.about h3 {
-  margin-top: 5%;
-}
-
-.about p2 {
-  font-size: 10pt;
-  color:#616161;
-}
-
 .time{
   
   list-style-type: none;
-  font-size: 10pt;
+  font-size: 12pt;
   margin-top: 10pt;
 }
 

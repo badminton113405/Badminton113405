@@ -13,7 +13,7 @@
 
       <div class="class">
         <div class="class-item">
-          <router-link to="/beginner"><img src="../images/c-bignner.jpg" alt="初階班" class="class-img">
+          <router-link to="/beginner"><img src="../images/c-beginner.jpg" alt="初階班" class="class-img">
             <p><button class="c-button">初階班</button></p>
           </router-link>
         </div>
