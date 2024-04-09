@@ -182,7 +182,7 @@ export default {
 
 .video-container {
   margin-bottom: 20px;
-  padding: 30px 0px 10px 0px;
+  padding: 10px 0px 10px 0px;
   /* 內邊距 */
 }
 
