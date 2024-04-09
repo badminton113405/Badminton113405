@@ -1,7 +1,14 @@
 <template>
   <div class="about">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>This is an about page</h1>
+    <h1>教練團隊</h1>
+
+
+
+
+
+
+    
   </div>
 </template>
 

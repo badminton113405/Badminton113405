@@ -78,9 +78,12 @@
           介紹影片
         </video>
       </div>
-      <router-link to="/sq"><button class="t-button">殺球</button></router-link>
-      <router-link to="/pq"><button class="t-button">左右平球</button></router-link>
-      <router-link to="/tqxq"><button class="t-button">小球/挑球</button></router-link>
+      <router-link to="/sq"><img src="../images/t-sq.jpg" alt="殺球" class="teach-img" /><button
+          class="t-button">殺球</button></router-link>
+      <router-link to="/pq"><img src="../images/t-pq.jpg" alt="殺球" class="teach-img" /><button
+          class="t-button">左右平球</button></router-link>
+      <router-link to="/tqxq"><img src="../images/t-tqxq.jpg" alt="殺球" class="teach-img" /><button
+          class="t-button">小球/挑球</button></router-link>
     </div>
 
 
@@ -110,7 +113,8 @@
 
     <div class="communication">
       <h2>聯絡我們</h2>
-      <img src="../images/lineicon.png" alt="Line" class="line-img">
+      <img src="../images/lineicon.png" alt="Line" class="line-img"> <br>
+      <img src="../images/LINE.jpg" alt="Lineqr" class="lineqr-img">
       <p>透過行動條碼加入LINE好友<br>請在LINE應用程式上開啟「好友」分頁，點選畫面右上方用來加入好友的圖示，接著點選「行動條碼」，然後掃描此行動條碼。</p>
       <img src="../images/mailicon.png" alt="Mail" class="mail-img">
       <p>badminton@gmail.com</p>
@@ -259,8 +263,17 @@ video {
   /*圓角 */
 }
 
+.lineqr-img {
+  width: 70px;
+  /*圖片寬度*/
+  height: 70px;
+  /*圖片縮放*/
+  border-radius: 10px;
+  /*圓角 */
+}
+
 .mail-img {
-  width: 50px;
+  width: auto;
   /*圖片寬度*/
   height: 50px;
   /*圖片縮放*/
@@ -280,6 +293,15 @@ video {
 .class-item p {
   margin-top: 10px;
   /* 調整文字與圖片間距 */
+}
+
+.teach-img {
+  width: 200px;
+  /*圖片寬度*/
+  height: auto;
+  /*圖片縮放*/
+  border-radius: 10px;
+  /*圓角 */
 }
 
 .c-button {
