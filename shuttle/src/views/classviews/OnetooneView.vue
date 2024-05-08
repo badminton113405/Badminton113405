@@ -30,23 +30,23 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的宽度 */
-  /* 适应较小屏幕的调整 */
+  /* iPhone SE 的寬度 */
+  /* 適應較小屏幕的調整 */
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+    /* 減少填充 */
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+    /* 減少填充 */
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+    /* 減少間距 */
     font-size: 12px;
-    /* 减少字体大小 */
+    /* 減少字體大小 */
   }
 }
 
