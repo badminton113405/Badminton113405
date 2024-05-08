@@ -3,13 +3,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
       <video controls ref="videoPlayer">
-        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4"> 
+        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4">
         左右/正反平球
       </video>
     </div>
-    <router-link to="/sq"><button class="i-button">殺球</button></router-link>
-    <router-link to="/tqxq"><button class="i-button">小球/挑球</button></router-link>
-    <router-link to="/"><button class="i-button">回首頁</button></router-link>
+    <div class="button-container">
+      <router-link to="/sq"><button class="i-button">殺球</button></router-link>
+      <router-link to="/tqxq"><button class="i-button">小球/挑球</button></router-link>
+      <router-link to="/"><button class="i-button">回首頁</button></router-link>
+    </div>
   </div>
 </template>
 
@@ -87,11 +89,22 @@ video {
   height: auto;
   /* 高度自動縮訪 */
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  /* Add space between video container and buttons */
+}
+
 .i-button {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
   background-color: #AFCCDC;
+  margin: 0 5px;
+  /* Add space between buttons */
+
 }
 
 .i-button:hover {

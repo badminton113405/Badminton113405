@@ -1,14 +1,15 @@
 <template>
   <div class="onetoone">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h2>課程介紹</h2>
     <div class="title">
       <h1>個別班</h1>
     </div>
 
+    <img src="../../images/c-onetoone.jpg" alt="初階班" class="class-img">
+
     <div class="about">
-      <p>招生對象：程度不限制，只要想認真學習羽球，我們皆可以依需求安排教練及規劃客製化的訓練課表。</p>
-      <p1>(請依實際上課人數來報名課程項目)</p1>
+      招生對象：程度不限制，只要想認真學習羽球，我們皆可以依需求安排教練及規劃客製化的訓練課表。<br>
+      <p>(請依實際上課人數來報名課程項目)</p>
 
       <h3>一對一/一對二/一對三</h3>      
       <h3>三人以上請報名團班</h3>
@@ -29,23 +30,23 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的宽度 */
-  /* 适应较小屏幕的调整 */
+  /* iPhone SE 的寬度 */
+  /* 適應較小屏幕的調整 */
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+    /* 減少填充 */
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+    /* 減少填充 */
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+    /* 減少間距 */
     font-size: 12px;
-    /* 减少字体大小 */
+    /* 減少字體大小 */
   }
 }
 
@@ -86,13 +87,9 @@ export default {
   font-size: 13pt;
 }
 
-.about p1 {
-  font-size: 13pt;
-}
-
 .time {
   display: flex;
-  font-size: 10pt;
+  font-size: 12pt;
   color:#616161;
 }
 </style>
