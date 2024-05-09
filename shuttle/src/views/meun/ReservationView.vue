@@ -3,11 +3,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h1>This is an ConnectionView page</h1>
   </div>
+
+  <div>
+    <h1>My Models</h1>
+    <ul>
+      <li v-for="item in items" :key="item.id">
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-}
+  data() {
+    return {
+      items: []
+    };
+  },
+  created() {
+    axios.get('http://127.0.0.1:8000/api/mymodel/')  // Django API URL
+      .then(response => {
+        this.items = response.data;
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+};
 </script>
 
 <style scoped>
