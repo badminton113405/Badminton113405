@@ -40,10 +40,12 @@ INSTALLED_APPS = [
     'badminton_app',
     'rest_framework',
     'corsheaders',
+    'debug_toolbar',
 ]
 
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,8 +55,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.staticfiles.middleware.StaticFilesHandler',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'badminton_api.urls'
 
@@ -76,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'badminton_api.wsgi.application'
+WSGI_APPLICATION = 'badminton_app.wsgi.application'
 
 
 # Database
