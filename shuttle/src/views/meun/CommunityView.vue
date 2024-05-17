@@ -1,14 +1,60 @@
 <template>
-  <div class="community">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>This is an CommunityView page</h1>
+  <div>
+    <h1>Community</h1>
+    <form @submit.prevent="submitMessage">
+      <label for="memberId">Member ID:</label>
+      <input type="text" v-model="memberId" id="memberId" required />
+      
+      <label for="content">Message:</label>
+      <textarea v-model="content" id="content" required></textarea>
+      
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
+import { io } from 'socket.io-client';
+
 export default {
-}
+  data() {
+    return {
+      memberId: '',
+      content: '',
+      socket: null
+    };
+  },
+  mounted() {
+    this.socket = io('http://your_django_server/ws/community/');
+    this.socket.on('connect', () => {
+      console.log('Socket connected');
+    });
+    this.socket.on('message', data => {
+      console.log('Message received:', data);
+      if (data.error) {
+        alert(`Error: ${data.error}`);
+      } else {
+        alert(`Success: ${data.message}`);
+      }
+    });
+  },
+  beforeUnmount() {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+  },
+  methods: {
+    submitMessage() {
+      this.socket.emit('message', {
+        member_id: this.memberId,
+        content: this.content
+      });
+    }
+  }
+};
 </script>
+
+
 
 <style scoped>
 @media screen and (max-width: 320px) {
@@ -33,7 +79,7 @@ export default {
   }
 }
 
-.community {
+.reservation {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
@@ -48,3 +94,4 @@ export default {
   /* Arrange content vertically */
 }
 </style>
+

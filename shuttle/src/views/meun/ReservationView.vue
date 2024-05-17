@@ -1,39 +1,65 @@
 <template>
-  <div class="reservation">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>This is an ConnectionView page</h1>
-  </div>
-
   <div>
-    <h1>My Models</h1>
-    <ul>
-      <li v-for="item in items" :key="item.id">
-        {{ item.name }}
-      </li>
-    </ul>
+    <h1>Reservation</h1>
+    <form @submit.prevent="submitReservation">
+      <label for="memberId">Member ID:</label>
+      <input type="text" v-model="memberId" id="memberId" required />
+      
+      <label for="courseId">Course ID:</label>
+      <input type="text" v-model="courseId" id="courseId" required />
+      
+      <label for="reservationDate">Reservation Date:</label>
+      <input type="date" v-model="reservationDate" id="reservationDate" required />
+      
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import { io } from 'socket.io-client';
 
 export default {
   data() {
     return {
-      items: []
+      memberId: '',
+      courseId: '',
+      reservationDate: '',
+      socket: null
     };
   },
-  created() {
-    axios.get('http://127.0.0.1:8000/api/mymodel/')  // Django API URL
-      .then(response => {
-        this.items = response.data;
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+  mounted() {
+    this.socket = io('http://your_django_server/ws/reservation/');
+    this.socket.on('connect', () => {
+      console.log('Socket connected');
+    });
+    this.socket.on('message', data => {
+      console.log('Message received:', data);
+      if (data.error) {
+        alert(`Error: ${data.error}`);
+      } else {
+        alert(`Success: ${data.message}`);
+      }
+    });
+  },
+  beforeUnmount() {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+  },
+  methods: {
+    submitReservation() {
+      this.socket.emit('message', {
+        member_id: this.memberId,
+        course_id: this.courseId,
+        reservation_date: this.reservationDate
       });
+    }
   }
 };
 </script>
+
+
 
 <style scoped>
 @media screen and (max-width: 320px) {
