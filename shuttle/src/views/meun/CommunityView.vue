@@ -25,7 +25,7 @@ export default {
     };
   },
   mounted() {
-    this.socket = io('http://your_django_server/ws/community/');
+    this.socket = io('http://127.0.0.1:8000//ws/community/');
     this.socket.on('connect', () => {
       console.log('Socket connected');
     });

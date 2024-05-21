@@ -5,7 +5,7 @@
     <router-link to="/about"><button class="m-button">教練團隊</button></router-link>
     <router-link to="/reservation"><button class="m-button">報名課程</button></router-link>
     <router-link to="/community"><button class="m-button">社群空間</button></router-link>
-    <router-link to="/VIP"><button class="m-button">會員中心</button></router-link>
+    <router-link to="/login"><button class="m-button">會員中心</button></router-link>
 
     <c-header />
   </div>

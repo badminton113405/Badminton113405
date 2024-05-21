@@ -17,42 +17,27 @@
 </template>
 
 <script>
-import { io } from 'socket.io-client';
+import axios from 'axios';
 
 export default {
-  data() {
-    return {
-      memberId: '',
-      courseId: '',
-      reservationDate: '',
-      socket: null
-    };
-  },
-  mounted() {
-    this.socket = io('http://your_django_server/ws/reservation/');
-    this.socket.on('connect', () => {
-      console.log('Socket connected');
-    });
-    this.socket.on('message', data => {
-      console.log('Message received:', data);
-      if (data.error) {
-        alert(`Error: ${data.error}`);
-      } else {
-        alert(`Success: ${data.message}`);
-      }
-    });
-  },
-  beforeUnmount() {
-    if (this.socket) {
-      this.socket.disconnect();
-    }
-  },
   methods: {
-    submitReservation() {
-      this.socket.emit('message', {
-        member_id: this.memberId,
-        course_id: this.courseId,
-        reservation_date: this.reservationDate
+  submitReservation() {
+    const reservationData = {
+      memberId: this.memberId,
+      courseId: this.courseId,
+      reservationDate: this.reservationDate
+    };
+    
+    axios.post('http://127.0.0.1:8000/test', reservationData)
+      .then(response => {
+        if (response.data.success) {
+          alert('Reservation successful!');
+        } else {
+          alert('Reservation failed: ' + response.data.message);
+        }
+      })
+      .catch(error => {
+        alert('Reservation failed: ' + error.message);
       });
     }
   }

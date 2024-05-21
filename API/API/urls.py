@@ -7,4 +7,5 @@ urlpatterns = [
     path('api/', include('APP.urls')),  # API 路由
     path('api/register_member/', views.register_member),
     path('api/create_message/', views.create_message),
+    path('test', views.test)
 ]

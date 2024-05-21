@@ -2,12 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axiosInstance from './axios' // 导入 Axios 实例
+import axiosInstance from './axios' 
 
 
 const app = createApp(App)
 
-app.config.globalProperties.$axios = axiosInstance // 将 Axios 实例添加到全局属性
+app.config.globalProperties.$axios = axiosInstance 
 
 app.use(store)
 app.use(router)

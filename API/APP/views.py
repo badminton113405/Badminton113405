@@ -53,3 +53,29 @@ def create_message(request):
         
         return JsonResponse({'message': 'Message created successfully'}, status=201)
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@csrf_exempt
+def test(request):
+    print("test")
+    try:
+        data = json.loads(request.body)
+        member_id = data.get('memberId')
+        course_id = data.get('courseId')
+        reservation_date = data.get('reservationDate')
+
+        member = Member.objects.get(id=member_id)
+        course = Course.objects.get(id=course_id)
+
+        Reservation.objects.create(
+            member=member,
+            course=course,
+            reservation_date=reservation_date
+        )
+
+        return JsonResponse({'message': 'Reservation created successfully'}, status=201)
+    except Member.DoesNotExist:
+        return JsonResponse({'error': 'Member not found'}, status=404)
+    except Course.DoesNotExist:
+        return JsonResponse({'error': 'Course not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)

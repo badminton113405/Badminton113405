@@ -16,6 +16,9 @@ import HWHView from '../views/coachviews/HWHView.vue';
 import PQView from '../views/teachviews/PQView.vue';
 import TQXQView from '../views/teachviews/TQXQView.vue';
 import SQView from '../views/teachviews/SQView.vue';
+import LoginView from '../views/VIP/LoginView';
+import RegisterView from '../views/VIP/RegisterView';
+
 
 
 const routes = [
@@ -93,6 +96,16 @@ const routes = [
     path: '/tqxq',
     name: 'TQXQ',
     component: TQXQView
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: RegisterView
   },
   {
     path: '/sq',
