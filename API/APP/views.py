@@ -2,6 +2,11 @@ from rest_framework import viewsets
 from .models import MyModel
 from .serializers import MyModelSerializer
 
+from django.shortcuts import render
+from .models import MyModel
+
+from django.shortcuts import render
+
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password
@@ -11,6 +16,34 @@ import json
 class MyModelViewSet(viewsets.ModelViewSet):
     queryset = MyModel.objects.all()
     serializer_class = MyModelSerializer
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.contrib.auth import authenticate
+from .models import User, UserProfile, Member, Message, Coach, Course, Reservation
+
+def index(request):
+    return render(request, 'index.html')
+
+@api_view(['POST'])
+def login(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+    user = authenticate(email=email, password=password)
+    if user is not None:
+        return Response({'message': '登录成功'}, status=status.HTTP_200_OK)
+    else:
+        return Response({'message': '登录失败'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def register(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    email = request.data.get('email')
+    member = Member.objects.create(username=username, password=password, email=email)
+    return Response({'message': '注册成功'}, status=status.HTTP_201_CREATED)
+
 
 
 @csrf_exempt
@@ -79,3 +112,10 @@ def test(request):
         return JsonResponse({'error': 'Course not found'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+
+
+
+
+def my_view(request):
+    objects = MyModel.objects.all()
+    return render(request, 'my_template.html', {'objects': objects})
