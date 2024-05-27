@@ -2,7 +2,7 @@
   <div class="cyz">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h2>教練團隊</h2>
-    <img src="../../images/co-chaiyuanzheng.jpg" alt="蔡元振">
+      <img src="../../images/co-chaiyuanzheng.jpg" alt="蔡元振">
     <div class="name-gender">
         <div class="name">蔡元振</div>
         <div class="gender">/男</div>
@@ -81,6 +81,7 @@ export default {
   flex-direction: column;
   /* Arrange content vertically */
 }
+
 .name-gender {
   display: flex; 
   align-items: center;
@@ -98,11 +99,11 @@ export default {
 
 .specialty {
   position: absolute;
-  top: 100px; /* 根據圖片的實際位置調整 */
-  left: 160px; /* 根據圖片的實際位置調整 */
+  top: 590px; /* 根據圖片的實際位置調整 */
+  left: 260px; /* 根據圖片的實際位置調整 */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   text-align: center;
   line-height: 0.7;
