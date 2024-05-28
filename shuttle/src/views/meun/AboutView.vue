@@ -69,6 +69,7 @@ export default {
 }
 
 .header {
+  text-align: center;
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 20px;
@@ -94,11 +95,13 @@ export default {
   border: none;
   padding: 10px 20px;
   border-radius: 16px;
+  color: #000;
   cursor: pointer;
 }
 
 .coach-button:hover {
   font-family: "Zen Kurenaido", sans-serif;
+  color: #000;
   background-color: #fde0a6;
 }
 
