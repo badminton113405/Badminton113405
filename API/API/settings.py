@@ -142,7 +142,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS =[
-    BASE_DIR / 'shuttle'/'dist'/'static'
+     'D:\\Badminton113405\\shuttle\\dist\\static',
 ]
 
 # Default primary key field type

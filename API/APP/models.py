@@ -14,6 +14,13 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(default='Default bio')  # 设置默认值
     avatar = models.ImageField(upload_to='avatars/', default='path/to/default/image.jpg')  # 设置默认值
+    name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    birthdate = models.DateField()
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=100)
 
 
 # 報名課程
@@ -50,24 +57,14 @@ class Coach(models.Model):
     photo = models.ImageField(upload_to='instructors/')
 
 
-# 會員資料
-class Member(models.Model):
-    name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=10)
-    birthdate = models.DateField()
-    phone = models.CharField(max_length=20)
-    email = models.EmailField()
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-
 # 留言板
 class DiscussionPost(models.Model):
-    author = models.ForeignKey(Member, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
 class DiscussionComment(models.Model):
     post = models.ForeignKey(DiscussionPost, related_name='comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(Member, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
