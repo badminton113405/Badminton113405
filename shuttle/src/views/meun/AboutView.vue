@@ -1,12 +1,23 @@
 <template>
   <div class="about">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h1>教練團隊</h1>
-
-
-
-
-
+    <div class="header">教練團隊</div>
+    <div class="coach-container">
+      <img src="../../images/co-chaiyuanzheng.jpg" alt="蔡元振">
+      <router-link to="/cyz"><button class="coach-button">蔡元振</button></router-link>
+    </div>
+    <div class="coach-container">
+      <img src="../../images/co-zhozhongting.jpg" alt="周仲庭">
+      <router-link to="/zzt"><button class="coach-button">周仲庭</button></router-link>
+    </div>
+    <div class="coach-container">
+      <img src="../../images/co-zhangbingying.jpg" alt="張秉洋">
+      <router-link to="/zby"><button class="coach-button">張秉洋</button></router-link>
+    </div>
+    <div class="coach-container">
+      <img src="../../images/co-huwenhan.jpg" alt="胡玟翊">
+      <router-link to="/hwh"><button class="coach-button">胡玟翊</button></router-link>
+    </div>
 
     <div class="button-container">   
     <router-link to="/"><button class="i-button">回首頁</button></router-link>
@@ -57,7 +68,39 @@ export default {
   /* Arrange content vertically */
 }
 
+.header {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+  
+}
+.coach-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.coach-container img {
+  border-radius: 20px;
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border: 2px solid black;
+  margin-top: 20px;
+}
 
+.coach-button {
+  font-family: "Zen Kurenaido", sans-serif;
+  background-color: #ffecd5;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.coach-button:hover {
+  font-family: "Zen Kurenaido", sans-serif;
+  background-color: #fde0a6;
+}
 
 .button-container {
   display: flex;
