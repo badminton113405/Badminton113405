@@ -9,8 +9,10 @@
         <div class="gender">/男</div>
     </div>
     <div class="specialty">
-      <p>特質</p>外向、熱情
-      <p>專長項目</p>平球壓抽擋
+      <span>特質</span>
+        <br>外向、熱情<br>
+      <span>專長項目</span>
+        <br>平球壓抽擋<br>
     </div>
     </div>
     <div class="experience">
@@ -38,9 +40,10 @@
           <br>0987569423<br>
           <img src="../../images/LINE.jpg" alt="QR Code" width="100">
     </div>
-    </div>        
+    </div>
+    <div class="button-container">        
     <router-link to="/"><button class="i-button">回首頁</button></router-link>
-    
+    </div>
   </div>
 </template>
 <script>
@@ -95,24 +98,25 @@ export default {
 .name-gender {
   display: flex; 
   align-items: center;
-  margin-top: 0px;
+  margin-left: 10pt;
 }
 
 .name-gender-specialty {
   display: flex;
   align-items: center;
   margin-top: 0px;
-  gap: 270px; /* 調整項目之間的間距 */
+  gap: 150px; /* 調整項目之間的間距 */
 }
 
 .name {
   font-size: 24px;
-  margin-top: 10px;
+  display: flex;
 }
 
 .gender {
   font-size: 18px;
-  margin-left: 10px;
+  margin-left: 1px;
+  margin-right: 5pt;
 }
 
 .specialty {
@@ -121,12 +125,12 @@ export default {
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   text-align: center;
-  line-height: 0.7;
+  justify-content: space-between;
   }
 
 .specialty, .experience, .teaching-methods, .contact-info {
   text-align: left;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .experience span, .teaching-methods span, .contact-info span {
@@ -145,6 +149,12 @@ export default {
 .teaching-methods-contact-info {
   display: flex;
   justify-content: space-between;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .i-button {
