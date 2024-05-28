@@ -105,7 +105,7 @@ export default {
   display: flex;
   align-items: center;
   margin-top: 0px;
-  gap: 150px; /* 調整項目之間的間距 */
+  gap: 130px; /* 調整項目之間的間距 */
 }
 
 .name {
@@ -115,7 +115,7 @@ export default {
 
 .gender {
   font-size: 18px;
-  margin-left: 1px;
+  margin-left: -2px;
   margin-right: 5pt;
 }
 

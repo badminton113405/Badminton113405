@@ -8,7 +8,9 @@
 
 
 
-    
+    <div class="button-container">   
+    <router-link to="/"><button class="i-button">回首頁</button></router-link>
+    </div>  
   </div>
 </template>
 
@@ -54,4 +56,28 @@ export default {
   flex-direction: column;
   /* Arrange content vertically */
 }
+
+
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.i-button {
+  font-family: "Zen Kurenaido", sans-serif;
+  border-radius: 16px;
+  color: #000;
+  background-color: #c2cae7;
+
+}
+
+.i-button:hover {
+  font-family: "Zen Kurenaido", sans-serif;
+  border-radius: 16px;
+  color: #000;
+  background-color: #93a9d8;
+}
+
 </style>
