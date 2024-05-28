@@ -50,11 +50,12 @@ export default {
   },
   methods: {
     submitForm() {
+      alert("test");
       if (this.form.password !== this.form.confirmPassword) {
         alert('密碼不一致');
         return;
       }
-      axios.post('/api/register/', {
+      axios.post('http://127.0.0.1:8000/api/register/', {
         username: this.form.username,
         password: this.form.password,
         email: this.form.email

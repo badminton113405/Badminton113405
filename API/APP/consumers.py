@@ -1,6 +1,6 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
-from .models import Member, Message, Reservation, Course
+from .models import User, Message, Reservation, Course
 
 class CommunityConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -11,11 +11,11 @@ class CommunityConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        member_id = data['member_id']
+        user_id = data['user_id']
         content = data['content']
 
         try:
-            member = Member.objects.get(id=member_id)
+            member = User.objects.get(id=user_id)
             message = Message.objects.create(
                 member=member,
                 content=content
@@ -24,7 +24,7 @@ class CommunityConsumer(AsyncWebsocketConsumer):
                 'message': 'Message created successfully',
                 'message_id': message.id
             }))
-        except Member.DoesNotExist:
+        except User.DoesNotExist:
             await self.send(text_data=json.dumps({
                 'error': 'Member not found'
             }))
@@ -42,15 +42,15 @@ class ReservationConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        member_id = data['member_id']
+        user_id = data['user_id']
         course_id = data['course_id']
         reservation_date = data['reservation_date']
 
         try:
-            member = Member.objects.get(id=member_id)
+            User = User.objects.get(id=user_id)
             course = Course.objects.get(id=course_id)
             reservation = Reservation.objects.create(
-                member=member,
+                User=User,
                 course=course,
                 reservation_date=reservation_date
             )
@@ -58,7 +58,7 @@ class ReservationConsumer(AsyncWebsocketConsumer):
                 'message': 'Reservation created successfully',
                 'reservation_id': reservation.id
             }))
-        except Member.DoesNotExist:
+        except User.DoesNotExist:
             await self.send(text_data=json.dumps({
                 'error': 'Member not found'
             }))
