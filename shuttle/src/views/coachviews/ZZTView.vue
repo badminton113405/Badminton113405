@@ -2,7 +2,8 @@
   <div class="zzt">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <h2>教練團隊</h2>
-    <img src="shuttle/src/images/co-chaiyuanzheng.jpg" alt="周仲庭">
+    <img src="../../images/co-zhozhongting.jpg" alt="周仲庭">
+    <div class="name-gender-specialty">
     <div class="name-gender">
         <div class="name">周仲庭</div>
         <div class="gender">/女</div>
@@ -10,6 +11,7 @@
     <div class="specialty">
       <p>特質</p>活潑、外向
       <p>專長項目</p>雙打輪轉
+    </div>
     </div>
     <div class="experience">
       <span>經歷：</span>
@@ -19,6 +21,7 @@
           <li>恆耀羽球學院A及專業教練</li>        
         </ul>
     </div>
+    <div class="teaching-methods-contact-info">
     <div class="teaching-methods">
       <span>教學方式：</span>
         <ul>
@@ -30,9 +33,10 @@
     </div>
     <div class="contact-info">
       <span>聯絡資訊：</span>
-          <br>電話：0987569423<br>
-          <img src="your-qr-code-source.jpg" alt="QR Code" width="100">
-    </div>        
+          <br>0987569423<br>
+          <img src="../../images/LINE.jpg" alt="QR Code" width="100">
+    </div>     
+    </div>   
     <router-link to="/"><button class="i-button">回首頁</button></router-link>
     
   </div>
@@ -78,12 +82,27 @@ export default {
   /* Center content */
   flex-direction: column;
   /* Arrange content vertically */
+  max-width: 500px;
 }
+
+.zzt img {
+  border-radius: 5pt;
+  object-fit: cover;
+}
+
 .name-gender {
   display: flex; 
   align-items: center;
-  margin-top: 10px;
+  margin-top: 0px;
 }
+
+.name-gender-specialty {
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+  gap: 270px; /* 調整項目之間的間距 */
+}
+
 .name {
   font-size: 24px;
   margin-top: 10px;
@@ -95,9 +114,6 @@ export default {
 }
 
 .specialty {
-  position: absolute;
-  top: 100px; /* 根據圖片的實際位置調整 */
-  left: 160px; /* 根據圖片的實際位置調整 */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 8px;
@@ -113,6 +129,20 @@ export default {
 
 .experience span, .teaching-methods span, .contact-info span {
   font-weight: bold;
+}
+
+.contact-info{
+  text-align: center;
+}
+
+.contact-info img {
+  display: block;
+  margin: 10px auto 0;
+}
+
+.teaching-methods-contact-info {
+  display: flex;
+  justify-content: space-between;
 }
 
 .i-button {
