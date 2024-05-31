@@ -1,12 +1,18 @@
 <template>
   <div class="SQ">
+    <h2>羽球教學</h2>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
-      <video controls ref="videoPlayer">
-        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4">
-        殺球
-      </video>
+        <iframe
+        :src="videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        ref="videoPlayer"
+      ></iframe>
     </div>
+    <h1>殺球</h1>
+    <p>殺球是羽球最具攻擊性的球路，透過手腕下扣瞬間發力並在高點擊到球，使球過往後有一定的威力並下墜。</p>
     <div class="button-container">
       <router-link to="/pq"><button class="i-button">左右/正反平球</button></router-link>
       <router-link to="/tqxq"><button class="i-button">小球/挑球</button></router-link>
@@ -18,16 +24,12 @@
 
 <script>
 export default {
-  mounted() {
-    this.resizeVideo(); // 初始化调整视频大小
-    window.addEventListener('resize', this.resizeVideo);
-  },
-  methods: {
-    resizeVideo() {
-      // 添加 resizeVideo 函数的实际功能代码，用来调整视频大小
-    }
+  data() {
+    return {
+      videoUrl: 'https://youtu.be/QJRRfaMuy58?si=PyGentEbau7Ptc71'
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -70,9 +72,15 @@ export default {
 }
 
 .video-container {
-  margin-bottom: 20px;
-  padding: 30px 0px 10px 0px;
-  /* 內邊距 */
+  width: 80%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10pt;
 }
 
 .video-teach {

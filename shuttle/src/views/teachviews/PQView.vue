@@ -1,32 +1,35 @@
 <template>
   <div class="HY">
+    <h2>羽球教學</h2>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
-      <video controls ref="videoPlayer">
-        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4">
-        左右/正反平球
-      </video>
+        <iframe
+        :src="videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        ref="videoPlayer"
+      ></iframe>
     </div>
+    <h1>左右/正反平球</h1>
+    <p>左右/正反 平球是羽球當中最長出現的球路之一，擊球後球會以跟球網差不多的高度飛過。</p>
     <div class="button-container">
       <router-link to="/sq"><button class="i-button">殺球</button></router-link>
       <router-link to="/tqxq"><button class="i-button">小球/挑球</button></router-link>
       <router-link to="/"><button class="i-button">回首頁</button></router-link>
     </div>
+    
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.resizeVideo(); // 初始化调整视频大小
-    window.addEventListener('resize', this.resizeVideo);
-  },
-  methods: {
-    resizeVideo() {
-      // 添加 resizeVideo 函数的实际功能代码，用来调整视频大小
-    }
+  data() {
+    return {
+      videoUrl: 'https://youtu.be/T-V6Tmg_GoY?si=8o1fIMziAqLWhIRm'
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -68,9 +71,15 @@ export default {
 }
 
 .video-container {
-  margin-bottom: 20px;
-  padding: 30px 0px 10px 0px;
-  /* 內邊距 */
+  width: 80%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10pt;
 }
 
 .video-teach {

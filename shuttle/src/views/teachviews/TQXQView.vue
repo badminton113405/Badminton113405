@@ -1,12 +1,18 @@
 <template>
   <div class="TQXQ">
+    <h2>羽球教學</h2>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <div class="video-container">
-      <video controls ref="videoPlayer">
-        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4">
-        橫移
-      </video>
+        <iframe
+        :src="videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        ref="videoPlayer"
+      ></iframe>
     </div>
+    <h1>挑球/小球</h1>
+    <p>挑球是在前場由下往上擊球，並把球擊高至後場的球路，小球則是在前場約在自身肩膀的高度擊球，並打至對方前場的位置。</p>
     <div class="button-container">
       <router-link to="/pq"><button class="i-button">左右/正反平球</button></router-link>
       <router-link to="/sq"><button class="i-button">殺球</button></router-link>
@@ -17,16 +23,12 @@
 
 <script>
 export default {
-  mounted() {
-    this.resizeVideo(); // 初始化调整视频大小
-    window.addEventListener('resize', this.resizeVideo);
-  },
-  methods: {
-    resizeVideo() {
-      // 添加 resizeVideo 函数的实际功能代码，用来调整视频大小
-    }
+  data() {
+    return {
+      videoUrl: 'https://youtu.be/H0DOUQEFX_A?si=tddJSDCbLJBtwArl'
+    };
   }
-}
+};
 </script>
 
 <style scoped>
@@ -68,9 +70,15 @@ export default {
 }
 
 .video-container {
-  margin-bottom: 20px;
-  padding: 30px 0px 10px 0px;
-  /* 內邊距 */
+  width: 80%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10pt;
 }
 
 .video-teach {

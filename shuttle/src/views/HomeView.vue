@@ -2,11 +2,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <div class="main">
     <div class="video-container">
-      <video controls ref="videoPlayer">
-        <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4">
-        介紹影片
-      </video>
+    <iframe
+        :src="videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        ref="videoPlayer"
+      ></iframe>
     </div>
+        
 
     <div class="courses">
       <h2>課程展示</h2>
@@ -72,11 +76,16 @@
 
     <div class="teach">
       <h2>羽球教學</h2>
+      
       <div class="video-container">
-        <video controls ref="videoPlayer">
-          <source src="https://youtu.be/evJazpDJ7eQ?si=w12dIbthP8K6ubn9" type="video/mp4">
-          介紹影片
-        </video>
+        <iframe
+        :src="videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        ref="videoPlayer"
+        ></iframe>
+     
       </div>
       <router-link to="/sq"><img src="../images/t-sq.jpg" alt="殺球" class="teach-img" /><button
           class="t-button">殺球</button></router-link>
@@ -126,21 +135,10 @@
 
 <script>
 export default {
-  mounted() {
-    this.resizeVideo(); // 初始化调整视频大小
-    window.addEventListener('resize', this.resizeVideo);
-  },
-  beforeUnmount() {
-    window.removeEventListener('resize', this.resizeVideo);
-  },
-  methods: {
-    resizeVideo() {
-      const videoPlayer = this.$refs.videoPlayer;
-      const aspectRatio = videoPlayer.videoWidth / videoPlayer.videoHeight;
-      const containerWidth = videoPlayer.parentElement.offsetWidth;
-      videoPlayer.width = containerWidth;
-      videoPlayer.height = containerWidth / aspectRatio;
-    }
+  data() {
+    return {
+      videoUrl: 'https://www.youtube.com/embed/evJazpDJ7eQ'
+    };
   }
 };
 </script>
@@ -185,9 +183,16 @@ export default {
 }
 
 .video-container {
-  margin-bottom: 20px;
-  padding: 10px 0px 10px 0px;
-  /* 內邊距 */
+  width: 80%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 10pt;
 }
 
 .video-teach {
