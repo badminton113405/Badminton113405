@@ -76,7 +76,7 @@ export default {
 }
 
 .video-container {
-  width: 80%;
+  width: 100%;
   max-width: 800px;
   aspect-ratio: 16 / 9;
 }
