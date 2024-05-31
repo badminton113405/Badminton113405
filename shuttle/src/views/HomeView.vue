@@ -1,15 +1,18 @@
 <template>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <div class="main">
-    <div class="video-container">
-    <iframe
-        :src="videoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        ref="videoPlayer"
-      ></iframe>
+    <div class="video">
+      <div class="video-container">
+      <iframe
+          :src="videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          ref="videoPlayer"
+        ></iframe>
+      </div>  
     </div>
+
         
 
     <div class="courses">
@@ -76,17 +79,20 @@
 
     <div class="teach">
       <h2>羽球教學</h2>
+    <div class="video">
+      <div class="video-teach">
+        <div class="video-container">
+          <iframe
+          :src="videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          ref="videoPlayer"
+          ></iframe>
       
-      <div class="video-container">
-        <iframe
-        :src="videoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        ref="videoPlayer"
-        ></iframe>
-     
+        </div>
       </div>
+    </div>
       <router-link to="/sq"><img src="../images/t-sq.jpg" alt="殺球" class="teach-img" /><button
           class="t-button">殺球</button></router-link>
       <router-link to="/pq"><img src="../images/t-pq.jpg" alt="殺球" class="teach-img" /><button
@@ -205,7 +211,7 @@ iframe {
   margin-bottom: 20px;
 }
 
-video {
+.video {
   width: 100%;
   /* 設定視頻寬度 */
   height: auto;

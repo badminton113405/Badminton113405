@@ -2,14 +2,18 @@
   <div class="HY">
     <h2>羽球教學</h2>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div class="video-container">
-        <iframe
-        :src="videoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        ref="videoPlayer"
-      ></iframe>
+    <div class="video">
+      <div class="video-teach">
+        <div class="video-container">
+          <iframe
+          :src="videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          ref="videoPlayer"
+          ></iframe>
+        </div>
+      </div>
     </div>
     <h1>左右/正反平球</h1>
     <p>左右/正反 平球是羽球當中最長出現的球路之一，擊球後球會以跟球網差不多的高度飛過。</p>

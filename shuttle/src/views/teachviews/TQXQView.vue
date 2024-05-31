@@ -2,14 +2,18 @@
   <div class="TQXQ">
     <h2>羽球教學</h2>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div class="video-container">
-        <iframe
-        :src="videoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        ref="videoPlayer"
-      ></iframe>
+    <div class="video">
+      <div class="video-teach">
+        <div class="video-container">
+          <iframe
+          :src="videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          ref="videoPlayer"
+          ></iframe>
+        </div>
+      </div>
     </div>
     <h1>挑球/小球</h1>
     <p>挑球是在前場由下往上擊球，並把球擊高至後場的球路，小球則是在前場約在自身肩膀的高度擊球，並打至對方前場的位置。</p>

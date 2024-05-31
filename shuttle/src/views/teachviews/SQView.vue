@@ -2,14 +2,18 @@
   <div class="SQ">
     <h2>羽球教學</h2>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div class="video-container">
-        <iframe
-        :src="videoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-        ref="videoPlayer"
-      ></iframe>
+    <div class="video">
+      <div class="video-teach">
+        <div class="video-container">
+          <iframe
+          :src="videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          ref="videoPlayer"
+          ></iframe>
+        </div>
+      </div>
     </div>
     <h1>殺球</h1>
     <p>殺球是羽球最具攻擊性的球路，透過手腕下扣瞬間發力並在高點擊到球，使球過往後有一定的威力並下墜。</p>
