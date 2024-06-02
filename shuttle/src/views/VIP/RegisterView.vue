@@ -147,7 +147,7 @@ export default {
 .input-group input,
 .input-group select {
   width: 100%;
-  padding: 10px;
+  padding: 10px 0px 10px 0px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
