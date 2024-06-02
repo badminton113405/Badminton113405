@@ -12,8 +12,8 @@ class User(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(default='Default bio')  # 设置默认值
-    avatar = models.ImageField(upload_to='avatars/', default='path/to/default/image.jpg')  # 设置默认值
+    bio = models.TextField(default='Default bio')  
+    avatar = models.ImageField(upload_to='avatars/', default='path/to/default/image.jpg')  
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10)
     birthdate = models.DateField()
