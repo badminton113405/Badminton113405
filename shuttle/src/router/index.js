@@ -16,8 +16,10 @@ import HWHView from '../views/coachviews/HWHView.vue';
 import PQView from '../views/teachviews/PQView.vue';
 import TQXQView from '../views/teachviews/TQXQView.vue';
 import SQView from '../views/teachviews/SQView.vue';
-import LoginView from '../views/VIP/LoginView';
-import RegisterView from '../views/VIP/RegisterView';
+import LoginView from '../views/VIP/LoginView.vue';
+import RegisterView from '../views/VIP/RegisterView.vue';
+import ForgetView from '../views/VIP/ForgetView.vue';
+import PasswordView from '../views/VIP/PasswordView.vue';
 
 
 
@@ -111,6 +113,16 @@ const routes = [
     path: '/sq',
     name: 'SQ',
     component: SQView
+  },
+  {
+    path: '/forget',
+    name: 'Forget',
+    component: ForgetView
+  },
+  {
+    path: '/password',
+    name: 'Password',
+    component: PasswordView
   }
 ];
 
