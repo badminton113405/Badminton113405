@@ -15,7 +15,7 @@
             <option value="" disabled>-- 請選擇 --</option>
             <option value="male">男</option>
             <option value="female">女</option>
-            <option value="not-specified">不指定</option>
+            <option value="other">其他</option>
           </select>
         </div>
         <div>
@@ -102,12 +102,12 @@
           </div>
           
           <!-- 擊打班 -->
-          <label><input type="checkbox" v-model="formData.courseType" value="擊打班"> 擊打班 (350/堂)</label>
-          <div v-if="formData.courseType.includes('擊打班')" class="sub-options">
-            <label><input type="checkbox" v-model="formData.subCourseType" value="基礎擊打班(每週五19:00 - 22:00)"> 基礎擊打班 (每週五 19:00 - 22:00)</label>
-            <label><input type="checkbox" v-model="formData.subCourseType" value="基礎擊打班(每週六19:00 - 22:00)"> 基礎擊打班 (每週六 19:00 - 22:00)</label>
-            <label><input type="checkbox" v-model="formData.subCourseType" value="進階擊打班(每週五19:00 - 22:00)"> 進階擊打班 (每週五 19:00 - 22:00)</label>
-            <label><input type="checkbox" v-model="formData.subCourseType" value="進階擊打班(每週六19:00 - 22:00)"> 進階擊打班 (每週六 19:00 - 22:00)</label>
+          <label><input type="checkbox" v-model="formData.courseType" value="擊打班"> 零打班 (350/堂)</label>
+          <div v-if="formData.courseType.includes('零打班')" class="sub-options">
+            <label><input type="checkbox" v-model="formData.subCourseType" value="基礎擊打班(每週五19:00 - 22:00)"> 基礎零打班 (每週五 19:00 - 22:00)</label>
+            <label><input type="checkbox" v-model="formData.subCourseType" value="基礎擊打班(每週六19:00 - 22:00)"> 基礎零打班 (每週六 19:00 - 22:00)</label>
+            <label><input type="checkbox" v-model="formData.subCourseType" value="進階擊打班(每週五19:00 - 22:00)"> 進階零打班 (每週五 19:00 - 22:00)</label>
+            <label><input type="checkbox" v-model="formData.subCourseType" value="進階擊打班(每週六19:00 - 22:00)"> 進階零打班 (每週六 19:00 - 22:00)</label>
           </div>
           
           <!-- 個別班 -->
