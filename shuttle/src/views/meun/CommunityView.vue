@@ -10,7 +10,7 @@
     <section class="comment-list">
       <div v-for="(comment, index) in comments" :key="index" class="comment-item">
         <div class="comment-header">
-          <span>XXX</span>
+          <span>使用者</span>
           <button @click="editComment(index)">編輯</button>
           <button @click="deleteComment(index)">刪除</button>
         </div>
@@ -36,9 +36,8 @@ export default {
     return {
       newCommentText: '',
       comments: [
-        { text: '內容內容內容內容內容內容內容內容內容內容', editing: false },
-        { text: '內容內容內容內容內容內容內容內容內容內容', editing: false },
-        { text: '內容內容內容內容內容內容內容內容內容內容', editing: false }
+        { text: '一起打球嗎', editing: false },
+        { text: '有人要一起上團課嗎', editing: false }
       ]
     };
   },
