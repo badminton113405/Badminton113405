@@ -6,7 +6,7 @@
         <label for="name">姓名 *</label>
         <input v-model="form.name" type="text" id="name" required>
       </div>
-      <!-- 省略其他字段 -->
+
       <div class="input-group">
         <label for="username">設置帳號 *</label>
         <input v-model="form.username" type="text" id="username" required minlength="8">

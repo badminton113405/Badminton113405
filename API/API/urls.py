@@ -13,5 +13,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/login/', login, name='login'),
     path('api/register/', register, name='register'),
-    path('', views.index, name='index'),  # 根 URL 路由
+    path('', views.index, name='index'), 
 ]
