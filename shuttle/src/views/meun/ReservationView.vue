@@ -188,7 +188,7 @@ export default {
 }
 
 .registration-form {
-  font-family: Arial, sans-serif;
+  font-family: "Zen Kurenaido", sans-serif;
   margin: 20px;
 }
 h1, h2 {

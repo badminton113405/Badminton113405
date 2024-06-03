@@ -99,7 +99,7 @@ export default {
   /* Arrange content vertically */
 }
 .comment-board {
-  font-family: Arial, sans-serif;
+  font-family: "Zen Kurenaido", sans-serif;
   margin: 20px;
 }
 h1 {

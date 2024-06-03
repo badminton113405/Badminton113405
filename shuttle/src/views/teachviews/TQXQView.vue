@@ -113,7 +113,7 @@ video {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
-  background-color: #AFCCDC;
+  background-color: #c2cae7;
   margin: 0 5px;
   /* Add space between buttons */
 
@@ -123,6 +123,6 @@ video {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #AFCCDC;
-  background-color: #000;
+  background-color: #93a9d8;
 }
 </style>

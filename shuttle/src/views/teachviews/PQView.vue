@@ -30,7 +30,7 @@
 export default {
   data() {
     return {
-      videoUrl: 'https://youtu.be/T-V6Tmg_GoY?si=8o1fIMziAqLWhIRm'
+      videoUrl: 'https://youtu.be/ppYeUspjgVY?si=UdLhG8eOvm_uEh9k'
     };
   }
 };
@@ -114,7 +114,7 @@ video {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
-  background-color: #AFCCDC;
+  background-color: #c2cae7;
   margin: 0 5px;
   /* Add space between buttons */
 
@@ -124,6 +124,6 @@ video {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #AFCCDC;
-  background-color: #000;
+  background-color: #93a9d8;
 }
 </style>
