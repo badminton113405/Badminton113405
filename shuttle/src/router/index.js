@@ -22,7 +22,6 @@ import ForgetView from '../views/VIP/ForgetView.vue';
 import PasswordView from '../views/VIP/PasswordView.vue';
 
 
-
 const routes = [
   {
     path: '/',

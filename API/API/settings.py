@@ -57,6 +57,10 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://192.168.0.149:8080",  # Vue.js前端的URL
+]
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 ASGI_APPLICATION = 'API.asgi.application'

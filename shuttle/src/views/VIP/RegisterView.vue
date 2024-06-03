@@ -4,7 +4,12 @@
     <form @submit.prevent="submitForm">
       <div class="input-group">
         <label for="name">姓名 *</label>
-        <input v-model="form.name" type="text" id="name" required>
+        <input v-model="form.full_name" type="text" id="name" required>
+      </div>
+
+      <div class="input-group">
+        <label for="nickname">暱稱 *</label>
+        <input v-model="form.nickname" type="text" id="nickname" required>
       </div>
 
       <div class="input-group">
@@ -20,9 +25,18 @@
       <div class="input-group">
         <label for="dob">生日 *</label>
         <div class="dob-container">
-          <input v-model="form.year" type="number" id="year" placeholder="年" required class="dob">
-          <input v-model="form.month" type="number" id="month" placeholder="月" required class="dob">
-          <input v-model="form.day" type="number" id="day" placeholder="日" required class="dob">
+          <select v-model="form.year" id="year" required class="dob">
+            <option value="" disabled>年</option>
+            <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+          </select>
+          <select v-model="form.month" id="month" required class="dob">
+            <option value="" disabled>月</option>
+            <option v-for="month in months" :key="month" :value="month">{{ month }}</option>
+          </select>
+          <select v-model="form.day" id="day" required class="dob">
+            <option value="" disabled>日</option>
+            <option v-for="day in days" :key="day" :value="day">{{ day }}</option>
+          </select>
         </div>
       </div>
 
@@ -71,7 +85,8 @@ export default {
   data() {
     return {
       form: {
-        name: '',
+        full_name: '',
+        nickname: '',
         gender: '',
         year: '',
         month: '',
@@ -82,8 +97,32 @@ export default {
         username: '',
         password: '',
         confirmPassword: ''
-      }
+      },
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     };
+  },
+  computed: {
+    currentYear() {
+      return new Date().getFullYear();
+    },
+    years() {
+      const startYear = 1850;
+      const endYear = this.currentYear;
+      const years = [];
+      for (let year = startYear; year <= endYear; year++) {
+        years.push(year);
+      }
+      return years;
+    },
+    days() {
+      const year = this.form.year;
+      const month = this.form.month;
+      if (!year || !month) {
+        return [];
+      }
+      const daysInMonth = new Date(year, month, 0).getDate();
+      return Array.from({ length: daysInMonth }, (_, i) => i + 1);
+    }
   },
   methods: {
     async submitForm() {
@@ -91,25 +130,31 @@ export default {
         alert('密碼不一致');
         return;
       }
-      
+
       try {
-        const response = await axios.post('http://127.0.0.1:8000/api/register/', {
-          name: this.form.name,
+        await axios.post('http://127.0.0.1:8000/api/register/', {
+          username: this.form.username,
+          password: this.form.password,
+          full_name: this.form.full_name,
+          nickname: this.form.nickname,
           gender: this.form.gender,
-          dob: `${this.form.year}-${this.form.month}-${this.form.day}`,
+          birth_date: `${this.form.year}-${this.form.month}-${this.form.day}`,
           occupation: this.form.occupation,
           phone: this.form.phone,
-          email: this.form.email,
-          username: this.form.username,
-          password: this.form.password
+          email: this.form.email
         });
 
-        alert(response.data.message);
-        this.$router.push({ name: 'Login' });
+        alert('註冊成功');
+        this.$router.push('/login');
       } catch (error) {
-        alert(error.response.data.message);
+        if (error.response && error.response.data) {
+          alert('註冊失敗：' + (error.response.data.detail || JSON.stringify(error.response.data)));
+        } else {
+          alert('註冊失敗：' + error.message);
+        }
       }
     },
+
     resetForm() {
       this.$router.push({ name: 'Login' }).catch(err => {
         if (err.name !== 'NavigationDuplicated') {
@@ -122,6 +167,7 @@ export default {
 </script>
 
 <style scoped>
+/* 你的样式代码保持不变 */
 @media screen and (max-width: 320px) {
   .g-header-container.fixed {
     padding: 5px;
