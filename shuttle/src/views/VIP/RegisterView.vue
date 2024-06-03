@@ -6,12 +6,10 @@
         <label for="name">姓名 *</label>
         <input v-model="form.full_name" type="text" id="name" required>
       </div>
-
       <div class="input-group">
         <label for="nickname">暱稱 *</label>
         <input v-model="form.nickname" type="text" id="nickname" required>
       </div>
-
       <div class="input-group">
         <label for="gender">性別 *</label>
         <select v-model="form.gender" id="gender" required>
@@ -21,7 +19,6 @@
           <option value="other">其他</option>
         </select>
       </div>
-
       <div class="input-group">
         <label for="dob">生日 *</label>
         <div class="dob-container">
@@ -39,37 +36,30 @@
           </select>
         </div>
       </div>
-
       <div class="input-group">
         <label for="occupation">職業 *</label>
         <input v-model="form.occupation" type="text" id="occupation" required>
       </div>
-
       <div class="input-group">
         <label for="phone">電話 *</label>
         <input v-model="form.phone" type="text" id="phone" required>
       </div>
-
       <div class="input-group">
         <label for="email">電子郵件 *</label>
         <input v-model="form.email" type="email" id="email" required>
       </div>
-
       <div class="input-group">
         <label for="username">設置帳號 *</label>
         <input v-model="form.username" type="text" id="username" required minlength="8">
       </div>
-
       <div class="input-group">
         <label for="password">設置密碼 *</label>
         <input v-model="form.password" type="password" id="password" required minlength="8">
       </div>
-
       <div class="input-group">
         <label for="confirmPassword">確認密碼 *</label>
         <input v-model="form.confirmPassword" type="password" id="confirmPassword" required minlength="8">
       </div>
-
       <div class="button-group">
         <button type="button" class="cancel" @click="resetForm">取消</button>
         <button type="submit" class="confirm">確認</button>
@@ -145,6 +135,12 @@ export default {
         });
 
         alert('註冊成功');
+
+        // Save credentials to localStorage
+        localStorage.setItem('username', this.form.username);
+        localStorage.setItem('password', this.form.password);
+
+        // Redirect to login
         this.$router.push('/login');
       } catch (error) {
         if (error.response && error.response.data) {
