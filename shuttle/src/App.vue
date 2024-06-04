@@ -36,7 +36,7 @@ export default {
     updateHeights() {
       this.headerHeight = this.$refs.headerContainer.clientHeight;
       this.footerHeight = this.$refs.footerContainer.clientHeight;
-      this.handleScroll(); // 在更新高度后重新检查滚动位置
+      this.handleScroll(); 
     },
     handleScroll() {
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -44,11 +44,11 @@ export default {
       this.isFixed = scrollTop > scrollOneOffsetTop || scrollTop === 0 ? true : false;
     },
     handleResize() {
-      this.updateHeights(); // 在窗口大小调整时更新高度
+      this.updateHeights(); 
     }
   },
   mounted() {
-    this.updateHeights(); // 初始化时获取高度
+    this.updateHeights(); 
     window.addEventListener("scroll", this.handleScroll);
     window.addEventListener("resize", this.handleResize);
   },
@@ -67,23 +67,22 @@ export default {
 <style>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的宽度 */
-  /* 适应较小屏幕的调整 */
+
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+   
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+    
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+   
     font-size: 12px;
-    /* 减少字体大小 */
+    
   }
 }
 
@@ -116,9 +115,9 @@ body {
 
 .g-content {
   padding-top: 60px;
-  /* Adjust according to the header height */
+  
   padding-bottom: 60px;
-  /* Adjust according to the footer height */
+  
 }
 
 .g-footer-container {

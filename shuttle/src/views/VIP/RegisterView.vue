@@ -136,11 +136,11 @@ export default {
 
         alert('註冊成功');
 
-        // Save credentials to localStorage
+      
         localStorage.setItem('username', this.form.username);
         localStorage.setItem('password', this.form.password);
 
-        // Redirect to login
+        
         this.$router.push('/login');
       } catch (error) {
         if (error.response && error.response.data) {
@@ -163,7 +163,7 @@ export default {
 </script>
 
 <style scoped>
-/* 你的样式代码保持不变 */
+
 @media screen and (max-width: 320px) {
   .g-header-container.fixed {
     padding: 5px;

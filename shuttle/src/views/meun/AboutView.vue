@@ -19,9 +19,9 @@
       <router-link to="/hwh"><button class="coach-button">胡玟翊</button></router-link>
     </div>
 
-    <div class="button-container">   
-    <router-link to="/"><button class="i-button">回首頁</button></router-link>
-    </div>  
+    <div class="button-container">
+      <router-link to="/"><button class="i-button">回首頁</button></router-link>
+    </div>
   </div>
 </template>
 
@@ -33,23 +33,22 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的宽度 */
-  /* 适应较小屏幕的调整 */
+
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+
     font-size: 12px;
-    /* 减少字体大小 */
+
   }
 }
 
@@ -57,15 +56,15 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
-  /* Add left margin */
+
   margin-right: 10px;
-  /* Add right margin */
+
   display: flex;
-  /* Center content */
+
   justify-content: center;
-  /* Center content */
+
   flex-direction: column;
-  /* Arrange content vertically */
+
 }
 
 .header {
@@ -73,13 +72,15 @@ export default {
   font-weight: bold;
   font-size: 24px;
   margin-bottom: 20px;
-  
+
 }
+
 .coach-container {
   display: flex;
   align-items: center;
   gap: 20px;
 }
+
 .coach-container img {
   border-radius: 20px;
   width: 200px;
@@ -125,5 +126,4 @@ export default {
   color: #000;
   background-color: #93a9d8;
 }
-
 </style>

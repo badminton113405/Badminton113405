@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import serializers
 from .models import User
 
-# UserCreateSerializer 定义
+
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -29,13 +29,13 @@ class UserCreateSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-# UserSerializer 定义
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email']
 
-# RegisterView 定义
+
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserCreateSerializer
@@ -45,7 +45,7 @@ class RegisterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        user.set_password(request.data['password'])  # 确保密码正确设置
+        user.set_password(request.data['password'])  
         user.save()
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
@@ -54,7 +54,7 @@ class RegisterView(generics.CreateAPIView):
             'user': UserSerializer(user).data
         }, status=status.HTTP_201_CREATED, headers=headers)
 
-# CustomLoginView 定义
+
 class CustomLoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -66,25 +66,25 @@ class CustomLoginView(APIView):
         if not username or not password:
             return Response({'error': 'Username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        print(f"Login attempt: username={username}, password={'*' * len(password)}")  # Debugging
+        print(f"Login attempt: username={username}, password={'*' * len(password)}")  
 
-        # Check if user exists
+        
         try:
             user = User.objects.get(username=username)
         except User.DoesNotExist:
             print(f"User {username} does not exist.")
             return Response({'error': 'User does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Authenticate user
+        
         user = authenticate(username=username, password=password)
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key, 'user': UserSerializer(user).data})
         else:
-            print(f"Authentication failed for username={username}")  # Debugging
+            print(f"Authentication failed for username={username}")  
             return Response({'error': 'Unable to log in with provided credentials.'}, status=status.HTTP_400_BAD_REQUEST)
 
-# UserDetailView 定义
+
 class UserDetailView(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

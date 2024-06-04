@@ -11,13 +11,13 @@
       招生對象：程度不限制，只要想認真學習羽球，我們皆可以依需求安排教練及規劃客製化的訓練課表。<br>
       <p>(請依實際上課人數來報名課程項目)</p>
 
-      <h3>一對一/一對二/一對三</h3>      
+      <h3>一對一/一對二/一對三</h3>
       <h3>三人以上請報名團班</h3>
-    </div> 
+    </div>
 
     <div class="time">
-      <p>課程費用&時間：請自行洽詢教練報價，或者點擊上方聯絡我們</p> 
-    </div> 
+      <p>課程費用&時間：請自行洽詢教練報價，或者點擊上方聯絡我們</p>
+    </div>
     <router-link to="/"><button class="i-button">回首頁</button></router-link>
   </div>
 </template>
@@ -30,23 +30,22 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的寬度 */
-  /* 適應較小屏幕的調整 */
+
   .g-header-container.fixed {
     padding: 5px;
-    /* 減少填充 */
+
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 減少填充 */
+
   }
 
   .m-button {
     margin-right: 5px;
-    /* 減少間距 */
+
     font-size: 12px;
-    /* 減少字體大小 */
+
   }
 }
 
@@ -54,15 +53,15 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 50px;
-  /* Add left margin */
+
   margin-right: 50px;
-  /* Add right margin */
+
   display: flex;
-  /* Center content */
+
   justify-content: center;
-  /* Center content */
+
   flex-direction: column;
-  /* Arrange content vertically */
+
 }
 
 .i-button {
@@ -80,7 +79,7 @@ export default {
 }
 
 .title {
-  display:flex;
+  display: flex;
 }
 
 .about p {
@@ -90,6 +89,6 @@ export default {
 .time {
   display: flex;
   font-size: 12pt;
-  color:#616161;
+  color: #616161;
 }
 </style>

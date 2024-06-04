@@ -28,13 +28,13 @@
         </div>
       </section>
 
-      <!-- 不會踢跆拳道的級段 -->
+    
       <section>
         <h2>您有學習過羽球的經驗嗎?</h2>
         <input type="number" v-model="formData.grade" min="1" max="18" required>
       </section>
 
-      <!-- 學習跆拳道的動機與目標 -->
+      <!-- 動機與目標 -->
       <section>
         <h2>您學習羽球的動機與目標</h2>
         <div>
@@ -101,7 +101,7 @@
             <label><input type="checkbox" v-model="formData.subCourseType" value="進階競技班(每週四16:00 - 18:00)"> 進階競技班 (每週四 16:00 - 18:00)</label>
           </div>
           
-          <!-- 擊打班 -->
+          <!-- 零打班 -->
           <label><input type="checkbox" v-model="formData.courseType" value="擊打班"> 零打班 (350/堂)</label>
           <div v-if="formData.courseType.includes('零打班')" class="sub-options">
             <label><input type="checkbox" v-model="formData.subCourseType" value="基礎擊打班(每週五19:00 - 22:00)"> 基礎零打班 (每週五 19:00 - 22:00)</label>
@@ -142,7 +142,7 @@ export default {
   methods: {
     submitForm() {
       console.log('Form data:', this.formData);
-      // Handle form submission logic here
+     
     }
   }
 };
@@ -152,23 +152,22 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的宽度 */
-  /* 适应较小屏幕的调整 */
+
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+
     font-size: 12px;
-    /* 减少字体大小 */
+
   }
 }
 
@@ -176,15 +175,15 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
-  /* Add left margin */
+
   margin-right: 10px;
-  /* Add right margin */
+  
   display: flex;
-  /* Center content */
+ 
   justify-content: center;
-  /* Center content */
+  
   flex-direction: column;
-  /* Arrange content vertically */
+ 
 }
 
 .registration-form {

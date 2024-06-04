@@ -54,23 +54,22 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的宽度 */
-  /* 适应较小屏幕的调整 */
+
   .g-header-container.fixed {
     padding: 5px;
-    /* 减少填充 */
+  
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+  
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+   
     font-size: 12px;
-    /* 减少字体大小 */
+    
   }
 }
 
@@ -78,15 +77,15 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
-  /* Add left margin */
+
   margin-right: 10px;
-  /* Add right margin */
+
   display: flex;
-  /* Center content */
+
   justify-content: center;
-  /* Center content */
+
   flex-direction: column;
-  /* Arrange content vertically */
+
   max-width: 500px;
 }
 
@@ -105,7 +104,7 @@ export default {
   display: flex;
   align-items: center;
   margin-top: 0px;
-  gap: 130px; /* 調整項目之間的間距 */
+  gap: 130px; 
 }
 
 .name {

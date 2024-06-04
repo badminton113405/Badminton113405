@@ -3,17 +3,13 @@
   <div class="main">
     <div class="video">
       <div class="video-container">
-      <iframe
-          :src="videoUrl"
-          frameborder="0"
+        <iframe :src="videoUrl" frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          ref="videoPlayer"
-        ></iframe>
-      </div>  
+          allowfullscreen ref="videoPlayer"></iframe>
+      </div>
     </div>
 
-        
+
 
     <div class="courses">
       <h2>課程展示</h2>
@@ -79,7 +75,7 @@
 
     <div class="teach">
       <h2>羽球教學</h2>
-    <!--<div class="video">
+      <!--<div class="video">
       <div class="video-teach">
         <div class="video-container">
           <iframe
@@ -153,23 +149,22 @@ export default {
 <style scoped>
 @media screen and (max-width: 320px) {
 
-  /* iPhone SE 的寬度 */
-  /* 適應較小屏幕的調整 */
+
   .g-header-container.fixed {
     padding: 5px;
-    /* 減少填充 */
+
   }
 
   .g-footer-container {
     padding: 5px;
-    /* 减少填充 */
+
   }
 
   .m-button {
     margin-right: 5px;
-    /* 减少边距 */
+
     font-size: 12px;
-    /* 减少字体大小 */
+
   }
 }
 
@@ -177,15 +172,15 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
-  /* Add left margin */
+
   margin-right: 10px;
-  /* Add right margin */
+
   display: flex;
-  /* Center content */
+
   justify-content: center;
-  /* Center content */
+
   flex-direction: column;
-  /* Arrange content vertically */
+
 }
 
 .video-container {
@@ -204,7 +199,7 @@ iframe {
 .video-teach {
   margin-bottom: 20px;
   padding: 10px 0px 10px 0px;
-  /* 內邊距 */
+
 }
 
 .video {
@@ -213,106 +208,106 @@ iframe {
 
 .video {
   width: 100%;
-  /* 設定視頻寬度 */
+
   height: auto;
-  /* 高度自動縮訪 */
+
 }
 
 .coach {
   display: flex;
-  /*flexbox布局*/
+
 }
 
 .coach-item {
   margin-right: 20px;
-  /* 間距 */
+
   text-align: center;
-  /* 文字置中 */
+
 }
 
 .coach-img {
   width: 200px;
-  /*圖片寬度*/
+
   height: auto;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .coach-item p {
   margin-top: 15px;
-  /* 調整文字與圖片間距 */
+
 }
 
 .class {
   display: flex;
-  /*flexbox布局*/
+
 }
 
 .class-item {
   margin-right: 20px;
-  /* 間距 */
+
   text-align: center;
-  /* 文字置中 */
+
 }
 
 .class-img {
   width: 200px;
-  /*圖片寬度*/
+
   height: auto;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .line-img {
   width: 50px;
-  /*圖片寬度*/
+
   height: 50px;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .lineqr-img {
   width: 70px;
-  /*圖片寬度*/
+
   height: 70px;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .mail-img {
   width: auto;
-  /*圖片寬度*/
+
   height: 50px;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .tel-img {
   width: 50x;
-  /*圖片寬度*/
+
   height: 80px;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .class-item p {
   margin-top: 10px;
-  /* 調整文字與圖片間距 */
+
 }
 
 .teach-img {
   width: 200px;
-  /*圖片寬度*/
+
   height: auto;
-  /*圖片縮放*/
+
   border-radius: 10px;
-  /*圓角 */
+
 }
 
 .c-button {

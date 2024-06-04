@@ -11,12 +11,12 @@ class User(AbstractUser):
     
     groups = models.ManyToManyField(
         Group,
-        related_name='custom_user_set',  # 自定义 related_name 以避免冲突
+        related_name='custom_user_set',  
         blank=True
     )
     user_permissions = models.ManyToManyField(
         Permission,
-        related_name='custom_user_permissions_set',  # 自定义 related_name 以避免冲突
+        related_name='custom_user_permissions_set',  
         blank=True
     )
 
