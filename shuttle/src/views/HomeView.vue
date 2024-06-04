@@ -79,7 +79,7 @@
 
     <div class="teach">
       <h2>羽球教學</h2>
-    <div class="video">
+    <!--<div class="video">
       <div class="video-teach">
         <div class="video-container">
           <iframe
@@ -92,7 +92,7 @@
       
         </div>
       </div>
-    </div>
+    </div>-->
       <router-link to="/sq"><img src="../images/t-sq.jpg" alt="殺球" class="teach-img" /><button
           class="t-button">殺球</button></router-link>
       <router-link to="/pq"><img src="../images/t-pq.jpg" alt="殺球" class="teach-img" /><button

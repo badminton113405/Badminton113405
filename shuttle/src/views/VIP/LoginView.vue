@@ -26,7 +26,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from 'axios';
 
@@ -37,31 +36,25 @@ export default {
       password: ''
     };
   },
-  mounted() {
-    const storedUsername = localStorage.getItem('username');
-    const storedPassword = localStorage.getItem('password');
-    if (storedUsername && storedPassword) {
-      this.username = storedUsername;
-      this.password = storedPassword;
-      this.login();
-    }
-  },
   methods: {
     async login() {
       try {
-        await axios.post('http://127.0.0.1:8000/api/login/', {
+        const response = await axios.post('http://127.0.0.1:8000/api/login/', {
           username: this.username,
           password: this.password
         });
+        console.log('Login successful:', response.data);
         alert('登入成功');
         this.$router.push('/vip');
       } catch (error) {
+        console.error('Login failed:', error.response?.data || error.message);
         const message = error.response?.data?.detail || error.message;
         alert('登入失敗: ' + message);
       }
     }
   }
 };
+
 </script>
 
 <style scoped>
