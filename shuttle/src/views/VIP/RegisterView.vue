@@ -135,35 +135,25 @@ export default {
         });
 
         alert('註冊成功');
-
-      
-        localStorage.setItem('username', this.form.username);
-        localStorage.setItem('password', this.form.password);
-
-        
         this.$router.push('/login');
-      } catch (error) {
-        if (error.response && error.response.data) {
-          alert('註冊失敗：' + (error.response.data.detail || JSON.stringify(error.response.data)));
-        } else {
-          alert('註冊失敗：' + error.message);
-        }
+        } catch (error) {
+          print(error)
+          if (error.response && error.response.data) {
+            alert('註冊失敗：' + (error.response.data.detail || JSON.stringify(error.response.data)));
+          } else {
+            alert('註冊失敗：' + error.message);
+          }
       }
     },
 
     resetForm() {
-      this.$router.push({ name: 'Login' }).catch(err => {
-        if (err.name !== 'NavigationDuplicated') {
-          console.error(err);
-        }
-      });
+      this.$router.push('/login');
     }
   }
 };
 </script>
 
 <style scoped>
-
 @media screen and (max-width: 320px) {
   .g-header-container.fixed {
     padding: 5px;

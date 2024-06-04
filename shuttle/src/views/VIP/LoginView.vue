@@ -3,7 +3,7 @@
     <div class="container">
       <div class="title">會員中心</div>
       <div class="description">
-        加入會員有什麼好處呢？只要加入我們就能夠享有豐富的折扣優惠！還能夠與我們其他的會員朋友們一起線上分享經驗、討論技巧，甚至組織羽球活動，進一步增強羽球愛好者之間的社群連結。
+        加入會員有什麼好處呢？只要加入我們就能共享豐富的折扣優惠！還能夠與我們其他的會員朋友們一起線上分享經驗、討論技巧，甚至組織羽球活動，進一步增強羽球愛好者之間的社群連結。
       </div>
       <div class="input-group">
         <label for="username">帳號</label>
@@ -37,6 +37,7 @@ export default {
     };
   },
   methods: {
+    /*
     async login() {
       try {
         const response = await axios.post('http://127.0.0.1:8000/api/login/', {
@@ -52,9 +53,31 @@ export default {
         alert('登入失敗: ' + message);
       }
     }
+    */
+    
+
+    async login() {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+        username: this.username,
+        password: this.password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('Login successful:', response.data);
+      alert('登入成功');
+      this.$router.push('/vip');
+    } catch (error) {
+      console.error('Login failed:', error.response?.data || error.message);
+      const message = error.response?.data?.detail || error.message;
+      alert('登入失敗: ' + message);
+    }
+  }
+
   }
 };
-
 </script>
 
 <style scoped>

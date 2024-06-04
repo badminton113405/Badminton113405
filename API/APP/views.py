@@ -1,40 +1,13 @@
 from rest_framework import generics, permissions, status
-from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model, authenticate
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import serializers
-from .models import User
+from django.utils.decorators import method_decorator
+from .serializers import UserCreateSerializer, UserSerializer
 
-
-class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
-
-    class Meta:
-        model = User
-        fields = ['username', 'full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email', 'password']
-
-    def create(self, validated_data):
-        user = User(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            full_name=validated_data['full_name'],
-            nickname=validated_data['nickname'],
-            gender=validated_data['gender'],
-            birth_date=validated_data['birth_date'],
-            phone=validated_data['phone']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['username', 'full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email']
-
+User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -45,44 +18,68 @@ class RegisterView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-        user.set_password(request.data['password'])  
+        user.set_password(serializer.validated_data['password'])  # 确保密码正确设置
         user.save()
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
+        print(user)
         return Response({
             'token': token.key,
             'user': UserSerializer(user).data
         }, status=status.HTTP_201_CREATED, headers=headers)
 
-
+"""
+@method_decorator(csrf_exempt, name='dispatch')
 class CustomLoginView(APIView):
     permission_classes = [permissions.AllowAny]
 
-    @csrf_exempt
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        password = request.data.get('password')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print("帳號" + str(username))
+        print("密碼" + str(password))
+        user = authenticate(request,username=username,password=password)
 
         if not username or not password:
             return Response({'error': 'Username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        print(f"Login attempt: username={username}, password={'*' * len(password)}")  
-
-        
-        try:
-            user = User.objects.get(username=username)
-        except User.DoesNotExist:
-            print(f"User {username} does not exist.")
-            return Response({'error': 'User does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        
         user = authenticate(username=username, password=password)
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key, 'user': UserSerializer(user).data})
         else:
-            print(f"Authentication failed for username={username}")  
             return Response({'error': 'Unable to log in with provided credentials.'}, status=status.HTTP_400_BAD_REQUEST)
+"""
+
+import logging
+
+logger = logging.getLogger(__name__)
+@method_decorator(csrf_exempt, name='dispatch')
+class CustomLoginView(APIView):
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        # Load the JSON data
+        data = request.data
+        
+        # Extract username and password from the JSON data
+        username = data.get('username')
+        password = data.get('password')
+        
+        print("帳號: " + str(username))
+        print("密碼: " + str(password))
+        
+        if not username or not password:
+            return Response({'error': 'Username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Authenticate the user
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key, 'user': UserSerializer(user).data})
+        else:
+            return Response({'error': 'Unable to log in with provided credentials.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class UserDetailView(generics.RetrieveAPIView):
