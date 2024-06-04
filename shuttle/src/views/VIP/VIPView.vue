@@ -38,7 +38,6 @@
                 <input type="password" id="password" name="password">
             </div>
         </div>
-        <!--123-->
         <div class="course-records">
             <div>課程紀錄:</div>
         </div>
