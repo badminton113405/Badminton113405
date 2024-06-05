@@ -60,7 +60,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",  # Vue.js前端的URL
+    "http://localhost:8080", 
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -150,8 +150,6 @@ TIME_ZONE = 'Asia/Taipei'
 USE_I18N = True
 
 USE_TZ = True
-
-#111
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
