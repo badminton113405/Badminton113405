@@ -5,9 +5,13 @@
     <div class="video">
       <div class="video-teach">
         <div class="video-container">
-          <iframe :src="videoUrl" frameborder="0"
+          <iframe
+            :src="videoUrl"
+            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen ref="videoPlayer"></iframe>
+            allowfullscreen
+            ref="videoPlayer"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -21,12 +25,11 @@
   </div>
 </template>
 
-
 <script>
 export default {
   data() {
     return {
-      videoUrl: 'https://youtu.be/NzJzkENB7GE?si=j3jLLp7iAJxiX7E7'
+      videoUrl: 'https://www.youtube.com/embed/NzJzkENB7GE'
     };
   }
 };
@@ -34,24 +37,15 @@ export default {
 
 <style scoped>
 @media screen and (max-width: 320px) {
-
-
   .g-header-container.fixed {
     padding: 5px;
-
   }
-
   .g-footer-container {
     padding: 5px;
-
   }
-
-
   .i-button {
     margin-right: 5px;
-
     font-size: 12px;
-
   }
 }
 
@@ -59,15 +53,10 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
-
   margin-right: 10px;
-
   display: flex;
-
   justify-content: center;
-
   flex-direction: column;
-
 }
 
 .video-container {
@@ -84,26 +73,17 @@ iframe {
 
 .video-teach {
   margin-bottom: 20px;
-  padding: 10px 0px 10px 0px;
-
+  padding: 10px 0;
 }
 
 .video {
   margin-bottom: 20px;
 }
 
-video {
-  width: 100%;
-
-  height: auto;
-
-}
-
 .button-container {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-
 }
 
 .i-button {
@@ -112,13 +92,9 @@ video {
   color: #000;
   background-color: #c2cae7;
   margin: 0 5px;
-
-
 }
 
 .i-button:hover {
-  font-family: "Zen Kurenaido", sans-serif;
-  border-radius: 16px;
   color: #AFCCDC;
   background-color: #93a9d8;
 }
