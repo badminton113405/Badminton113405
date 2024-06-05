@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     submitEmail() {
-      axios.post('http://127.0.0.1:8000/api/forgot-password/', { email: this.email })
+      axios.post(' https://2228-60-250-79-113.ngrok-free.app/api/forgot-password/', { email: this.email })
         .then(() => {
           alert('驗證成功');
           this.$router.push({ name: 'ResetPassword' });
