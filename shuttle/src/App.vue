@@ -88,7 +88,7 @@ export default {
 
 body {
   font-family: "Zen Kurenaido", sans-serif;
-  background-color: #FCFFE9;
+  background-color: #ffffff;
   color: #000;
   margin: 0;
   padding: 0;

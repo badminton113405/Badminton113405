@@ -66,8 +66,7 @@ export default {
           'Content-Type': 'application/json'
         }
       });
-      console.log('Login successful:', response.data);
-      alert('登入成功');
+      console.log('Login successful:', response.data);  
       this.$router.push('/vip');
     } catch (error) {
       console.error('Login failed:', error.response?.data || error.message);
