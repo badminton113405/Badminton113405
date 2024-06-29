@@ -2,7 +2,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <div class="g-header-container" :class="{ 'fixed': isFixed }" ref="headerContainer">
     <router-link to="/"><img src="./images/Logoicon.png" alt="badminton" class="icon" /></router-link>
-    <router-link to="/"><button class="m-button">關於我們</button></router-link>
+    <router-link to="/"><button class="m-button">分析&報名</button></router-link>
     <!--<router-link to="/about"><button class="m-button">教練團隊</button></router-link>-->
     <router-link to="/reservation"><button class="m-button">報名課程</button></router-link>
     <router-link to="/community"><button class="m-button">社群空間</button></router-link>
@@ -137,7 +137,7 @@ body {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
-  background-color: #ffecd5;
+  background-color: #FBFF36;
   margin-right: 10px;
 }
 
@@ -145,6 +145,6 @@ body {
   font-family: "Zen Kurenaido", sans-serif;
   border-radius: 16px;
   color: #000;
-  background-color: #fde0a6;
+  background-color: #FFE141;
 }
 </style>
