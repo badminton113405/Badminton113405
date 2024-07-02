@@ -54,26 +54,26 @@ export default {
       }
     }
     */
-    
+
 
     async login() {
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/api/login/', {
-        username: this.username,
-        password: this.password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      console.log('Login successful:', response.data);  
-      this.$router.push('/vip');
-    } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
-      const message = error.response?.data?.detail || error.message;
-      alert('登入失敗: ' + message);
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/login/', {
+          username: this.username,
+          password: this.password
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log('Login successful:', response.data);
+        this.$router.push('/vip');
+      } catch (error) {
+        console.error('Login failed:', error.response?.data || error.message);
+        const message = error.response?.data?.detail || error.message;
+        alert('登入失敗: ' + message);
+      }
     }
-  }
 
   }
 };

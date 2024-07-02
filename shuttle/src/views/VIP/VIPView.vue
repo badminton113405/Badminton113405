@@ -20,7 +20,7 @@
           </div>
           <div>
             <label for="nickname">暱稱:</label>
-            <input type="text" id="nickname" name="nickname"  v-model="userInfo.nickname" readonly>
+            <input type="text" id="nickname" name="nickname" v-model="userInfo.nickname" readonly>
           </div>
           <div>
             <label for="dob">出生年月日:</label>
