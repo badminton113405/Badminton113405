@@ -1,7 +1,7 @@
 <template>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <div class="g-header-container" :class="{ 'fixed': isFixed }" ref="headerContainer">
-    <router-link to="/"><img src="./images/Logoicon.png" alt="badminton" class="icon" /></router-link>
+    <router-link to="/"><img src="./images/Logonew.png" alt="badminton" class="icon" /></router-link>
     <router-link to="/"><button class="m-button">分析&報名</button></router-link>
     <!--<router-link to="/about"><button class="m-button">教練團隊</button></router-link>-->
     <router-link to="/reservation"><button class="m-button">報名課程</button></router-link>
@@ -101,7 +101,7 @@ body {
 }
 
 .g-header-container.fixed {
-  background-color: #AFCCDC;
+  background-color: #000000;
   display: flex;
   align-items: center;
   font-family: "Zen Kurenaido", sans-serif;
@@ -122,7 +122,8 @@ body {
 
 .g-footer-container {
   font-family: "Zen Kurenaido", sans-serif;
-  background-color: #AFCCDC;
+  background-color: #000000;
+  color: #f8f8f8;
   font-size: 10px;
   text-align: center;
   width: 100%;
