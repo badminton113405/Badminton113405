@@ -94,3 +94,24 @@ class UserDetailView(generics.RetrieveAPIView):
         context = super().get_serializer_context()
         context['username'] = self.request.user.username
         return context
+
+
+
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+
+class UserInfoView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response({
+            'username': request.user.username,
+            'full_name': request.user.full_name,
+            'nickname': request.user.nickname,
+            'email': request.user.email,
+            'phone': request.user.phone,
+            'birth_date': request.user.birth_date
+        })
