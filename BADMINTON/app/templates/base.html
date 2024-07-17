@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}<title>羽你同行羽球館</title>{% endblock %}
     <style>
         @media screen and (max-width: 320px) {
-            .header-container.fixed {
+            .header-container{
                 padding: 5px;
             }
             .footer-container {
@@ -32,8 +33,8 @@
             margin-right: 10px;
         }
 
-        .header-container.fixed {
-            background-color: #AFCCDC;
+        .header-container {
+            background-color: #000;
             display: flex;
             align-items: center;
             font-family: "Zen Kurenaido", sans-serif;
@@ -52,7 +53,7 @@
 
         .footer-container {
             font-family: "Zen Kurenaido", sans-serif;
-            background-color: #AFCCDC;
+            background-color: #000;
             font-size: 10px;
             text-align: center;
             width: 100%;
@@ -67,7 +68,7 @@
             font-family: "Zen Kurenaido", sans-serif;
             border-radius: 16px;
             color: #000;
-            background-color: #ffecd5;
+            background-color: #FBFF36;
             margin-right: 10px;
         }
 
@@ -75,13 +76,13 @@
             font-family: "Zen Kurenaido", sans-serif;
             border-radius: 16px;
             color: #000;
-            background-color: #fde0a6;
+            background-color: #FBFF36;
         }
     </style>
 </head>
 <body>
     <div class="header-container" id="headerContainer">
-        <a href="/"><img src="./images/Logoicon.png" alt="badminton" class="icon" /></a>
+        <a href="/"><img src="{% static 'images/Logonew.png' %}" alt="badminton" class="icon" /></a>
         <a href="/"><button class="nav-button">分析報名</button></a>
         <a href="/"><button class="nav-button">報名課程</button></a>
         <a href="/"><button class="nav-button">社群空間</button></a>
