@@ -246,11 +246,11 @@
 
     <div class="teach">
         <h2>羽球教學</h2>
-        <a href=""><img src="{% static 'images/t-sq.jpg' %}" alt="殺球" class="teach-img"><button
+        <a href="{% url 'power_ball' %}"><img src="{% static 'images/t-sq.jpg' %}" alt="殺球" class="teach-img"><button
                 class="t-button">殺球</button></a>
-        <a href=""><img src="{% static 'images/t-pq.jpg' %}" alt="左右平球" class="teach-img"><button
+        <a href="{% url 'left_right_ball' %}"><img src="{% static 'images/t-pq.jpg' %}" alt="左右平球" class="teach-img"><button
                 class="t-button">左右平球</button></a>
-        <a href=""><img src="{% static 'images/t-tqxq.jpg' %}" alt="小球/挑球" class="teach-img"><button
+        <a href="{% url 'small_ball' %}"><img src="{% static 'images/t-tqxq.jpg' %}" alt="小球/挑球" class="teach-img"><button
                 class="t-button">小球/挑球</button></a>
     </div>
 
