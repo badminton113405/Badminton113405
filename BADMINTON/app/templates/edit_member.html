@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  <title>會員中心</title>
+{% endblock %}
+{% block content %}
+  <style>
+    @media screen and (max-width: 320px) {
+      .g-header-container.fixed {
+        padding: 5px;
+      }
+    
+      .g-footer-container {
+        padding: 5px;
+      }
+    
+      .m-button {
+        margin-right: 5px;
+        font-size: 12px;
+      }
+    }
+    
+    .VIP {
+      font-family: 'Zen Kurenaido', sans-serif;
+      margin-top: 30px;
+      margin-left: 10px;
+      margin-right: 10px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    
+    .container {
+      margin: 50px auto;
+      width: 90%;
+      max-width: 400px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .title {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .input-group input,
+    .input-group select {
+      width: 100%;
+      padding: 10px 0px 10px 0px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    .dob-container {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .dob {
+      width: 30%;
+    }
+    
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    .button-group button {
+      width: 48%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .confirm,
+    .cancel {
+      font-family: 'Zen Kurenaido', sans-serif;
+      border-radius: 16px;
+      color: #000;
+      background-color: #ffecd5;
+      margin-right: 15px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .confirm:hover,
+    .cancel:hover {
+      background-color: #fde0a6;
+    }
+  </style>
+  <div class="VIP">
+    <div class="container">
+      <div class="title">編輯個人資料</div>
+      <form method="post" action="{% url 'edit_member' %}">
+        {% csrf_token %}
+        <div class="profile-info">
+          <div class="input-group">
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+          </div>
+          <div class="input-group">
+            <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+            {{ form.full_name }}
+          </div>
+          <div class="input-group">
+            <label for="{{ form.gender.id_for_label }}">Gender</label>
+            {{ form.gender }}
+          </div>
+          <div class="input-group">
+            <label for="{{ form.birth_date.id_for_label }}">Birth Date</label>
+            <div class="dob-container">{{ form.birth_date }}</div>
+          </div>
+          <div class="input-group">
+            <label for="{{ form.nickname.id_for_label }}">Nickname</label>
+            {{ form.nickname }}
+          </div>
+          <div class="input-group">
+            <label for="{{ form.phone.id_for_label }}">Phone</label>
+            {{ form.phone }}
+          </div>
+          <div class="input-group">
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email }}
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="cancel" onclick="window.location.href='{% url 'member_center' %}'">取消</button>
+          <button type="submit" class="confirm">確認</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
