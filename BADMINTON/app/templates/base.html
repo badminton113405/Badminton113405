@@ -86,7 +86,7 @@
         <a href="/"><button class="nav-button">分析報名</button></a>
         <a href="/"><button class="nav-button">報名課程</button></a>
         <a href="{% url 'community' %}"><button class="nav-button">社群空間</button></a>
-        <a href="/"><button class="nav-button">會員中心</button></a>
+        <a href="{% url 'member_redirect' %}"><button class="nav-button">會員中心</button></a>
     </div>
 
     <div class="content">
@@ -98,6 +98,14 @@
         地點:羽你同行羽球館 電話:0939779171<br>
         羽你動滋動 Webside © 2024
     </div>
+
+    <script>
+        {% if messages %}
+          {% for message in messages %}
+            alert("{{ message }}");
+          {% endfor %}
+        {% endif %}
+      </script>
 
 </body>
 </html>
