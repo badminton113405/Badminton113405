@@ -2,250 +2,179 @@
 
 {% load static %}
 
-{% block title %}社群空間{% endblock %}
+{% block title %}
+  社群空間
+{% endblock %}
 
 {% block content %}
-
-<style>
+  <style>
     @media screen and (max-width: 320px) {
-        .g-header-container.fixed {
-            padding: 5px;
-        }
-
-        .g-footer-container {
-            padding: 5px;
-        }
-
-        .m-button {
-            margin-right: 5px;
-            font-size: 12px;
-        }
+      .g-header-container.fixed {
+        padding: 5px;
+      }
+      .g-footer-container {
+        padding: 5px;
+      }
+      .m-button {
+        margin-right: 5px;
+        font-size: 12px;
+      }
     }
-
+    
     .reservation {
-        font-family: "Zen Kurenaido", sans-serif;
-        margin-top: 30px;
-        margin-left: 10px;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
+      font-family: 'Zen Kurenaido', sans-serif;
+      margin-top: 30px;
+      margin-left: 10px;
+      margin-right: 10px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
     }
-
+    
     .comment-board {
-        font-family: "Zen Kurenaido", sans-serif;
-        margin: 20px;
+      font-family: 'Zen Kurenaido', sans-serif;
+      margin: 20px;
     }
-
+    
     h1 {
-        color: #333;
+      color: #333;
     }
-
+    
     .comment-input {
-        background-color: #e3f2fd;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 10px;
+      background-color: #e3f2fd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
     }
-
+    
     .comment-input h2 {
-        margin: 0;
+      margin: 0;
     }
-
+    
     .comment-input textarea {
-        width: 100%;
-        height: 100px;
-        margin: 10px 0;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      width: 100%;
+      height: 100px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
+    
     .comment-input button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-
+    
     .comment-input button:hover {
-        background-color: #45a049;
+      background-color: #45a049;
     }
-
+    
     .comment-list {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
+    
     .comment-item {
-        background-color: white;
-        padding: 15px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      background-color: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
+    
     .comment-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
     }
-
+    
     .comment-header button {
-        margin-left: 10px;
-        background-color: #f1f1f1;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
+      margin-left: 10px;
+      background-color: #f1f1f1;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
     }
-
+    
     .comment-header button:hover {
-        background-color: #ddd;
+      background-color: #ddd;
     }
-
+    
     .comment-footer {
-        display: flex;
-        align-items: center;
+      display: flex;
+      align-items: center;
     }
-
+    
     .comment-footer textarea {
-        flex-grow: 1;
-        height: 40px;
-        margin-right: 10px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      flex-grow: 1;
+      height: 40px;
+      margin-right: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-
+    
     .comment-footer button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-
+    
     .comment-footer button:hover {
-        background-color: #45a049;
+      background-color: #45a049;
     }
-</style>
-<div class="comment-board">
+  </style>
+
+  <div class="comment-board">
     <h1>社群空間</h1>
     <section class="comment-input">
-        <h2>討論區</h2>
-        <textarea id="newCommentText" placeholder="您在想什麼呢？有什麼想要跟我們分享的嗎"></textarea>
-        <button onclick="addComment()">發布</button>
+      <h2>討論區</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">發布</button>
+      </form>
     </section>
-    
+
     <section class="comment-list">
-        {% for comment in comments %}
-        <div class="comment-item" data-index="{{ forloop.counter0 }}">
-            <div class="comment-header">
-                <span>使用者</span>
-                <button onclick="editComment({{ forloop.counter0 }})">編輯</button>
-                <button onclick="deleteComment({{ forloop.counter0 }})">刪除</button>
-            </div>
-            <div class="comment-body">
-                <textarea class="edit-comment" style="display: none;"></textarea>
-                <p>{{ comment.text }}</p>
-            </div>
-            <div class="comment-footer">
-                <textarea placeholder="評論..."></textarea>
-                <button>發送</button>
-            </div>
+      {% for post in posts %}
+        <div class="comment-item">
+          <div class="comment-header">
+            <span>{{ post.author.username }}</span>
+            <span>{{ post.created_at }}</span>
+          </div>
+          <div class="comment-text">
+            <p>{{ post.content }}</p>
+          </div>
+          <div class="comment-footer">
+            <form method="post" action="{% url 'add_comment' post.id %}">
+              {% csrf_token %}
+              <textarea name="content" placeholder="評論..."></textarea>
+              <button type="submit">發送</button>
+            </form>
+          </div>
+          <div class="comment-replies">
+            {% for comment in post.comments.all %}
+              <div class="comment-reply">
+                <span>{{ comment.author.username }}</span>
+                <span>{{ comment.created_at }}</span>
+                <p>{{ comment.content }}</p>
+              </div>
+            {% endfor %}
+          </div>
         </div>
-        {% endfor %}
+      {% endfor %}
     </section>
-</div>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var comments = JSON.parse('{{ comments|escapejs }}');
-
-        function addComment() {
-            var newCommentText = document.getElementById('newCommentText').value;
-            if (newCommentText.trim()) {
-                comments.push({ text: newCommentText, editing: false });
-                document.getElementById('newCommentText').value = '';
-                renderComments();
-            }
-        }
-
-        function editComment(index) {
-            var comment = comments[index];
-            var commentItem = document.querySelector('.comment-item[data-index="' + index + '"]');
-            var editTextarea = commentItem.querySelector('.edit-comment');
-            var commentText = commentItem.querySelector('p');
-
-            if (!comment.editing) {
-                editTextarea.value = comment.text;
-                editTextarea.style.display = 'block';
-                commentText.style.display = 'none';
-                comment.editing = true;
-            } else {
-                comment.text = editTextarea.value;
-                editTextarea.style.display = 'none';
-                commentText.style.display = 'block';
-                comment.editing = false;
-            }
-            renderComments();
-        }
-
-        function deleteComment(index) {
-            comments.splice(index, 1);
-            renderComments();
-        }
-
-        function renderComments() {
-            var commentList = document.querySelector('.comment-list');
-            commentList.innerHTML = '';
-            comments.forEach(function(comment, index) {
-                var commentItem = document.createElement('div');
-                commentItem.classList.add('comment-item');
-                commentItem.setAttribute('data-index', index);
-
-                var commentHeader = document.createElement('div');
-                commentHeader.classList.add('comment-header');
-                commentHeader.innerHTML = `
-                    <span>使用者</span>
-                    <button onclick="editComment(${index})">編輯</button>
-                    <button onclick="deleteComment(${index})">刪除</button>
-                `;
-                commentItem.appendChild(commentHeader);
-
-                var commentBody = document.createElement('div');
-                commentBody.classList.add('comment-body');
-                commentBody.innerHTML = `
-                    <textarea class="edit-comment" style="display: none;"></textarea>
-                    <p>${comment.text}</p>
-                `;
-                commentItem.appendChild(commentBody);
-
-                var commentFooter = document.createElement('div');
-                commentFooter.classList.add('comment-footer');
-                commentFooter.innerHTML = `
-                    <textarea placeholder="評論..."></textarea>
-                    <button>發送</button>
-                `;
-                commentItem.appendChild(commentFooter);
-
-                commentList.appendChild(commentItem);
-            });
-        }
-
-        renderComments();
-
-        window.addComment = addComment;
-        window.editComment = editComment;
-        window.deleteComment = deleteComment;
-    });
-</script>
-
+  </div>
 {% endblock %}
