@@ -122,7 +122,7 @@ export default {
       }
 
       try {
-        await axios.post('http://127.0.0.1:8000/api/register/', {
+        await axios.post('  https://d0dc-60-250-79-110.ngrok-free.app/api/register/', {
           username: this.form.username,
           password: this.form.password,
           full_name: this.form.full_name,

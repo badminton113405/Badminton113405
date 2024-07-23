@@ -1,12 +1,11 @@
 <template>
   <div class="VIP">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <body>
       <div class="container">
         <div class="title">會員中心</div>
         <div class="button">
-          <button class="b-button">編輯個人資料</button>
+          <button class="b-button" @click="logUserInfo">編輯個人資料</button>
           <router-link to="/login"><button class="l-button">登出</button></router-link>
         </div>
         <div class="profile-info">
@@ -55,54 +54,44 @@ export default {
     return {
       userInfo: {
         username: '',
-        full_name: '',
-        gender: '',
-        birth_date: '',
         nickname: '',
-        phone: '',
         email: '',
+        phone: '',
+        birth_date: ''
       }
     };
   },
-  created() {
-    this.fetchUserInfo();  // Fetch user info when component is created
-  },
   methods: {
-    async fetchUserInfo() {
-      try {
-        const response = await axios.get('/api/profile');  // Fetch user info from backend
-        this.userInfo = response.data;  // Update userInfo with data from the backend
-      } catch (error) {
-        console.error('Failed to fetch user info:', error);
-      }
+    fetchUserInfo() {
+      axios.get('/api/user/')
+        .then(response => {
+          this.userInfo = response.data;
+        })
+        .catch(error => {
+          console.error("There was an error fetching the user data:", error);
+        });
     }
+  },
+  mounted() {
+    this.fetchUserInfo();
   }
 }
 </script>
 
 
-
-
-
 <style scoped>
 @media screen and (max-width: 320px) {
-
-
   .g-header-container.fixed {
     padding: 5px;
-
   }
 
   .g-footer-container {
     padding: 5px;
-
   }
 
   .m-button {
     margin-right: 5px;
-
     font-size: 12px;
-
   }
 }
 
@@ -110,15 +99,10 @@ export default {
   font-family: "Zen Kurenaido", sans-serif;
   margin-top: 30px;
   margin-left: 10px;
-
   margin-right: 10px;
-
   display: flex;
-
   justify-content: center;
-
   flex-direction: column;
-
 }
 
 .container {

@@ -36,8 +36,7 @@ export default {
     return {
       newCommentText: '',
       comments: [
-        { text: '一起打球嗎', editing: false },
-        { text: '有人要一起上團課嗎', editing: false }
+        
       ]
     };
   },

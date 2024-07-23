@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://your_django_server/api', 
+  baseURL:  '  https://d0dc-60-250-79-110.ngrok-free.app/api/', 
   timeout: 10000, 
   headers: {
     'Content-Type': 'application/json',
