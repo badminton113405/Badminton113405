@@ -1,6 +1,7 @@
 <template>
   <div class="VIP">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <body>
       <div class="container">
         <div class="title">會員中心</div>
