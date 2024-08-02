@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>商城中心</title>{% endblock %}
+{% block content %}
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FFF279;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #fff;
+        background-color: #777777;
+        }
+</style>
+
+<div class="mall">
+    <div class="title">
+        <h1>商城</h1>
+    </div>
+    
+</div>
+{% endblock %}

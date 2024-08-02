@@ -47,6 +47,12 @@ def left_right_ball(request):
 
 def small_ball(request):
     return render(request, 'small_ball.html')
+
+def community(request):
+    return render(request, 'community.html')
+
+def mall(request):
+    return render(request, 'mall.html')
 #----------------------------------------------------------
 # app/views.py
 from django.shortcuts import render, redirect
