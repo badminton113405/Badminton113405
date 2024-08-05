@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}<title>羽你同行羽球館</title>{% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kurenaido&display=swap" rel="stylesheet">
     <style>
         @media screen and (max-width: 320px) {
             .header-container{
@@ -54,6 +55,7 @@
         .footer-container {
             font-family: "Zen Kurenaido", sans-serif;
             background-color: #000;
+            color: #ffffff;
             font-size: 10px;
             text-align: center;
             width: 100%;
@@ -75,17 +77,17 @@
         .nav-button:hover {
             font-family: "Zen Kurenaido", sans-serif;
             border-radius: 16px;
-            color: #000;
-            background-color: #FBFF36;
+            color: #FCFFE9;
+            background-color: #000000;
         }
     </style>
 </head>
 <body>
     <div class="header-container" id="headerContainer">
         <a href="/"><img src="{% static 'images/Logonew.png' %}" alt="badminton" class="icon" /></a>
-        <a href="/"><button class="nav-button">分析報名</button></a>
-        <a href="/"><button class="nav-button">報名課程</button></a>
+        <a href="/"><button class="nav-button">分析&報名</button></a>
         <a href="{% url 'community' %}"><button class="nav-button">社群空間</button></a>
+        <a href="{% url 'mall' %}"><button class="nav-button">商城中心</button></a>
         <a href="{% url 'member_redirect' %}"><button class="nav-button">會員中心</button></a>
     </div>
 

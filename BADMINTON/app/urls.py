@@ -25,6 +25,7 @@ urlpatterns = [
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('reset-password/<uidb64>/<token>/', views.reset_password, name='reset_password'),
     #------------
-    path('community', views.community, name='community'),
+    path('community/', views.community, name='community'),
+    path('mall/', views.mall, name='mall'),
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
 ]
