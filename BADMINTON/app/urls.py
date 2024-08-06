@@ -27,5 +27,6 @@ urlpatterns = [
     #------------
     path('community/', views.community, name='community'),
     path('mall/', views.mall, name='mall'),
+    path('shopingcar/', views.shopingcar, name='shopingcar'),
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
 ]
