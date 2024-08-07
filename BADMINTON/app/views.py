@@ -53,6 +53,9 @@ def community(request):
 
 def mall(request):
     return render(request, 'mall.html')
+
+def shopingcar(request):
+    return render(request, 'shopingcar.html')
 #----------------------------------------------------------
 # app/views.py
 from django.shortcuts import render, redirect
