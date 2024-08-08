@@ -23,16 +23,44 @@
         }
     }
 
+    .mall {
+        text-align: center;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }    
+
    .title{
-    text-align: center;
+        text-align: center;
    }
     .cart-icon {
-            position: absolute;
-            top: 11%;
-            right: 20px;
-            transform: translateY(-50%);
-            font-size: 24px;
-        }
+        position: absolute;
+        top: 11%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 24px;
+    }
+    
+    .product {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 400px;
+    }
+
+    .product img {
+        border-radius: 5pt;
+        object-fit: cover;
+    }
+
+
     .i-button {
         font-family: "Zen Kurenaido", sans-serif;
         border-radius: 16px;
@@ -56,9 +84,15 @@
         <h1>商城</h1>
     </div>
     <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+    <div class="container">
+    <div class="product">
+    <img src="{% static 'images/market-01.jpg' %}" alt="VICTOR 新手球拍 ARS3200 球拍包含線">
+    </div>
+    
     <div class="button-container">
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
         <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
+    </div>
     </div>
 </div>
 {% endblock %}
