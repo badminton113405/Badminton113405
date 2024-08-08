@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>商城中心</title>{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+   .title{
+    text-align: center;
+   }
+    .cart-icon {
+            position: absolute;
+            top: 11%;
+            right: 20px;
+            transform: translateY(-50%);
+            font-size: 24px;
+        }
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FFF279;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #fff;
+        background-color: #777777;
+        }
+    .button-container{
+        text-align: center;
+    }
+</style>
+
+<div class="mall">
+    <div class="title">
+        <h1>商城</h1>
+    </div>
+    <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+    <div class="button-container">
+        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+        <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
+    </div>
+</div>
+{% endblock %}

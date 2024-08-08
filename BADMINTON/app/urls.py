@@ -25,8 +25,18 @@ urlpatterns = [
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('reset-password/<uidb64>/<token>/', views.reset_password, name='reset_password'),
     #------------
-    path('community/', views.community, name='community'),
-    path('mall/', views.mall, name='mall'),
-    path('shopingcar/', views.shopingcar, name='shopingcar'),
+    path('community/', views.community, name='community'),  
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
+    #------------
+    path('shopingcar/', views.shopingcar, name='shopingcar'),
+    path('mall/', views.mall, name='mall'),
+    path('product01/', views.product01, name='product01'),
+    path('product02/', views.product02, name='product02'),
+    path('product03/', views.product03, name='product03'),
+    path('product04/', views.product04, name='product04'),
+    path('product05/', views.product05, name='product05'),
+    path('product06/', views.product06, name='product06'),
+    path('product07/', views.product07, name='product07'),
+    path('product08/', views.product08, name='product08'),
+
 ]

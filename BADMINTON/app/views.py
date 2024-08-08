@@ -56,6 +56,30 @@ def mall(request):
 
 def shopingcar(request):
     return render(request, 'shopingcar.html')
+
+def product01(request):
+    return render(request, 'product01.html')
+
+def product02(request):
+    return render(request, 'product02.html')
+
+def product03(request):
+    return render(request, 'product03.html')
+
+def product04(request):
+    return render(request, 'product04.html')
+
+def product05(request):
+    return render(request, 'product05.html')
+
+def product06(request):
+    return render(request, 'product06.html')
+
+def product07(request):
+    return render(request, 'product07.html')
+
+def product08(request):
+    return render(request, 'product08.html')
 #----------------------------------------------------------
 # app/views.py
 from django.shortcuts import render, redirect
