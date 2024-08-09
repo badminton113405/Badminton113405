@@ -23,16 +23,95 @@
         }
     }
 
-   .title{
-    text-align: center;
+    .mall {
+        text-align: center;
+    }
+    
+    .card {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 310px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }    
+
+    .title{
+        text-align: center;
    }
     .cart-icon {
-            position: absolute;
-            top: 11%;
-            right: 20px;
-            transform: translateY(-50%);
-            font-size: 24px;
-        }
+        position: absolute;
+        top: 11%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 24px;
+    }
+    
+    .product {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 350px;
+    }
+
+    .container img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .name {
+        font-size: 24px;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .price {
+        font-size: 22px;
+         color: #333;
+        margin: 10px 0;
+    }
+
+    .shopcar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .description {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .product img {
+        border-radius: 5pt;
+        object-fit: cover;
+    }
+
     .i-button {
         font-family: "Zen Kurenaido", sans-serif;
         border-radius: 16px;
@@ -55,10 +134,34 @@
     <div class="title">
         <h1>商城</h1>
     </div>
+<div class="card">
     <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+    <div class="container">
+        <img src="{% static 'images/market-03.jpg' %}" alt="VICTOR 新手球拍">
+        <div class="name">
+            Yonex 運動吸汗護腕 AC492EX (隨機色)
+        </div>
+        <div class="price">
+            $ 90 元
+        </div>
+        <a href="{% url 'shopingcar' %}" class="shopcar">
+            加入購物車
+        </a>
+        <div class="description">
+            Yonex AC492EX 運動護腕專為運動<br>
+            愛好者設計，採用高品質吸汗材料，<br>
+            提供極佳的舒適性和功能性，有效吸<br>
+            收汗水，保持手腕乾爽。護腕的高彈<br>
+            性和貼合設計，確保佩戴穩固且不易<br>
+            滑動，適合多種運動如羽毛球、網<br>
+            球、籃球、健身等。
+        </div>
+    </div>
+</div>    
     <div class="button-container">
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
         <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
+    </div>
     </div>
 </div>
 {% endblock %}
