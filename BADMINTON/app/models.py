@@ -118,3 +118,29 @@ class DiscussionComment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author.username} on {self.post}"
+    
+class CourseReservation(models.Model):
+    name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=10)
+    phone = models.CharField(max_length=20)
+    email = models.EmailField()
+    grade = models.IntegerField()
+    motivation = models.JSONField()  # 存储列表数据
+    techniques = models.JSONField()  # 存储列表数据
+    coach_gender = models.CharField(max_length=20, blank=True)
+    coach_traits = models.JSONField()  # 存储列表数据
+    course_type = models.JSONField()  # 存储列表数据
+    sub_course_type = models.JSONField()  # 存储列表数据
+
+    def __str__(self):
+        return self.name
+
+class CourseSession(models.Model):
+    course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    instructor = models.CharField(max_length=100)
+    day_of_week = models.CharField(max_length=10)
+
+    def __str__(self):
+        return f"{self.course_type.name} - {self.day_of_week}"

@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import home
 from . import views
+#from .views import ReservationView
+#from .views import RegisterView, CourseRegistrationView
 
 urlpatterns = [
     path('', home, name='home'),
@@ -38,5 +40,7 @@ urlpatterns = [
     path('product06/', views.product06, name='product06'),
     path('product07/', views.product07, name='product07'),
     path('product08/', views.product08, name='product08'),
-
+    path('course_Registration/', views.course_Registration, name='course_Registration'),
+    #path('register/', ReservationView.as_view(), name='register'),
+    #path('register_course/', CourseRegistrationView.as_view(), name='register_course'),
 ]

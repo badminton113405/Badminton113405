@@ -9,8 +9,11 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
-from .models import DiscussionPost, DiscussionComment
+from .models import DiscussionPost, DiscussionComment,Registration
 from .forms import DiscussionPostForm, DiscussionCommentForm
+from django.views import View
+
+
 
 def home(request):
     return render(request, 'home.html')
@@ -80,6 +83,10 @@ def product07(request):
 
 def product08(request):
     return render(request, 'product08.html')
+
+def course_Registration(request):
+    return render(request, 'course_Registration.html')
+
 #----------------------------------------------------------
 # app/views.py
 from django.shortcuts import render, redirect
@@ -87,6 +94,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserLoginForm, UserProfileForm, MemberCenterForm
 from django.contrib import messages
+from django.http import JsonResponse
 
 def register(request):
     if request.method == 'POST':
@@ -223,3 +231,41 @@ def add_comment(request, post_id):
             comment.save()
             return redirect('community')
     return redirect('community')
+
+"""
+class CourseRegistrationView(View):
+    def get(self, request):
+        return render(request, 'course_Registration.html')  # 确保有一个与前端代码匹配的模板
+
+    def post(self, request):
+        # 获取表单数据
+        name = request.POST.get('name')
+        gender = request.POST.get('gender')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        grade = request.POST.get('grade')
+        motivation = request.POST.getlist('motivation')
+        techniques = request.POST.getlist('techniques')
+        coach_gender = request.POST.get('coachGender')
+        coach_traits = request.POST.getlist('coachTraits')
+        course_type = request.POST.getlist('courseType')
+        sub_course_type = request.POST.getlist('subCourseType')
+
+        # 保存数据到数据库
+        reservation = Reservation(
+            name=name,
+            gender=gender,
+            phone=phone,
+            email=email,
+            grade=grade,
+            motivation=motivation,
+            techniques=techniques,
+            coach_gender=coach_gender,
+            coach_traits=coach_traits,
+            course_type=course_type,
+            sub_course_type=sub_course_type
+        )
+        reservation.save()
+
+        return redirect('success')  # 这里可以跳转到成功页面或其他页面
+        """
