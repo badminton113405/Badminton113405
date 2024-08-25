@@ -232,7 +232,7 @@ def add_comment(request, post_id):
             return redirect('community')
     return redirect('community')
 
-"""
+""""
 class CourseRegistrationView(View):
     def get(self, request):
         return render(request, 'course_Registration.html')  # 确保有一个与前端代码匹配的模板
