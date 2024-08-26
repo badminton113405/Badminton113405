@@ -30,6 +30,12 @@ def onetoone(request):
 def zerodozen(request):
     return render(request, 'zerodozen.html')
 
+def summer(request):
+    return render(request, 'summer.html')
+
+def winter(request):
+    return render(request, 'winter.html')
+
 def ZZT(request):
     return render(request, 'ZZT.html')
 
