@@ -11,14 +11,15 @@
     <h1>報名課程</h1>
     <form method="post">
         {% csrf_token %}
+        
         <!-- 填寫報名資料區 -->
-        <section>
-            <h2>填寫報名資料</h2>
-            <div>
+        <fieldset>
+            <legend>填寫報名資料</legend>
+            <div class="form-group">
                 <label for="name">姓名</label>
                 <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="gender">性別</label>
                 <select id="gender" name="gender" required>
                     <option value="" disabled {% if not form.gender.value %}selected{% endif %}>-- 請選擇 --</option>
@@ -27,57 +28,60 @@
                     <option value="other" {% if form.gender.value == 'other' %}selected{% endif %}>其他</option>
                 </select>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="phone">聯絡電話</label>
                 <input type="text" id="phone" name="phone" value="{{ form.phone.value }}" required>
             </div>
-            <div>
+            <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="{{ form.email.value }}" required>
             </div>
-        </section>
+        </fieldset>
 
-        <section>
-            <h2>您有學習過羽球的經驗嗎?</h2>
-            <input type="number" name="grade" min="1" max="18" value="{{ form.grade.value }}" required>
-        </section>
+        <!-- 學習經驗 -->
+        <fieldset>
+            <legend>您有學習過羽球的經驗嗎?</legend>
+            <div class="form-group">
+                <input type="number" name="grade" min="1" max="18" value="{{ form.grade.value }}" required>
+            </div>
+        </fieldset>
 
         <!-- 動機與目標 -->
-        <section>
-            <h2>您學習羽球的動機與目標</h2>
-            <div>
+        <fieldset>
+            <legend>您學習羽球的動機與目標</legend>
+            <div class="form-group">
                 <label><input type="checkbox" name="motivation" value="興趣與趣" {% if '興趣與趣' in form.motivation.value %}checked{% endif %}> 興趣與趣</label>
                 <label><input type="checkbox" name="motivation" value="運動健身" {% if '運動健身' in form.motivation.value %}checked{% endif %}> 運動健身</label>
                 <label><input type="checkbox" name="motivation" value="提升技巧" {% if '提升技巧' in form.motivation.value %}checked{% endif %}> 提升技巧</label>
                 <label><input type="checkbox" name="motivation" value="參加比賽" {% if '參加比賽' in form.motivation.value %}checked{% endif %}> 參加比賽</label>
             </div>
-        </section>
+        </fieldset>
 
         <!-- 選擇的技術 -->
-        <section>
-            <h2>您選擇的技術</h2>
-            <div>
+        <fieldset>
+            <legend>您選擇的技術</legend>
+            <div class="form-group">
                 <label><input type="checkbox" name="techniques" value="發球與接發球" {% if '發球與接發球' in form.techniques.value %}checked{% endif %}> 發球與接發球</label>
                 <label><input type="checkbox" name="techniques" value="雙打後場組織進攻" {% if '雙打後場組織進攻' in form.techniques.value %}checked{% endif %}> 雙打後場組織進攻</label>
                 <label><input type="checkbox" name="techniques" value="單打四角拉吊" {% if '單打四角拉吊' in form.techniques.value %}checked{% endif %}> 單打四角拉吊</label>
                 <label><input type="checkbox" name="techniques" value="其他" {% if '其他' in form.techniques.value %}checked{% endif %}> 其他</label>
             </div>
-        </section>
+        </fieldset>
 
         <!-- 指定教練的性別 -->
-        <section>
-            <h2>需要指定教練的性別嗎?</h2>
-            <div>
+        <fieldset>
+            <legend>需要指定教練的性別嗎?</legend>
+            <div class="form-group">
                 <label><input type="radio" name="coachGender" value="male" {% if form.coachGender.value == 'male' %}checked{% endif %}> 男生</label>
                 <label><input type="radio" name="coachGender" value="female" {% if form.coachGender.value == 'female' %}checked{% endif %}> 女生</label>
                 <label><input type="radio" name="coachGender" value="not-specified" {% if form.coachGender.value == 'not-specified' %}checked{% endif %}> 不指定</label>
             </div>
-        </section>
+        </fieldset>
 
         <!-- 理想的教練特質 -->
-        <section>
-            <h2>理想的教練特質</h2>
-            <div>
+        <fieldset>
+            <legend>理想的教練特質</legend>
+            <div class="form-group">
                 <label><input type="checkbox" name="coachTraits" value="有經驗" {% if '有經驗' in form.coachTraits.value %}checked{% endif %}> 有經驗</label>
                 <label><input type="checkbox" name="coachTraits" value="理論基礎" {% if '理論基礎' in form.coachTraits.value %}checked{% endif %}> 理論基礎</label>
                 <label><input type="checkbox" name="coachTraits" value="有技術" {% if '有技術' in form.coachTraits.value %}checked{% endif %}> 有技術</label>
@@ -85,15 +89,15 @@
                 <label><input type="checkbox" name="coachTraits" value="嚴厲" {% if '嚴厲' in form.coachTraits.value %}checked{% endif %}> 嚴厲</label>
                 <label><input type="checkbox" name="coachTraits" value="多元" {% if '多元' in form.coachTraits.value %}checked{% endif %}> 多元</label>
             </div>
-        </section>
+        </fieldset>
 
         <!-- 想參與的課程類型 -->
-        <section>
-            <h2>想參與的課程類型</h2>
-            <div>
+        <fieldset>
+            <legend>想參與的課程類型</legend>
+            <div class="form-group">
                 <!-- 初階班 -->
                 <label><input type="checkbox" name="courseType" value="初階班" {% if '初階班' in form.courseType.value %}checked{% endif %}> 初階班 (4000/期)</label>
-                <div {% if '初階班' not in form.courseType.value %}style="display:none;"{% endif %} class="sub-options">
+                <div class="sub-options {% if '初階班' not in form.courseType.value %}hidden{% endif %}">
                     <label><input type="checkbox" name="subCourseType" value="兒童初階班(每週二14:00 - 15:30)" {% if '兒童初階班(每週二14:00 - 15:30)' in form.subCourseType.value %}checked{% endif %}> 兒童初階班 (每週二 14:00 - 15:30)</label>
                     <label><input type="checkbox" name="subCourseType" value="兒童初階班(每週二15:30 - 17:00)" {% if '兒童初階班(每週二15:30 - 17:00)' in form.subCourseType.value %}checked{% endif %}> 兒童初階班 (每週二 15:30 - 17:00)</label>
                     <label><input type="checkbox" name="subCourseType" value="成人初階班(每週一14:00 - 16:00)" {% if '成人初階班(每週一14:00 - 16:00)' in form.subCourseType.value %}checked{% endif %}> 成人初階班 (每週一 14:00 - 16:00)</label>
@@ -102,26 +106,26 @@
                 
                 <!-- 競技班 -->
                 <label><input type="checkbox" name="courseType" value="競技班" {% if '競技班' in form.courseType.value %}checked{% endif %}> 競技班 (4000/期)</label>
-                <div {% if '競技班' not in form.courseType.value %}style="display:none;"{% endif %} class="sub-options">
+                <div class="sub-options {% if '競技班' not in form.courseType.value %}hidden{% endif %}">
                     <label><input type="checkbox" name="subCourseType" value="一般競技班(每週二14:00 - 16:00)" {% if '一般競技班(每週二14:00 - 16:00)' in form.subCourseType.value %}checked{% endif %}> 一般競技班 (每週二 14:00 - 16:00)</label>
                     <label><input type="checkbox" name="subCourseType" value="一般競技班(每週四16:00 - 18:00)" {% if '一般競技班(每週四16:00 - 18:00)' in form.subCourseType.value %}checked{% endif %}> 一般競技班 (每週四 16:00 - 18:00)</label>
                     <label><input type="checkbox" name="subCourseType" value="進階競技班(每週四14:00 - 16:00)" {% if '進階競技班(每週四14:00 - 16:00)' in form.subCourseType.value %}checked{% endif %}> 進階競技班 (每週四 14:00 - 16:00)</label>
                     <label><input type="checkbox" name="subCourseType" value="進階競技班(每週四16:00 - 18:00)" {% if '進階競技班(每週四16:00 - 18:00)' in form.subCourseType.value %}checked{% endif %}> 進階競技班 (每週四 16:00 - 18:00)</label>
                 </div>
                 
-                <!-- 零打班 -->
-                <label><input type="checkbox" name="courseType" value="擊打班" {% if '擊打班' in form.courseType.value %}checked{% endif %}> 零打班 (350/堂)</label>
-                <div {% if '擊打班' not in form.courseType.value %}style="display:none;"{% endif %} class="sub-options">
-                    <label><input type="checkbox" name="subCourseType" value="基礎擊打班(每週五19:00 - 22:00)" {% if '基礎擊打班(每週五19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 基礎零打班 (每週五 19:00 - 22:00)</label>
-                    <label><input type="checkbox" name="subCourseType" value="基礎擊打班(每週六19:00 - 22:00)" {% if '基礎擊打班(每週六19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 基礎零打班 (每週六 19:00 - 22:00)</label>
-                    <label><input type="checkbox" name="subCourseType" value="進階擊打班(每週五19:00 - 22:00)" {% if '進階擊打班(每週五19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 進階零打班 (每週五 19:00 - 22:00)</label>
-                    <label><input type="checkbox" name="subCourseType" value="進階擊打班(每週六19:00 - 22:00)" {% if '進階擊打班(每週六19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 進階零打班 (每週六 19:00 - 22:00)</label>
+                <!-- 擊打班 -->
+                <label><input type="checkbox" name="courseType" value="擊打班" {% if '擊打班' in form.courseType.value %}checked{% endif %}> 擊打班 (350/堂)</label>
+                <div class="sub-options {% if '擊打班' not in form.courseType.value %}hidden{% endif %}">
+                    <label><input type="checkbox" name="subCourseType" value="基礎擊打班(每週五19:00 - 22:00)" {% if '基礎擊打班(每週五19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 基礎擊打班 (每週五 19:00 - 22:00)</label>
+                    <label><input type="checkbox" name="subCourseType" value="基礎擊打班(每週六19:00 - 22:00)" {% if '基礎擊打班(每週六19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 基礎擊打班 (每週六 19:00 - 22:00)</label>
+                    <label><input type="checkbox" name="subCourseType" value="進階擊打班(每週五19:00 - 22:00)" {% if '進階擊打班(每週五19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 進階擊打班 (每週五 19:00 - 22:00)</label>
+                    <label><input type="checkbox" name="subCourseType" value="進階擊打班(每週六19:00 - 22:00)" {% if '進階擊打班(每週六19:00 - 22:00)' in form.subCourseType.value %}checked{% endif %}> 進階擊打班 (每週六 19:00 - 22:00)</label>
                 </div>
                 
                 <!-- 個別班 -->
                 <label><input type="checkbox" name="courseType" value="個別班" {% if '個別班' in form.courseType.value %}checked{% endif %}> 個別班 (另付費協商)</label>
             </div>
-        </section>
+        </fieldset>
 
         <button type="submit">提交</button>
     </form>
