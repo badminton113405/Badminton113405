@@ -211,18 +211,20 @@ def reset_password(request, uidb64, token):
     else:
         return render(request, 'reset_password_invalid.html')
 
-@login_required
 def community(request):
     posts = DiscussionPost.objects.all().order_by('-created_at')
     if request.method == 'POST':
-        form = DiscussionPostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('community')
+        if request.user.is_authenticated:
+            form = DiscussionPostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                post.save()
+                return redirect('community')
+        else:
+            return redirect('login')
     else:
-        form = DiscussionPostForm()
+        form = DiscussionPostForm() if request.user.is_authenticated else None
     return render(request, 'community.html', {'posts': posts, 'form': form})
 
 @login_required

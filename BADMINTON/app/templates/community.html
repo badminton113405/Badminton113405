@@ -2,10 +2,6 @@
 
 {% load static %}
 
-{% block title %}
-  <title>社群空間</title>
-{% endblock %}
-
 {% block content %}
   <style>
     @media screen and (max-width: 320px) {
@@ -137,16 +133,47 @@
   </style>
 
   <div class="comment-board">
-    <h1>社群空間</h1>
-    <section class="comment-input">
-      <h2>討論區</h2>
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">發布</button>
-      </form>
-    </section>
+    {% if user.is_authenticated %}
+      <h1>社群空間</h1>
+      <section class="comment-input">
+        <h2>討論區</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit">發布</button>
+        </form>
+      </section>
 
+      <section class="comment-list">
+        {% for post in posts %}
+          <div class="comment-item">
+            <div class="comment-header">
+              <span>{{ post.author.username }}</span>
+              <span>{{ post.created_at }}</span>
+            </div>
+            <div class="comment-text">
+              <p>{{ post.content }}</p>
+            </div>
+            <div class="comment-footer">
+              <form method="post" action="{% url 'add_comment' post.id %}">
+                {% csrf_token %}
+                <textarea name="content" placeholder="評論..."></textarea>
+                <button type="submit">發送</button>
+              </form>
+            </div>
+            <div class="comment-replies">
+              {% for comment in post.comments.all %}
+                <div class="comment-reply">
+                  <span>{{ comment.author.username }}</span>
+                  <span>{{ comment.created_at }}</span>
+                  <p>{{ comment.content }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </section>
+    {% else %}
     <section class="comment-list">
       {% for post in posts %}
         <div class="comment-item">
@@ -157,13 +184,7 @@
           <div class="comment-text">
             <p>{{ post.content }}</p>
           </div>
-          <div class="comment-footer">
-            <form method="post" action="{% url 'add_comment' post.id %}">
-              {% csrf_token %}
-              <textarea name="content" placeholder="評論..."></textarea>
-              <button type="submit">發送</button>
-            </form>
-          </div>
+          
           <div class="comment-replies">
             {% for comment in post.comments.all %}
               <div class="comment-reply">
@@ -176,5 +197,6 @@
         </div>
       {% endfor %}
     </section>
+    {% endif %}
   </div>
 {% endblock %}
