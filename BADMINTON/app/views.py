@@ -90,8 +90,14 @@ def product07(request):
 def product08(request):
     return render(request, 'product08.html')
 
+def course_Analysis_Registration(request):
+    return render(request, 'course_Analysis_Registration.html')
+
 def course_Registration(request):
     return render(request, 'course_Registration.html')
+
+def course_Analysis(request):
+    return render(request, 'course_Analysis.html')
 
 #----------------------------------------------------------
 # app/views.py
