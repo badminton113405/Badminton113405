@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+  分析及報名
+{% endblock %}
+
+{% block content %}
+  <div class="registration-form">
+    <fieldset>
+      <p>分析給一段文字</p>
+    </fieldset>
+
+    <a href="{% url 'course_Analysis' %}"><button class="nav-button">點我分析</button></a>
+
+    <fieldset>
+      <p>分析給一段文字</p>
+    </fieldset>
+
+    <a href="{% url 'course_Registration' %}"><button class="nav-button">點我報名</button></a>
+  </div>
+{% endblock %}

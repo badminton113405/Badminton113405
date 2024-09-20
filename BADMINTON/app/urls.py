@@ -43,6 +43,8 @@ urlpatterns = [
     path('product07/', views.product07, name='product07'),
     path('product08/', views.product08, name='product08'),
     path('course_Registration/', views.course_Registration, name='course_Registration'),
+    path('course_Analysis/', views.course_Analysis, name='course_Analysis'),
+    path('course_Analysis_Registration/', views.course_Analysis_Registration, name='course_Analysis_Registration'),
     #path('register/', ReservationView.as_view(), name='register'),
     #path('register_course/', CourseRegistrationView.as_view(), name='register_course'),
 ]
