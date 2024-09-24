@@ -7,6 +7,25 @@
 {% endblock %}
 
 {% block content %}
+
+<style>
+    .button-group {
+        text-align: center;
+    }
+    .button-group input {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FFF279;
+    }
+    .button-group input:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #fff;
+        background-color: #777777;
+    }    
+</style>
+
 <div class="registration-form">
     <h1>報名課程</h1>
     <form method="post">
@@ -48,7 +67,10 @@
             </div>
         </fieldset>
 
-        <button type="submit">提交</button>
+        <div class="button-group">
+            <input type="submit" value="分析">
+            <input type="submit" value="送出">
+        </div>
     </form>
 </div>
 {% endblock %}
