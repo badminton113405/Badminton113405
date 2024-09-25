@@ -93,8 +93,10 @@ def product08(request):
 def course_Analysis_Registration(request):
     return render(request, 'course_Analysis_Registration.html')
 
+'''
 def course_Registration(request):
     return render(request, 'course_Registration.html')
+'''
 
 def course_Analysis(request):
     return render(request, 'course_Analysis.html')
@@ -283,3 +285,41 @@ class CourseRegistrationView(View):
 
         return redirect('success')  # 这里可以跳转到成功页面或其他页面
         """
+
+
+             
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
+
+COURSE_PRICES = {
+    '兒童初階班(每週二14:00 - 15:30)': 4000,
+    '兒童初階班(每週二15:30 - 17:00)': 4000,
+    '成人初階班(每週一14:00 - 16:00)': 4000,
+    '成人初階班(每週一16:00 - 18:00)': 4000,
+    '一般競技班(每週二14:00 - 16:00)': 4000,
+    '一般競技班(每週四16:00 - 18:00)': 4000,
+    '進階競技班(每週四14:00 - 16:00)': 4000,
+    '進階競技班(每週四16:00 - 18:00)': 4000,
+    '基礎擊打班(每週五19:00 - 22:00)': 350,
+    '基礎擊打班(每週六19:00 - 22:00)': 350,
+    '進階擊打班(每週五19:00 - 22:00)': 350,
+    '進階擊打班(每週六19:00 - 22:00)': 350,
+    '個別班': 0  
+}
+
+@csrf_protect
+def course_Registration(request):
+    if request.method == 'POST':
+        selected_courses = request.POST.getlist('subCourseType') 
+        course_type = request.POST.getlist('courseType')
+        total_cost = 0
+
+        for course in selected_courses:
+            total_cost += COURSE_PRICES.get(course, 0)
+
+        if '個別班' in course_type:
+            total_cost += COURSE_PRICES.get('個別班', 0)
+
+        return render(request, 'course_result.html', {'total_cost': total_cost, 'selected_courses': selected_courses})
+
+    return render(request, 'course_Registration.html')
