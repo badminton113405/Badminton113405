@@ -49,16 +49,99 @@
     .button-container{
         text-align: center;
     }
-</style>
 
-<div class="mall">
-    <div class="title">
-        <h1>商城</h1>
+    .container {
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+    }
+
+    .cart-item span {
+        flex: 1;
+    }
+        
+    .total {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: right;
+    }
+        
+    .button-group {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+        
+    .button-group a {
+        font-family: "Zen Kurenaido", sans-serif;
+        text-decoration: none;
+        color: #000;
+        background-color: #fff279;
+        padding: 10px 20px;
+        border-radius: 16px;
+    }
+
+    .button-group button {
+        font-family: "Zen Kurenaido", sans-serif;
+        text-decoration: none;
+        color: #000;
+        background-color: #fff279;
+        padding: 10px 20px;
+        border-radius: 16px;
+    }
+</style>
+<div class="title"><h1>購物車</h1></div>
+    <div class="container">
+        <div id="cart-items">
+            <!-- 購物車項目將會在這裡顯示 -->
+        </div>
+        <p class="total">總價: <span id="total-price">0</span> 元</p>
+
+        <div class="button-group">
+            <a href="{% url 'mall' %}">繼續購物</a>
+            <button id="clear-cart">清空購物車</button>
+        </div>
     </div>
-    <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+
     <div class="button-container">
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
         <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
     </div>
 </div>
+
+<script>
+    // 獲取購物車資料
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalPriceElement = document.getElementById('total-price');
+    let totalPrice = 0;
+
+    // 顯示購物車項目
+    cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+            <span>${item.name}</span>
+            <span>${item.price} 元</span>
+        `;
+        cartItemsContainer.appendChild(cartItem);
+        totalPrice += item.price;
+    });
+
+    // 更新總價
+    totalPriceElement.textContent = totalPrice;
+
+    // 清空購物車按鈕
+    document.getElementById('clear-cart').addEventListener('click', () => {
+        localStorage.removeItem('cart');
+        location.reload();
+    });
+</script>
 {% endblock %}

@@ -44,7 +44,7 @@
             font-size: 24px;
         }
 
-    .product {
+    .product{
         background-color: white;
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -113,69 +113,76 @@
     </div>
     <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
     <div class="container">
-        <div class="product">
+        <div class="product"data-id="1" data-name="VICTOR 新手球拍 ARS3200" data-price="1250">
             <a href="{% url 'product01' %}">
             <img src="{% static 'images/market-01.jpg' %}" alt="VICTOR 新手球拍 ARS3200 球拍包含線">
             </a>
             <h3>VICTOR 新手球拍 ARS3200 球拍包含線</h3>
             <p class="price">$1250元</p>
-            <a href="{% url 'product01' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+
+        <div class="product"data-id="2" data-name="YONEX AC102 單入 握把布(隨機色)" data-price="35">
             <a href="{% url 'product02' %}">
             <img src="{%static 'images/market-02.jpg' %}" alt="YONEX AC102 單入 握把布(隨機色)">
             </a>
             <h3>YONEX AC102 單入 握把布(隨機色)</h3>
             <p class="price">$35元</p>
-            <a href="{% url 'product02' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+
+        <div class="product"data-id="3" data-name="Yonex 運動吸汗護腕AC492EX" data-price="90">
             <a href="{% url 'product03' %}">
             <img src="{%static 'images/market-03.jpg' %}" alt="Yonex 運動吸汗護腕AC492EX">
             </a>
             <h3>Yonex 運動吸汗護腕AC492EX (隨機色)</h3>
             <p class="price">$90元</p>
-            <a href="{% url 'product03' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+
+        <div class="product"data-id="4" data-name="VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球" data-price="410">
             <a href="{% url 'product04' %}">
             <img src="{%static 'images/market-04.jpg' %}" alt="VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球">
             </a>
             <h3>VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球</h3>
             <p class="price">$410元</p>
-            <a href="{% url 'product04' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}"class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+
+        <div class="product"data-id="5" data-name="YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)" data-price="110">
             <a href="{% url 'product05' %}">
             <img src="{%static 'images/market-05.jpg' %}" alt="YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)">
             </a>
             <h3>YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)</h3>
             <p class="price">$110元</p>
-            <a href="{% url 'product05' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+
+        <div class="product"data-id="6" data-name="Victor 羽球拍保護半拍套 (內絨布)" data-price="60">
             <a href="{% url 'product06' %}">
             <img src="{%static 'images/market-06.jpg' %}" alt="Victor 羽球拍保護半拍套 (內絨布)">
             </a>
             <h3>Victor 羽球拍保護半拍套 (內絨布)</h3>
             <p class="price">$60元</p>
-            <a href="{% url 'product06' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}"class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+        
+        <div class="product"data-id="7" data-name="VICTOR 球拍袋 羽球拍袋  1支裝" data-price="150">
             <a href="{% url 'product07' %}">
             <img src="{%static 'images/market-07.jpg' %}" alt="VICTOR 球拍袋 羽球拍袋  1支裝">
             </a>
             <h3>VICTOR 球拍袋 羽球拍袋  1支裝</h3>
             <p class="price">$150元</p>
-            <a href="{% url 'product07' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
         </div>
-        <div class="product">
+
+        <div class="product"data-id="8" data-name="VICTOR 運動毛巾 C-4159 F (1入)" data-price="200">
             <a href="{% url 'product08' %}">
             <img src="{%static 'images/market-08.jpg' %}" alt="VICTOR 運動毛巾 C-4159 F (1入)">
             </a>
             <h3>VICTOR 運動毛巾 C-4159 F (1入)</h3>
             <p class="price">$200元</p>
-            <a href="{% url 'product08' %}" class="add-to-cart">加入購物車</a>
+            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
         </div>
         <!-- Add more products similarly -->
     </div>
@@ -183,4 +190,28 @@
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
     </div>
 </div>
+
+<script>
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.parentElement;
+            const id = product.getAttribute('data-id');
+            const name = product.getAttribute('data-name');
+            const price = parseInt(product.getAttribute('data-price'), 10);
+
+            // 從 localStorage 中獲取現有的購物車資料
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // 新增商品到購物車
+            cart.push({ id, name, price });
+
+            // 儲存購物車到 localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${name} 已加入購物車!`);
+        });
+    });
+</script>
 {% endblock %}
