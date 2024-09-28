@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>商城中心</title>{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .mall {
+        text-align: center;
+    }
+    
+    .card {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 310px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }    
+
+    .title{
+        text-align: center;
+   }
+    .cart-icon {
+        position: absolute;
+        top: 11%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 24px;
+    }
+    
+    .product {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 350px;
+    }
+
+    .container img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .name {
+        font-size: 24px;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .price {
+        font-size: 22px;
+         color: #333;
+        margin: 10px 0;
+    }
+
+    .shopcar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .description {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .product img {
+        border-radius: 5pt;
+        object-fit: cover;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FFF279;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #fff;
+        background-color: #777777;
+        }
+    .button-container{
+        text-align: center;
+    }
+</style>
+
+<div class="mall">
+    <div class="title">
+        <h1>商城</h1>
+    </div>
+<div class="card">
+    <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+    <div class="container">
+        <img src="{% static 'images/market-06.jpg' %}" alt="VICTOR 新手球拍">
+        <div class="name">
+            Victor 羽球拍保護半拍套 (內絨布)
+        </div>
+        <div class="price">
+            $ 60 元
+        </div>
+        <a href="{% url 'shopingcar' %}" class="shopcar">
+            加入購物車
+        </a>
+        <div class="description">
+            Victor 半拍套專為羽球拍設計，提供<br>
+            最佳的保護效果。此半拍套內部覆蓋<br>
+            柔軟絨布，確保羽球拍在存放和攜帶<br>
+            過程中不受損傷。無論是日常使用還<br>
+            是比賽時攜帶，Victor 半拍套都能夠<br>
+            有效保護你的羽球拍免受刮擦和碰撞。
+        </div>
+    </div>
+</div>    
+    <div class="button-container">
+        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+        <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
+    </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>冬令營</title>{% endblock %}
+{% block content %}
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .beginner {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 30px;
+        margin-left: 50px;
+        margin-right: 50px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .beginner h2 {
+        margin-top: 5;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FBFF36;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #ffff;
+        background-color: #777777;
+    }
+
+    .title {
+        display: flex;
+    }
+
+    .title1 {
+        margin-top: 28pt;
+        margin-left: 5pt;
+    }
+
+</style>
+
+<div class="beginner">
+    <div class="title">
+        <h1>冬令營</h1>
+        <div class="title1">(適合羽球階級9歲以下)</div>
+    </div>
+
+    <img src="{% static 'images/冬令營.jpg' %}" alt="初階班" class="class-img">
+
+    <div class="about">
+        <p>招生對象：（7~14歲）</p>
+
+        <p>加入我們的羽球冬令營，培養技巧、提升體能，快來一起揮拍吧！</p>
+
+        <h2>羽球A營</h2>
+            課程時段:<br>
+            每週一~五 上午 09:30~12:00<br>
+
+        <h2>羽球B營</h2>
+            課程時段:<br>
+            每週一~五 下午 1:30~4:00<br>
+        
+        <p>課程費用：半天4000/全日7500</p>
+        <p>指導老師:胡玟翰 教練、張秉洋 教練</p>
+    </div>
+        
+    <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+</div>
+{% endblock %}
