@@ -87,6 +87,7 @@
     }
 
     .shopcar {
+        font-family: "Zen Kurenaido", sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -137,24 +138,25 @@
 <div class="card">
     <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
     <div class="container">
-        <img src="{% static 'images/market-06.jpg' %}" alt="VICTOR 新手球拍">
-        <div class="name">
-            Victor 羽球拍保護半拍套 (內絨布)
-        </div>
-        <div class="price">
-            $ 60 元
-        </div>
-        <a href="{% url 'shopingcar' %}" class="shopcar">
-            加入購物車
-        </a>
-        <div class="description">
-            Victor 半拍套專為羽球拍設計，提供<br>
-            最佳的保護效果。此半拍套內部覆蓋<br>
-            柔軟絨布，確保羽球拍在存放和攜帶<br>
-            過程中不受損傷。無論是日常使用還<br>
-            是比賽時攜帶，Victor 半拍套都能夠<br>
-            有效保護你的羽球拍免受刮擦和碰撞。
-        </div>
+        <div class="product"data-id="6" data-name="Victor 羽球拍保護半拍套 (內絨布)" data-price="60">
+            <img src="{% static 'images/market-06.jpg' %}" alt="VICTOR 新手球拍">
+            <a href="{% url 'product06' %}"></a>
+            <div class="name">
+                Victor 羽球拍保護半拍套 (內絨布)
+            </div>
+            <div class="price">
+                $ 60 元
+            </div>
+            <button class="shopcar">加入購物車</button>
+            <div class="description">
+                Victor 半拍套專為羽球拍設計，提供<br>
+                最佳的保護效果。此半拍套內部覆蓋<br>
+                柔軟絨布，確保羽球拍在存放和攜帶<br>
+                過程中不受損傷。無論是日常使用還<br>
+                是比賽時攜帶，Victor 半拍套都能夠<br>
+                有效保護你的羽球拍免受刮擦和碰撞。
+            </div>
+        </div>        
     </div>
 </div>    
     <div class="button-container">
@@ -163,4 +165,28 @@
     </div>
     </div>
 </div>
+
+<script>
+    const addToCartButtons = document.querySelectorAll('.shopcar');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.parentElement;
+            const id = product.getAttribute('data-id');
+            const name = product.getAttribute('data-name');
+            const price = parseInt(product.getAttribute('data-price'), 10);
+
+            // 從 localStorage 中獲取現有的購物車資料
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // 新增商品到購物車
+            cart.push({ id, name, price });
+
+            // 儲存購物車到 localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${name} 已加入購物車!`);
+        });
+    });
+</script>
 {% endblock %}
