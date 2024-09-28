@@ -87,6 +87,7 @@
     }
 
     .shopcar {
+        font-family: "Zen Kurenaido", sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -137,21 +138,22 @@
 <div class="card">
     <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
     <div class="container">
-        <img src="{% static 'images/market-08.jpg' %}" alt="VICTOR 新手球拍">
-        <div class="name">
-            VICTOR 運動毛巾 C-4159 F
-        </div>
-        <div class="price">
-            $ 200 元
-        </div>
-        <a href="{% url 'shopingcar' %}" class="shopcar">
-            加入購物車
-        </a>
-        <div class="description">
-            材料 | 100%棉<br>
-            尺寸 | 85 X 35cm<br>
-            色款 | 羅馬藍
-        </div>
+        <div class="product"data-id="8" data-name="VICTOR 運動毛巾 C-4159 F" data-price="200">
+            <img src="{% static 'images/market-08.jpg' %}" alt="VICTOR 新手球拍">
+            <a href="{% url 'product08' %}"></a>
+            <div class="name">
+                VICTOR 運動毛巾 C-4159 F
+            </div>
+            <div class="price">
+                $ 200 元
+            </div>
+            <button class="shopcar">加入購物車</button>
+            <div class="description">
+                材料 | 100%棉<br>
+                尺寸 | 85 X 35cm<br>
+                色款 | 羅馬藍
+            </div>
+        </div>    
     </div>
 </div>    
     <div class="button-container">
@@ -160,4 +162,28 @@
     </div>
     </div>
 </div>
+
+<script>
+    const addToCartButtons = document.querySelectorAll('.shopcar');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.parentElement;
+            const id = product.getAttribute('data-id');
+            const name = product.getAttribute('data-name');
+            const price = parseInt(product.getAttribute('data-price'), 10);
+
+            // 從 localStorage 中獲取現有的購物車資料
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // 新增商品到購物車
+            cart.push({ id, name, price });
+
+            // 儲存購物車到 localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${name} 已加入購物車!`);
+        });
+    });
+</script>
 {% endblock %}
