@@ -37,7 +37,7 @@
     }
     
     .comment-input {
-      background-color: #e3f2fd;
+      background-color: #a8cde7;
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 10px;
@@ -57,8 +57,9 @@
     }
     
     .comment-input button {
-      background-color: #4caf50;
-      color: white;
+      font-family: "Zen Kurenaido", sans-serif;
+      background-color: #fff279;
+      color: #000;
       padding: 10px 15px;
       border: none;
       border-radius: 5px;
@@ -66,7 +67,8 @@
     }
     
     .comment-input button:hover {
-      background-color: #45a049;
+      font-family: "Zen Kurenaido", sans-serif;
+      background-color: #777777;
     }
     
     .comment-list {
@@ -85,23 +87,38 @@
     }
     
     .comment-header {
+      font-family: "Zen Kurenaido", sans-serif;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 10px;
     }
     
-    .comment-header button {
-      margin-left: 10px;
-      background-color: #f1f1f1;
+    .button-group {
+      font-family: "Zen Kurenaido", sans-serif;
+      display: flex; 
+      gap: 10px; 
+    }
+
+    .edit-button, .delete-button {
+      font-family: "Zen Kurenai", sans-serif;
+      text-decoration: none;
+      background-color: #fff279;
       border: none;
       padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
     }
-    
-    .comment-header button:hover {
-      background-color: #ddd;
+
+    .delete-button {
+      font-family: "Zen Kurenaido", sans-serif;
+      background-color: #ff5555;
+    }
+
+    .edit-button:hover, .delete-button:hover {
+      font-family: "Zen Kurenaido", sans-serif;
+      background-color: #777777;
+      color: #fff;
     }
     
     .comment-footer {
@@ -119,8 +136,9 @@
     }
     
     .comment-footer button {
-      background-color: #4caf50;
-      color: white;
+      font-family: "Zen Kurenaido", sans-serif;
+      background-color: #fff279;
+      color: #000;
       padding: 10px 15px;
       border: none;
       border-radius: 5px;
@@ -128,7 +146,9 @@
     }
     
     .comment-footer button:hover {
-      background-color: #45a049;
+      font-family: "Zen Kurenaido", sans-serif;
+      color: #fff;
+      background-color: #777777;
     }
   </style>
 
@@ -151,11 +171,11 @@
             <span>{{ post.author.username }}</span>
             <span>{{ post.created_at }}</span>
             {% if post.author == user %}
-              <div>
-                <a href="{% url 'edit_post' post.id %}">編輯</a>
+              <div class="button-group">
+                <a href="{% url 'edit_post' post.id %}"><button class="edit-button">編輯</button></a>
                 <form method="post" action="{% url 'delete_post' post.id %}" style="display: inline;">
                   {% csrf_token %}
-                  <button type="submit" onclick="return confirm('確定要刪除嗎?')">刪除</button>
+                  <button type="submit" class="delete-button" onclick="return confirm('確定要刪除嗎?')">刪除</button>
                 </form>
               </div>
             {% endif %}

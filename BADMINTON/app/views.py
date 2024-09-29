@@ -101,6 +101,8 @@ def course_Registration(request):
 def course_Analysis(request):
     return render(request, 'course_Analysis.html')
 
+def member_center(request):
+    return render(request, 'member_center.html')
 #----------------------------------------------------------
 # app/views.py
 from django.shortcuts import render, redirect
