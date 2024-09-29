@@ -35,17 +35,18 @@
     
     .button-group {
       text-align: center;
+      margin-top: 20px;
     }
-    
-    .button-group input {
-      font-family: 'Zen Kurenaido', sans-serif;
+
+    .btn {
+      font-family: "Zen Kurenaido", sans-serif;
       border-radius: 16px;
       color: #000;
-      background-color: #fff279;
+      background-color: #FFF279;
     }
-    
-    .button-group input:hover {
-      font-family: 'Zen Kurenaido', sans-serif;
+
+    .btn:hover {
+      font-family: "Zen Kurenaido", sans-serif;
       border-radius: 16px;
       color: #fff;
       background-color: #777777;
@@ -103,7 +104,9 @@
       </div>
 
       <div class="button-group">
-        <button type="submit">提交</button>
+        <a href="{% url 'course_Analysis_Registration' %}"><button type="button" class="btn yellow-btn">返回</button></a>
+        <button type="submit" class="btn yellow-btn">送出</button>
+        </div>
       </div>
     </form>
   </div>
