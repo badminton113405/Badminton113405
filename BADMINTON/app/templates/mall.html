@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}<title>商城中心</title>{% endblock %}
@@ -23,9 +22,9 @@
         }
     }
 
-   .title{
-    text-align: center;
-   }
+    .title {
+        text-align: center;
+    }
 
     .container {
         display: grid;
@@ -36,15 +35,33 @@
         max-width: 500px;
     }
 
-    .cart-icon {
-            position: absolute;
-            top: 11%;
-            right: 20px;
-            transform: translateY(-50%);
-            font-size: 24px;
-        }
+    .cart-container {
+        position: fixed; 
+        top: 90px;
+        right: 20px; 
+        z-index: 1000;
+    }
 
-    .product{
+    .cart-icon {
+        font-size: 24px;
+    }
+
+    .item-count {
+        position: absolute;
+        top: -5px; 
+        right: -10px; 
+        background-color: red; 
+        color: white; 
+        border-radius: 50%; 
+        width: 20px; 
+        height: 20px; 
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        font-size: 12px; 
+    }
+
+    .product {
         background-color: white;
         border: 1px solid #ddd;
         border-radius: 8px;
@@ -89,6 +106,10 @@
         font-size: 14px;
     }
 
+    .add-to-cart:hover {
+        cursor: pointer; 
+    }
+
     .i-button {
         font-family: "Zen Kurenaido", sans-serif;
         border-radius: 16px;
@@ -101,8 +122,9 @@
         border-radius: 16px;
         color: #fff;
         background-color: #777777;
-        }
-    .button-container{
+    }
+
+    .button-container {
         text-align: center;
     }
 </style>
@@ -111,15 +133,22 @@
     <div class="title">
         <h1>商城</h1>
     </div>
-    <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+
+    <div class="cart-container">
+        <a href="{% url 'shopingcar' %}">
+            <i class="fas fa-shopping-cart cart-icon"></i>
+            <span id="item-count" class="item-count">0</span> 
+        </a>
+    </div>
+    
     <div class="container">
-        <div class="product"data-id="1" data-name="VICTOR 新手球拍 ARS3200" data-price="1250">
+        <div class="product" data-id="1" data-name="VICTOR 新手球拍 ARS3200" data-price="1250">
             <a href="{% url 'product01' %}">
-            <img src="{% static 'images/market-01.jpg' %}" alt="VICTOR 新手球拍 ARS3200 球拍包含線">
+                <img src="{% static 'images/market-01.jpg' %}" alt="VICTOR 新手球拍 ARS3200 球拍包含線">
             </a>
             <h3>VICTOR 新手球拍 ARS3200 球拍包含線</h3>
             <p class="price">$1250元</p>
-            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
 
         <div class="product"data-id="2" data-name="YONEX AC102 單入 握把布(隨機色)" data-price="35">
@@ -128,7 +157,7 @@
             </a>
             <h3>YONEX AC102 單入 握把布(隨機色)</h3>
             <p class="price">$35元</p>
-            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
 
         <div class="product"data-id="3" data-name="Yonex 運動吸汗護腕AC492EX" data-price="90">
@@ -137,7 +166,7 @@
             </a>
             <h3>Yonex 運動吸汗護腕AC492EX (隨機色)</h3>
             <p class="price">$90元</p>
-            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
 
         <div class="product"data-id="4" data-name="VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球" data-price="410">
@@ -146,7 +175,7 @@
             </a>
             <h3>VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球</h3>
             <p class="price">$410元</p>
-            <a href="{% url 'shopingcar' %}"class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
 
         <div class="product"data-id="5" data-name="YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)" data-price="110">
@@ -155,7 +184,7 @@
             </a>
             <h3>YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)</h3>
             <p class="price">$110元</p>
-            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
 
         <div class="product"data-id="6" data-name="Victor 羽球拍保護半拍套 (內絨布)" data-price="60">
@@ -164,7 +193,7 @@
             </a>
             <h3>Victor 羽球拍保護半拍套 (內絨布)</h3>
             <p class="price">$60元</p>
-            <a href="{% url 'shopingcar' %}"class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
         
         <div class="product"data-id="7" data-name="VICTOR 球拍袋 羽球拍袋  1支裝" data-price="150">
@@ -173,7 +202,7 @@
             </a>
             <h3>VICTOR 球拍袋 羽球拍袋  1支裝</h3>
             <p class="price">$150元</p>
-            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
 
         <div class="product"data-id="8" data-name="VICTOR 運動毛巾 C-4159 F (1入)" data-price="200">
@@ -182,9 +211,9 @@
             </a>
             <h3>VICTOR 運動毛巾 C-4159 F (1入)</h3>
             <p class="price">$200元</p>
-            <a href="{% url 'shopingcar' %}" class="add-to-cart">加入購物車</a>
+            <a class="add-to-cart">加入購物車</a>
         </div>
-        <!-- Add more products similarly -->
+        
     </div>
     <div class="button-container">
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
@@ -200,18 +229,33 @@
             const id = product.getAttribute('data-id');
             const name = product.getAttribute('data-name');
             const price = parseInt(product.getAttribute('data-price'), 10);
-
-            // 從 localStorage 中獲取現有的購物車資料
+    
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            // 新增商品到購物車
             cart.push({ id, name, price });
-
-            // 儲存購物車到 localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
-
+    
+            const cartIcon = document.querySelector('.cart-icon');
+            const itemCount = document.getElementById('item-count');
+    
+            if (cart.length > 0) {
+                cartIcon.classList.add('has-items');
+                itemCount.textContent = cart.length;
+            } else {
+                cartIcon.classList.remove('has-items');
+                itemCount.textContent = 0;
+            }
+    
             alert(`${name} 已加入購物車!`);
         });
     });
+    
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartIcon = document.querySelector('.cart-icon'); 
+    if (cart.length > 0) {
+        cartIcon.classList.add('has-items');
+        document.getElementById('item-count').textContent = cart.length;
+    }
 </script>
+
 {% endblock %}
