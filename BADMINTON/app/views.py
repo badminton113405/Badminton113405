@@ -12,8 +12,8 @@ from django.contrib.auth.decorators import login_required
 from .models import DiscussionPost, DiscussionComment,Registration
 from .forms import DiscussionPostForm, DiscussionCommentForm
 from django.views import View
-
-
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_protect
 
 def home(request):
     return render(request, 'home.html')
@@ -349,3 +349,63 @@ def delete_post(request, post_id):
         return redirect('community')  
     
     return render(request, 'confirm_delete.html', {'post': post})
+
+# 定義老師屬性
+teachers = [
+    {"name": "a", "gender": "男生", "skills": ["發球與接發球", "單打四角拉吊"], "traits": ["有經驗", "理論基礎"]},
+    {"name": "b", "gender": "女生", "skills": ["雙打後場組織進攻", "發球與接發球"], "traits": ["有技術", "專業"]},
+    {"name": "c", "gender": "男生", "skills": ["單打四角拉吊", "其他"], "traits": ["有經驗", "專業", "嚴厲"]},
+    {"name": "d", "gender": "男生", "skills": ["發球與接發球", "雙打後場組織進攻"], "traits": ["多元", "有技術"]},
+    {"name": "e", "gender": "男生", "skills": ["單打四角拉吊", "發球與接發球"], "traits": ["有技術", "理論基礎", "專業"]},
+    {"name": "f", "gender": "女生", "skills": ["發球與接發球", "單打四角拉吊"], "traits": ["有經驗", "多元"]},
+    {"name": "g", "gender": "女生", "skills": ["雙打後場組織進攻", "其他"], "traits": ["專業", "嚴厲"]}
+]
+
+# 匹配度計算函數
+def calculate_match(teacher, preferences):
+    score = 0
+    
+    # 嚴格匹配性別，如果指定了性別且不符合，直接返回0分
+    if preferences["gender"] != "不指定" and teacher["gender"] != preferences["gender"]:
+        return 0
+    
+    # 比較技術特長
+    for skill in preferences["skills"]:
+        if skill in teacher["skills"]:
+            score += 2  # 技術匹配度給較高分
+    
+    # 比較教練特質
+    for trait in preferences["traits"]:
+        if trait in teacher["traits"]:
+            score += 1
+    
+    return score
+
+# 表單提交處理
+@csrf_protect
+def recommend_teacher(request):
+    if request.method == 'POST':
+        # 提取用戶提交的表單資料
+        user_preferences = {
+            "gender": request.POST.get("coachGender", "不指定"),  # 需要的教練性別
+            "skills": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
+            "traits": request.POST.getlist("coachTraits")  # 教練特質 (可能多選)
+        }
+        
+        # 計算每位老師的匹配度
+        teacher_scores = []
+        for teacher in teachers:
+            match_score = calculate_match(teacher, user_preferences)
+            teacher_scores.append((teacher["name"], match_score))
+        
+        # 根據匹配度進行排序
+        sorted_teachers = sorted(teacher_scores, key=lambda x: x[1], reverse=True)
+
+        # 返回推薦結果
+        recommended_teachers = [teacher for teacher, score in sorted_teachers if score > 0]
+
+        # 渲染推薦結果
+        return render(request, 'recommend_result.html', {'recommended_teachers': recommended_teachers})
+    
+    # 如果是 GET 請求，重定向到 course_Analysis_Registration.html
+    return redirect('course_Analysis_Registration')

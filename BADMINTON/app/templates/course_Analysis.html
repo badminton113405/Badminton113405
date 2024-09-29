@@ -9,7 +9,7 @@
 {% block content %}
 <div class="registration-form">
     <h1>分析/推薦</h1>
-    <form method="post">
+    <form method="post" action="{% url 'recommend_teacher' %}">
         {% csrf_token %}
         
         <!-- 填寫報名資料區 -->

@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from django.urls import path, re_path
 
 urlpatterns = [
     # 主頁
@@ -38,8 +37,8 @@ urlpatterns = [
     # 社群
     path('community/', views.community, name='community'),  
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
-    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),  # 新增的編輯路徑
-    path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),  # 新增的刪除路徑
+    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
+    path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
 
     # 商城與購物車
     path('mall/', views.mall, name='mall'),
@@ -57,9 +56,5 @@ urlpatterns = [
     path('course_Registration/', views.course_Registration, name='course_Registration'),
     path('course_Analysis/', views.course_Analysis, name='course_Analysis'),
     path('course_Analysis_Registration/', views.course_Analysis_Registration, name='course_Analysis_Registration'),
-
-    # 如果有使用類視圖的需求，可以解注釋以下代碼：
-    #path('register/', ReservationView.as_view(), name='register'),
-    #path('register_course/', CourseRegistrationView.as_view(), name='register_course'),
+    path('recommend/', views.recommend_teacher, name='recommend_teacher'),
 ]
-
