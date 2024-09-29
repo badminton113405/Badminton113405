@@ -1,13 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<style>
+.i-button {
+    font-family: "Zen Kurenaido", sans-serif;
+    border-radius: 16px;
+    color: #000;
+    background-color: #FFF279;
+}
+
+.i-button:hover {
+    font-family: "Zen Kurenaido", sans-serif;
+    border-radius: 16px;
+    color: #fff;
+    background-color: #777777;
+}
+</style>
   <div class="edit-post-form">
     <h1>編輯評論</h1>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">保存更正</button>
-      <a href="{% url 'community' %}">取消</a>
+      <div class="button-container">
+      <button class="i-button" type="submit">保存更正</button>
+      <a href="{% url 'community' %}"><button class="i-button">取消</button></a>
+      </div>
     </form>
   </div>
 {% endblock %}
