@@ -12,6 +12,7 @@ urlpatterns = [
     path('zerodozen/', views.zerodozen, name='zerodozen'),
     path('summer/', views.summer, name='summer'),
     path('winter/', views.winter, name='winter'),
+    path('elder/', views.elder, name='elder'),
 
     # 教練頁面
     path('ZZT/', views.ZZT, name='ZZT'),

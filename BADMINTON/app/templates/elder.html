@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>樂齡班</title>{% endblock %}
+{% block content %}
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .beginner {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 30px;
+        margin-left: 50px;
+        margin-right: 50px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .beginner h2 {
+        margin-top: 5;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FBFF36;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #ffff;
+        background-color: #777777;
+    }
+
+    .title {
+        display: flex;
+    }
+
+</style>
+
+<div class="beginner">
+    <div class="title">
+        <h1>樂齡班</h1>
+    </div>
+
+    <img src="{% static 'images/老人打球.jpg' %}" alt="樂齡班" class="class-img">
+
+    <div class="about">
+        <p>招生對象： 不限年齡</p>
+
+        <p>為樂齡族群提供一個輕鬆愉快的羽球學習環境。課程設計注重健康與社交，通過專業教練指導，幫助參與者提高羽球技術，增強體能。同時，樂齡班也鼓勵大家互相交流，建立友誼，提升生活質量。無論您是初學者還是有基礎的選手，樂齡班都歡迎您的參與！</p>
+
+        <h2>課程時段:</h2><br>
+            上午6:00-8:00<br>
+            下午3:00-5:00
+        
+        <p>課程費用：請自行洽詢教練報價，或者點擊上方聯絡我們</p>
+        <p>指導老師:胡玟翰 教練、張秉洋 教練</p>
+    </div>
+        
+    <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+</div>
+{% endblock %}

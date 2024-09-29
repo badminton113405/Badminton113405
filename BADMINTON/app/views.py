@@ -36,6 +36,9 @@ def summer(request):
 def winter(request):
     return render(request, 'winter.html')
 
+def elder(request):
+    return render(request, 'elder.html')
+
 def ZZT(request):
     return render(request, 'ZZT.html')
 
