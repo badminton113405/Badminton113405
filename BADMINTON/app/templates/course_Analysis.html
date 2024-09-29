@@ -109,7 +109,7 @@ input[type="checkbox"] {
 
         <!-- 學習經驗 -->
         <fieldset>
-            <legend>您有學習過羽球的經驗嗎?</legend>
+            <legend>您的羽球階級? <a href="https://2020badminton.blogspot.com/2021/06/blog-post_4.html" target="_blank">查看階級</a></legend>
             <div class="form-group">
                 <input type="number" name="grade" min="1" max="18" value="{{ form.grade.value }}" required>
             </div>
@@ -119,7 +119,6 @@ input[type="checkbox"] {
         <fieldset>
             <legend>您學習羽球的動機與目標</legend>
             <div class="form-group">
-                <label><input type="checkbox" name="motivation" value="興趣與趣" {% if '興趣與趣' in form.motivation.value %}checked{% endif %}> 興趣與趣</label>
                 <label><input type="checkbox" name="motivation" value="運動健身" {% if '運動健身' in form.motivation.value %}checked{% endif %}> 運動健身</label>
                 <label><input type="checkbox" name="motivation" value="提升技巧" {% if '提升技巧' in form.motivation.value %}checked{% endif %}> 提升技巧</label>
                 <label><input type="checkbox" name="motivation" value="參加比賽" {% if '參加比賽' in form.motivation.value %}checked{% endif %}> 參加比賽</label>
@@ -133,6 +132,7 @@ input[type="checkbox"] {
                 <label><input type="checkbox" name="techniques" value="發球與接發球" {% if '發球與接發球' in form.techniques.value %}checked{% endif %}> 發球與接發球</label>
                 <label><input type="checkbox" name="techniques" value="雙打後場組織進攻" {% if '雙打後場組織進攻' in form.techniques.value %}checked{% endif %}> 雙打後場組織進攻</label>
                 <label><input type="checkbox" name="techniques" value="單打四角拉吊" {% if '單打四角拉吊' in form.techniques.value %}checked{% endif %}> 單打四角拉吊</label>
+                <label><input type="checkbox" name="techniques" value="雙打輪轉" {% if '雙打輪轉' in form.techniques.value %}checked{% endif %}> 雙打輪轉</label>
                 <label><input type="checkbox" name="techniques" value="其他" {% if '其他' in form.techniques.value %}checked{% endif %}> 其他</label>
             </div>
         </fieldset>
@@ -141,9 +141,9 @@ input[type="checkbox"] {
         <fieldset>
             <legend>需要指定教練的性別嗎?</legend>
             <div class="form-group">
-                <label><input type="radio" name="coachGender" value="male" {% if form.coachGender.value == 'male' %}checked{% endif %}> 男生</label>
-                <label><input type="radio" name="coachGender" value="female" {% if form.coachGender.value == 'female' %}checked{% endif %}> 女生</label>
-                <label><input type="radio" name="coachGender" value="not-specified" {% if form.coachGender.value == 'not-specified' %}checked{% endif %}> 不指定</label>
+                <label><input type="radio" name="coachGender" value="男生" {% if form.coachGender.value == '男生' %}checked{% endif %}> 男生</label>
+                <label><input type="radio" name="coachGender" value="女生" {% if form.coachGender.value == '女生' %}checked{% endif %}> 女生</label>
+                <label><input type="radio" name="coachGender" value="不指定" {% if form.coachGender.value == '不指定' %}checked{% endif %}> 不指定</label>
             </div>
         </fieldset>
 
