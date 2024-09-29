@@ -324,31 +324,28 @@ def course_Registration(request):
 
     return render(request, 'course_Registration.html')
 
+
+#編輯評論
 @login_required
 def edit_post(request, post_id):
-    # 通过ID获取当前用户发布的帖子，如果不存在或不是作者则返回404
     post = get_object_or_404(DiscussionPost, id=post_id, author=request.user)
     
     if request.method == 'POST':
-        # 用户提交表单数据时，验证并保存更改
         form = DiscussionPostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('community')  # 保存成功后跳转到社群页面
+            return redirect('community')
     else:
-        # 显示当前帖子的内容用于编辑
         form = DiscussionPostForm(instance=post)
     
     return render(request, 'edit_post.html', {'form': form, 'post': post})
 
-
+#刪除評論
 @login_required
 def delete_post(request, post_id):
-    # 通过ID获取当前用户发布的帖子，如果不存在或不是作者则返回404
     post = get_object_or_404(DiscussionPost, id=post_id, author=request.user)
-    
     if request.method == 'POST':
         post.delete()
-        return redirect('community')  # 删除成功后跳转到社群页面
+        return redirect('community')  
     
     return render(request, 'confirm_delete.html', {'post': post})
