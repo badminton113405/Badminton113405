@@ -132,59 +132,44 @@
     }
   </style>
 
-  <div class="comment-board">
-    {% if user.is_authenticated %}
-      <h1>社群空間</h1>
-      <section class="comment-input">
-        <h2>討論區</h2>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button type="submit">發布</button>
-        </form>
-      </section>
+<div class="comment-board">
+  {% if user.is_authenticated %}
+    <h1>社群空間</h1>
+    <section class="comment-input">
+      <h2>討論區</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">發布</button>
+      </form>
+    </section>
 
-      <section class="comment-list">
-        {% for post in posts %}
-          <div class="comment-item">
-            <div class="comment-header">
-              <span>{{ post.author.username }}</span>
-              <span>{{ post.created_at }}</span>
-            </div>
-            <div class="comment-text">
-              <p>{{ post.content }}</p>
-            </div>
-            <div class="comment-footer">
-              <form method="post" action="{% url 'add_comment' post.id %}">
-                {% csrf_token %}
-                <textarea name="content" placeholder="評論..."></textarea>
-                <button type="submit">發送</button>
-              </form>
-            </div>
-            <div class="comment-replies">
-              {% for comment in post.comments.all %}
-                <div class="comment-reply">
-                  <span>{{ comment.author.username }}</span>
-                  <span>{{ comment.created_at }}</span>
-                  <p>{{ comment.content }}</p>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-        {% endfor %}
-      </section>
-    {% else %}
     <section class="comment-list">
       {% for post in posts %}
         <div class="comment-item">
           <div class="comment-header">
             <span>{{ post.author.username }}</span>
             <span>{{ post.created_at }}</span>
+            {% if post.author == user %}
+              <div>
+                <a href="{% url 'edit_post' post.id %}">編輯</a>
+                <form method="post" action="{% url 'delete_post' post.id %}" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" onclick="return confirm('確定要刪除嗎?')">刪除</button>
+                </form>
+              </div>
+            {% endif %}
           </div>
           <div class="comment-text">
             <p>{{ post.content }}</p>
           </div>
-          
+          <div class="comment-footer">
+            <form method="post" action="{% url 'add_comment' post.id %}">
+              {% csrf_token %}
+              <textarea name="content" placeholder="評論..."></textarea>
+              <button type="submit">發送</button>
+            </form>
+          </div>
           <div class="comment-replies">
             {% for comment in post.comments.all %}
               <div class="comment-reply">
@@ -197,6 +182,30 @@
         </div>
       {% endfor %}
     </section>
-    {% endif %}
-  </div>
+  {% else %}
+  <section class="comment-list">
+    {% for post in posts %}
+      <div class="comment-item">
+        <div class="comment-header">
+          <span>{{ post.author.username }}</span>
+          <span>{{ post.created_at }}</span>
+        </div>
+        <div class="comment-text">
+          <p>{{ post.content }}</p>
+        </div>
+        
+        <div class="comment-replies">
+          {% for comment in post.comments.all %}
+            <div class="comment-reply">
+              <span>{{ comment.author.username }}</span>
+              <span>{{ comment.created_at }}</span>
+              <p>{{ comment.content }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </section>
+  {% endif %}
+</div>
 {% endblock %}

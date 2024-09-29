@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="edit-post-form">
+    <h1>編輯評論</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">保存更正</button>
+      <a href="{% url 'community' %}">取消</a>
+    </form>
+  </div>
+{% endblock %}
