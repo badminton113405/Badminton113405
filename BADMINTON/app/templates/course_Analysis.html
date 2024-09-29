@@ -7,8 +7,77 @@
 {% endblock %}
 
 {% block content %}
+
+<style>
+.registration-form {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: "Zen Kurenaido", sans-serif;
+    color: #333;
+    padding: 20px;
+}
+
+.registration-form fieldset {
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.registration-form legend {
+    font-size: 18px;
+    padding: 0 10px;
+    color: #666;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    font-family: "Zen Kurenaido", sans-serif;
+    border-radius: 16px;
+    color: #000;
+    background-color: #FFF279;
+}
+
+.btn:hover {
+    font-family: "Zen Kurenaido", sans-serif;
+    border-radius: 16px;
+    color: #fff;
+    background-color: #777777;
+}
+</style>
+
 <div class="registration-form">
     <h1>分析/推薦</h1>
+    <h2>填寫資料</h2>
     <form method="post" action="{% url 'recommend_teacher' %}">
         {% csrf_token %}
         
@@ -93,7 +162,10 @@
 
 
 
-        <button type="submit">提交</button>
+        <div class="button-group">
+            <a href="{% url 'course_Analysis_Registration' %}"><button type="button" class="btn yellow-btn">返回</button></a>
+            <button type="submit" class="btn yellow-btn">查看結果</button>
+        </div>
     </form>
 </div>
 {% endblock %}
