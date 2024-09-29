@@ -354,13 +354,10 @@ def delete_post(request, post_id):
 
 # 定義老師屬性
 teachers = [
-    {"name": "a", "gender": "男生", "skills": ["發球與接發球", "單打四角拉吊"], "traits": ["有經驗", "理論基礎"]},
-    {"name": "b", "gender": "女生", "skills": ["雙打後場組織進攻", "發球與接發球"], "traits": ["有技術", "專業"]},
-    {"name": "c", "gender": "男生", "skills": ["單打四角拉吊", "其他"], "traits": ["有經驗", "專業", "嚴厲"]},
-    {"name": "d", "gender": "男生", "skills": ["發球與接發球", "雙打後場組織進攻"], "traits": ["多元", "有技術"]},
-    {"name": "e", "gender": "男生", "skills": ["單打四角拉吊", "發球與接發球"], "traits": ["有技術", "理論基礎", "專業"]},
-    {"name": "f", "gender": "女生", "skills": ["發球與接發球", "單打四角拉吊"], "traits": ["有經驗", "多元"]},
-    {"name": "g", "gender": "女生", "skills": ["雙打後場組織進攻", "其他"], "traits": ["專業", "嚴厲"]}
+    {"name": "蔡元振", "gender": "男生", "skills": ["單打四角拉吊"], "skills2": ["發球與接發球"],"incentives": ["運動健身"], "traits": ["有經驗", "理論基礎"]},
+    {"name": "周仲庭", "gender": "女生", "skills": ["雙打輪轉"],"skills2": ["單打四角拉吊","其他"],"incentives": ["運動健身"], "traits": ["有技術", "專業"]},
+    {"name": "張秉洋", "gender": "男生", "skills": ["雙打後場組織進攻"],"skills2": ["發球與接發球","其他"],"incentives": ["提升技巧"], "traits": ["有經驗", "專業", "嚴厲"]},
+    {"name": "胡玟翰", "gender": "男生", "skills": ["發球與接發球"],"skills2": ["雙打後場組織進攻"],"incentives": ["參加比賽"], "traits": ["多元", "有技術"]},
 ]
 
 # 匹配度計算函數
@@ -375,6 +372,16 @@ def calculate_match(teacher, preferences):
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
             score += 2  # 技術匹配度給較高分
+
+    # 比較技術特長2
+    for skill2 in preferences["skills2"]:
+        if skill2 in teacher["skills2"]:
+            score += 1  # 技術匹配度給較高分
+
+   # 比較報名動機
+    for incentive in preferences["incentives"]:
+        if incentive in teacher["incentives"]:
+            score += 3  # 依照不同動機給分
     
     # 比較教練特質
     for trait in preferences["traits"]:
@@ -389,8 +396,10 @@ def recommend_teacher(request):
     if request.method == 'POST':
         # 提取用戶提交的表單資料
         user_preferences = {
+            "incentives": request.POST.get("motivation"),  #動機
             "gender": request.POST.get("coachGender", "不指定"),  # 需要的教練性別
             "skills": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
+            "skills2": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
             "traits": request.POST.getlist("coachTraits")  # 教練特質 (可能多選)
         }
         
@@ -404,7 +413,9 @@ def recommend_teacher(request):
         sorted_teachers = sorted(teacher_scores, key=lambda x: x[1], reverse=True)
 
         # 返回推薦結果
-        recommended_teachers = [teacher for teacher, score in sorted_teachers if score > 0]
+        recommended_teachers = [(teacher,score) for teacher, score in sorted_teachers if score > 0]
+        for teacher, score in teacher_scores:
+            print(f"{teacher}: {score}")
 
         # 渲染推薦結果
         return render(request, 'recommend_result.html', {'recommended_teachers': recommended_teachers})
