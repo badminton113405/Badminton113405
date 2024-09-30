@@ -101,6 +101,10 @@ input[type="checkbox"] {
                 </select>
             </div>
             <div class="form-group">
+                <label for="birthday">生日</label>
+                <input type="date" id="birthday" name="birthday" value="{{ form.birthday.value }}" required>
+            </div>
+            <div class="form-group">
                 <label for="phone">聯絡電話</label>
                 <input type="text" id="phone" name="phone" value="{{ form.phone.value }}" required>
             </div>

@@ -466,16 +466,17 @@ def calculate_match(teacher, preferences):
     
     return score
 
-# 表單提交處理
 @csrf_protect
 def recommend_teacher(request):
     if request.method == 'POST':
         # 提取用戶提交的表單資料
         user_preferences = {
-            "incentives": request.POST.get("motivation"),  #動機
+            "name": request.POST.get("name"),  # 姓名
+            "birthday": request.POST.get("birthday"),  # 生日
+            "incentives": request.POST.getlist("motivation"),  # 動機
             "gender": request.POST.get("coachGender", "不指定"),  # 需要的教練性別
             "skills": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
-            "skills2": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
+            # 合併處理，只使用 "skills" 而不再單獨定義 "skills2"
             "traits": request.POST.getlist("coachTraits")  # 教練特質 (可能多選)
         }
         
@@ -489,7 +490,7 @@ def recommend_teacher(request):
         sorted_teachers = sorted(teacher_scores, key=lambda x: x[1], reverse=True)
 
         # 返回推薦結果
-        recommended_teachers = [(teacher,score) for teacher, score in sorted_teachers if score > 0]
+        recommended_teachers = [(teacher, score) for teacher, score in sorted_teachers if score > 0]
         for teacher, score in teacher_scores:
             print(f"{teacher}: {score}")
 
@@ -498,3 +499,28 @@ def recommend_teacher(request):
     
     # 如果是 GET 請求，重定向到 course_Analysis_Registration.html
     return redirect('course_Analysis_Registration')
+
+# calculate_match 函數
+def calculate_match(teacher, preferences):
+    score = 0
+    
+    # 嚴格匹配性別
+    if preferences["gender"] != "不指定" and teacher["gender"] != preferences["gender"]:
+        return 0
+    
+    # 比較技術特長
+    for skill in preferences["skills"]:
+        if skill in teacher["skills"]:
+            score += 2  # 技術匹配度給較高分
+
+    # 比較報名動機
+    for incentive in preferences["incentives"]:
+        if incentive in teacher["incentives"]:
+            score += 3  # 依照不同動機給分
+    
+    # 比較教練特質
+    for trait in preferences["traits"]:
+        if trait in teacher["traits"]:
+            score += 1
+    
+    return score
