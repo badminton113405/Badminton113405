@@ -57,4 +57,5 @@ urlpatterns = [
     path('course_Analysis/', views.course_Analysis, name='course_Analysis'),
     path('course_Analysis_Registration/', views.course_Analysis_Registration, name='course_Analysis_Registration'),
     path('recommend/', views.recommend_teacher, name='recommend_teacher'),
+    path('course_result/', views.course_result, name='course_result'),
 ]

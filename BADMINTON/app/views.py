@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -9,15 +8,59 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
-from .models import DiscussionPost, DiscussionComment,Registration
+from .models import DiscussionPost, DiscussionComment, Registration
 from .forms import DiscussionPostForm, DiscussionCommentForm
 from django.views import View
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 
+# 已有的視圖
 def home(request):
     return render(request, 'home.html')
 
+# 新的 course_result 函數
+@csrf_protect
+def course_result(request):
+    if request.method == 'POST':
+        # 获取提交的数据
+        name = request.POST.get('name')
+        gender = request.POST.get('gender')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        birthday = request.POST.get('birthday')
+        selected_courses_list = request.POST.getlist('courseType')
+
+        # 计算总费用
+        total_cost = calculate_total_cost(selected_courses_list)
+
+        # 确保数据传递到模板
+        context = {
+            'name': name,
+            'gender': gender,
+            'phone': phone,
+            'email': email,
+            'birthday': birthday,
+            'selected_courses': selected_courses_list,
+            'total_cost': total_cost
+        }
+        return render(request, 'course_result.html', context)
+    return redirect('course_Registration')
+
+
+# 计算课程总费用
+def calculate_total_cost(courses):
+    prices = {
+        '初階班': 4000,
+        '競技班': 4000,
+        '擊打班': 350,
+        '個別班': 0
+    }
+    total = 0
+    for course in courses:
+        total += prices.get(course, 0)
+    return total
+
+# 其他視圖函數
 def beginner(request):
     return render(request, 'beginner.html')
 
@@ -92,11 +135,6 @@ def product08(request):
 
 def course_Analysis_Registration(request):
     return render(request, 'course_Analysis_Registration.html')
-
-'''
-def course_Registration(request):
-    return render(request, 'course_Registration.html')
-'''
 
 def course_Analysis(request):
     return render(request, 'course_Analysis.html')

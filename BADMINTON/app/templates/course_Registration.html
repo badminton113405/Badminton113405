@@ -7,6 +7,7 @@
 
 {% block content %}
   <style>
+
     .registration-form {
       font-family: 'Zen Kurenaido', sans-serif;
       margin: 0;
@@ -57,6 +58,29 @@
     <h1>報名課程</h1>
     <form method="post">
       {% csrf_token %}
+
+      <!-- 填寫個人資料 -->
+      <div class="section">
+        <h3>填寫個人資料</h3>
+        <label for="name">姓名：</label>
+        <input type="text" name="name" id="name" required>
+    
+        <label for="gender">性別：</label>
+        <select name="gender" id="gender" required>
+            <option value="男">男</option>
+            <option value="女">女</option>
+            <option value="其他">其他</option>
+        </select>
+    
+        <label for="phone">電話：</label>
+        <input type="tel" name="phone" id="phone" required>
+    
+        <label for="email">Email：</label>
+        <input type="email" name="email" id="email" required>
+    
+        <label for="birthday">生日：</label>
+        <input type="date" name="birthday" id="birthday" required>
+      </div>
 
       <!-- 想參與的課程類型 -->
       <div class="section">
