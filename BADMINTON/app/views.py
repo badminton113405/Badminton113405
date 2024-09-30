@@ -172,6 +172,13 @@ def course_Analysis(request):
 
 def member_center(request):
     return render(request, 'member_center.html')
+
+def payment(request):
+    return render(request, 'payment.html')
+
+def registration_history(request):
+    registrations = CourseRegistration.objects.filter(user=request.user)
+    return render(request, 'history.html')
 #----------------------------------------------------------
 # app/views.py
 from django.shortcuts import render, redirect
@@ -180,6 +187,33 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserLoginForm, UserProfileForm, MemberCenterForm
 from django.contrib import messages
 from django.http import JsonResponse
+
+
+from django.shortcuts import render, redirect
+from .models import CourseRegistration
+
+def course_registration(request):
+    if request.method == 'POST':
+        # 獲取表單資料
+        course_type = request.POST.get('courseType')
+        sub_course_type = request.POST.get('subCourseType')
+        cost = calculate_total_cost(course_type)  # 你可以寫一個函數來計算課程費用
+
+        # 儲存課程報名紀錄
+        CourseRegistration.objects.create(
+            user=request.user,
+            course_type=course_type,
+            sub_course_type=sub_course_type,
+            cost=cost
+        )
+        return redirect('course_result')  # 重定向到結果頁面
+    return render(request, 'course_Registration.html')
+
+#def registration_history(request):
+    registrations = CourseRegistration.objects.filter(user=request.user)
+    return render(request, 'history.html', {'registrations': registrations})
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -524,3 +558,6 @@ def calculate_match(teacher, preferences):
             score += 1
     
     return score
+
+
+

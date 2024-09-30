@@ -6,6 +6,7 @@
 
 {% block content %}
 <div class="course-result">
+
     <h1>報名成功</h1>
 
     <!-- 顯示個人資訊 -->
@@ -35,8 +36,7 @@
 
     <!-- 支付選項 -->
     <button class="nav-button" id="bank-transfer-button">銀行轉帳</button>
-
-    <a href="{% url 'course_Analysis_Registration' %}"><button class="nav-button">現金</button></a>
+    <button class="nav-button" id="cash-payment-button">現金</button>
 </div>
 
 <!-- Modal for Bank Transfer -->
@@ -45,10 +45,24 @@
         <span class="close-button" id="close-button">&times;</span>
         <h2>銀行轉帳資訊</h2>
         <p>請將費用轉帳至以下賬戶：</p>
-        <p><strong>銀行名稱：</strong>某某銀行</p>
-        <p><strong>賬戶名稱：</strong>某某有限公司</p>
-        <p><strong>賬戶號碼：</strong>123456789012</p>
+        <p><strong>銀行名稱：</strong>合作金庫</p>
+        <p><strong>賬戶名稱：</strong>蔡元振</p>
+        <p><strong>賬戶號碼：</strong>0400765166568</p>
         <p><strong>轉帳金額：</strong>{{ total_cost }} 元</p>
+        <p>完成後請點擊關閉按鈕。</p>
+    </div>
+</div>
+
+<!-- Modal for Cash Payment -->
+<div id="cashPaymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-button-cash">&times;</span>
+        <h2>現金付款資訊</h2>
+        <p>請於一周內至現場付款。</p>
+        <p><strong>付款人姓名：</strong>{{ name }}</p>
+        <p><strong>付款人電話：</strong>{{ phone }}</p>
+        <p><strong>商品總金額：</strong>{{ total_cost }} 元</p>
+        <p><strong>地點：</strong>羽你同行羽球館</p>
         <p>完成後請點擊關閉按鈕。</p>
     </div>
 </div>
@@ -94,20 +108,38 @@
 
 <script>
     const bankTransferButton = document.getElementById('bank-transfer-button');
-    const modal = document.getElementById('bankTransferModal');
-    const closeButton = document.getElementById('close-button');
+    const cashPaymentButton = document.getElementById('cash-payment-button');
+    const bankModal = document.getElementById('bankTransferModal');
+    const cashModal = document.getElementById('cashPaymentModal');
+    const closeButtonBank = document.getElementById('close-button');
+    const closeButtonCash = document.getElementById('close-button-cash');
 
+    // Show bank transfer modal
     bankTransferButton.onclick = function() {
-        modal.style.display = 'block';
+        bankModal.style.display = 'block';
     }
 
-    closeButton.onclick = function() {
-        modal.style.display = 'none';
+    // Show cash payment modal
+    cashPaymentButton.onclick = function() {
+        cashModal.style.display = 'block';
     }
 
+    // Close bank modal
+    closeButtonBank.onclick = function() {
+        bankModal.style.display = 'none';
+    }
+
+    // Close cash modal
+    closeButtonCash.onclick = function() {
+        cashModal.style.display = 'none';
+    }
+
+    // Close modals when clicking outside of them
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
+        if (event.target == bankModal) {
+            bankModal.style.display = 'none';
+        } else if (event.target == cashModal) {
+            cashModal.style.display = 'none';
         }
     }
 </script>
