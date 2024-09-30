@@ -12,17 +12,17 @@
       .g-header-container.fixed {
         padding: 5px;
       }
-    
+
       .g-footer-container {
         padding: 5px;
       }
-    
+
       .m-button {
         margin-right: 5px;
         font-size: 12px;
       }
     }
-    
+
     .Login {
       font-family: 'Zen Kurenaido', sans-serif;
       margin-top: 30px;
@@ -32,32 +32,32 @@
       justify-content: center;
       flex-direction: column;
     }
-    
+
     .container {
       margin-top: 50px;
     }
-    
+
     .title {
       font-weight: bold;
       font-size: 24px;
       margin-bottom: 20px;
     }
-    
+
     .description {
       font-size: 16px;
       margin-bottom: 30px;
       line-height: 1.6;
     }
-    
+
     .input-group {
       margin-bottom: 15px;
     }
-    
+
     .input-group label {
       display: block;
       margin-bottom: 5px;
     }
-    
+
     .input-group input {
       width: 80%;
       padding: 10px;
@@ -66,13 +66,13 @@
       border-radius: 5px;
       margin: 0 auto;
     }
-    
+
     .button-group {
       margin-top: 20px;
       display: flex;
       justify-content: center;
     }
-    
+
     .button-group button {
       font-family: 'Zen Kurenaido', sans-serif;
       border: none;
@@ -84,41 +84,56 @@
       color: #000;
       background-color: #ffecd5;
     }
-    
+
     .button-group button:hover {
       background-color: #fde0a6;
     }
-    
+
     .primary {
       background-color: #ffecd5;
     }
-    
+
     .button-group .success {
       background-color: #a8e6cf;
     }
-    
+
     .button-group .confirm {
       background-color: #ffecd5;
     }
-    
+
     .forgot-password {
       margin-top: 10px;
       text-align: center;
     }
-    
+
     .forgot-password a {
       color: #007bff;
       text-decoration: none;
     }
-    
+
     .forgot-password a:hover {
       text-decoration: underline;
+    }
+
+    .errorlist {
+      color: red;
+      margin-bottom: 20px;
     }
   </style>
 
   <div class="Login">
     <div class="container">
       <div class="title">會員中心</div>
+
+      <!-- 顯示錯誤訊息 -->
+      {% if messages %}
+        <div class="errorlist">
+          {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <div class="input-group">

@@ -95,6 +95,9 @@ def summer(request):
 def winter(request):
     return render(request, 'winter.html')
 
+def elder(request):
+    return render(request, 'elder.html')
+
 def ZZT(request):
     return render(request, 'ZZT.html')
 
@@ -149,6 +152,18 @@ def product07(request):
 def product08(request):
     return render(request, 'product08.html')
 
+def product09(request):
+    return render(request, 'product09.html')
+
+def product10(request):
+    return render(request, 'product10.html')
+
+def product11(request):
+    return render(request, 'product11.html')
+
+def product12(request):
+    return render(request, 'product12.html')
+
 def course_Analysis_Registration(request):
     return render(request, 'course_Analysis_Registration.html')
 
@@ -195,7 +210,7 @@ def user_login(request):
                 messages.success(request, '登入成功！')
                 return redirect('member_center')
             else:
-                form.add_error(None, 'Invalid username or password')
+                messages.error(request, '帳號或密碼不正確，請再試一次。')
     else:
         form = UserLoginForm()
     return render(request, 'login.html', {'form': form})
