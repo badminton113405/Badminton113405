@@ -204,15 +204,22 @@ def user_login(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, '登入成功！')
-                return redirect('member_center')
+
+            # 檢查使用者名稱是否存在
+            if not User.objects.filter(username=username).exists():
+                messages.error(request, '此帳號尚未註冊，請先註冊。')
             else:
-                messages.error(request, '帳號或密碼不正確，請再試一次。')
+                # 嘗試驗證帳號和密碼
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, '登入成功！')
+                    return redirect('member_center')
+                else:
+                    messages.error(request, '帳號或密碼不正確，請再試一次。')
     else:
         form = UserLoginForm()
+    
     return render(request, 'login.html', {'form': form})
 
 @login_required
