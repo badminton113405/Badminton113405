@@ -9,7 +9,6 @@
     <h1>報名成功</h1>
 
     <!-- 顯示個人資訊 -->
-    <h3>個人資訊</h3>
     <ul>
         <li><strong>姓名：</strong> {{ name }}</li>
         <li><strong>性別：</strong> {{ gender }}</li>
@@ -17,7 +16,7 @@
         <li><strong>Email：</strong> {{ email }}</li>
         <li><strong>生日：</strong> {{ birthday }}</li>
     </ul>
-
+    
     <!-- 顯示選擇的課程 -->
     <h3>選擇的課程</h3>
     <ul>
@@ -26,7 +25,12 @@
         {% endfor %}
     </ul>
 
-    <!-- 顯示總費用 -->
+    <ul>
+        {% for sub_course in selected_sub_courses %}
+            <li>{{ sub_course }}</li>
+        {% endfor %}
+    </ul>
+    
     <p>課程費用：<strong>{{ total_cost }}</strong> 元</p>
 
     <!-- 支付選項 -->

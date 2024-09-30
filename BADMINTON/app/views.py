@@ -22,43 +22,59 @@ def home(request):
 @csrf_protect
 def course_result(request):
     if request.method == 'POST':
-        # 获取提交的数据
+        # 获取个人信息
         name = request.POST.get('name')
         gender = request.POST.get('gender')
         phone = request.POST.get('phone')
         email = request.POST.get('email')
         birthday = request.POST.get('birthday')
-        selected_courses_list = request.POST.getlist('courseType')
+        
+        # 获取课程类型和子课程类型
+        selected_courses = request.POST.getlist('courseType')  # 获取多个课程类型
+        selected_sub_courses = request.POST.getlist('subCourseType')  # 获取多个子课程类型
 
         # 计算总费用
-        total_cost = calculate_total_cost(selected_courses_list)
+        total_cost = calculate_total_cost(selected_sub_courses)
 
-        # 确保数据传递到模板
+        # 将数据传递给模板
         context = {
             'name': name,
             'gender': gender,
             'phone': phone,
             'email': email,
             'birthday': birthday,
-            'selected_courses': selected_courses_list,
+            'selected_courses': selected_courses,
+            'selected_sub_courses': selected_sub_courses,
             'total_cost': total_cost
         }
         return render(request, 'course_result.html', context)
-    return redirect('course_Registration')
+    
+    return render(request, 'course_Registration.html')
 
 
-# 计算课程总费用
-def calculate_total_cost(courses):
+# 费用计算函数
+def calculate_total_cost(sub_courses):
+    # 假设每个课程有不同的价格
     prices = {
-        '初階班': 4000,
-        '競技班': 4000,
-        '擊打班': 350,
-        '個別班': 0
+        '兒童初階班(每週二14:00 - 15:30)': 4000,
+        '兒童初階班(每週二15:30 - 17:00)': 4000,
+        '成人初階班(每週一14:00 - 16:00)': 4000,
+        '成人初階班(每週一16:00 - 18:00)': 4000,
+        '一般競技班(每週二14:00 - 16:00)': 4000,
+        '一般競技班(每週四16:00 - 18:00)': 4000,
+        '進階競技班(每週四14:00 - 16:00)': 4000,
+        '進階競技班(每週四16:00 - 18:00)': 4000,
+        '基礎擊打班(每週五19:00 - 22:00)': 350,
+        '基礎擊打班(每週六19:00 - 22:00)': 350,
+        '進階擊打班(每週五19:00 - 22:00)': 350,
+        '進階擊打班(每週六19:00 - 22:00)': 350
     }
+    
     total = 0
-    for course in courses:
+    for course in sub_courses:
         total += prices.get(course, 0)
     return total
+
 
 # 其他視圖函數
 def beginner(request):
