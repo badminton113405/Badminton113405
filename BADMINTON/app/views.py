@@ -210,7 +210,7 @@ def user_login(request):
                 messages.success(request, '登入成功！')
                 return redirect('member_center')
             else:
-                form.add_error(None, 'Invalid username or password')
+                messages.error(request, '帳號或密碼不正確，請再試一次。')
     else:
         form = UserLoginForm()
     return render(request, 'login.html', {'form': form})
