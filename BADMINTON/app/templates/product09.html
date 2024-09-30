@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>商城中心</title>{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .mall {
+        text-align: center;
+    }
+    
+    .card {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 310px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }    
+
+    .title{
+        text-align: center;
+   }
+    .cart-icon {
+        position: absolute;
+        top: 11%;
+        right: 20px;
+        transform: translateY(-50%);
+        font-size: 24px;
+    }
+    
+    .product {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 25px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        max-width: 350px;
+    }
+
+    .container img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .name {
+        font-size: 24px;
+        margin: 10px 0;
+        color: #333;
+    }
+
+    .price {
+        font-size: 22px;
+         color: #333;
+        margin: 10px 0;
+    }
+
+    .shopcar {
+        font-family: "Zen Kurenaido", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background-color: #000;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .description {
+        margin-top: 20px;
+        font-size: 18px;
+        color: #666;
+        line-height: 1.6;
+    }
+
+    .product img {
+        border-radius: 5pt;
+        object-fit: cover;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FFF279;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #fff;
+        background-color: #777777;
+        }
+    .button-container{
+        text-align: center;
+    }
+</style>
+
+<div class="mall">
+    <div class="title">
+        <h1>商城</h1>
+    </div>
+<div class="card">
+    <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
+    <div class="container">
+        <div class="product"data-id="9" data-name="Bauerfeind 保爾範 GenuTrain 第八代基本款護膝" data-price="2980">
+            <img src="{% static 'images/09.jpg' %}" alt="Bauerfeind 保爾範 GenuTrain 第八代基本款護膝">
+            <a href="{% url 'product09' %}"></a>
+            <div class="name">
+                Bauerfeind 保爾範 GenuTrain 第八代基本款護膝
+            </div>
+            <div class="price">
+                $ 2980 元
+            </div>
+            <button class="shopcar">加入購物車</button>
+            <div class="description">
+                ※ 創新 Ω 矽膠墊，髕骨軟骨處增加多個按摩點。<br>
+                ※ 兩側齒型支撐條更柔軟有韌性，不易斷裂、變形，耐用性更強，並增加小腿處輔助穿脫環。<br>
+                ※ 新型材質更輕薄、更透氣，比前一代輕量化 19%，透氣性增加 28%。<br>
+                ※ 微調人體工學受力點，布料更加服貼、立體，功能與時尚兼具的新一代護膝。<br>
+                ※ 膕窩特殊開孔，柔軟、舒適、透氣。<br>
+                ※ 商品為一入裝
+                
+                
+            </div>
+        </div>    
+    </div>
+</div>    
+    <div class="button-container">
+        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+        <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
+    </div>
+    </div>
+</div>
+
+<script>
+    const addToCartButtons = document.querySelectorAll('.shopcar');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const product = button.parentElement;
+            const id = product.getAttribute('data-id');
+            const name = product.getAttribute('data-name');
+            const price = parseInt(product.getAttribute('data-price'), 10);
+
+            // 從 localStorage 中獲取現有的購物車資料
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // 新增商品到購物車
+            cart.push({ id, name, price });
+
+            // 儲存購物車到 localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`${name} 已加入購物車!`);
+        });
+    });
+</script>
+{% endblock %}

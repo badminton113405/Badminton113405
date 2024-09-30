@@ -52,6 +52,10 @@ urlpatterns = [
     path('product06/', views.product06, name='product06'),
     path('product07/', views.product07, name='product07'),
     path('product08/', views.product08, name='product08'),
+    path('product09/', views.product09, name='product09'),
+    path('product10/', views.product10, name='product10'),
+    path('product11/', views.product11, name='product11'),
+    path('product12/', views.product12, name='product12'),
 
     # 課程報名與分析
     path('course_Registration/', views.course_Registration, name='course_Registration'),

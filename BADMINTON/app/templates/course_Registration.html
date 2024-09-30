@@ -146,7 +146,6 @@
       subOptions.classList.toggle('hidden');
     }
 
-    // 提交表单时，确保所有选中的子选项都包括在提交中
     document.querySelector('form').onsubmit = function() {
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
       checkboxes.forEach(function(checkbox) {

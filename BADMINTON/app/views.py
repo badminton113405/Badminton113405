@@ -152,6 +152,18 @@ def product07(request):
 def product08(request):
     return render(request, 'product08.html')
 
+def product09(request):
+    return render(request, 'product09.html')
+
+def product10(request):
+    return render(request, 'product10.html')
+
+def product11(request):
+    return render(request, 'product11.html')
+
+def product12(request):
+    return render(request, 'product12.html')
+
 def course_Analysis_Registration(request):
     return render(request, 'course_Analysis_Registration.html')
 
