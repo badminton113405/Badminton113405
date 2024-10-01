@@ -416,23 +416,35 @@ COURSE_PRICES = {
     '基礎擊打班(每週六19:00 - 22:00)': 350,
     '進階擊打班(每週五19:00 - 22:00)': 350,
     '進階擊打班(每週六19:00 - 22:00)': 350,
-    '個別班': 0  
+    '個別班': 0,
+    '樂齡班': 3900,
 }
 
 @csrf_protect
 def course_Registration(request):
     if request.method == 'POST':
+        # 獲取選擇的課程類型和子課程類型
         selected_courses = request.POST.getlist('subCourseType') 
         course_type = request.POST.getlist('courseType')
         total_cost = 0
 
+        # 計算子課程的總費用
         for course in selected_courses:
             total_cost += COURSE_PRICES.get(course, 0)
 
+        # 處理「個別班」和「樂齡班」等直接選擇的課程
         if '個別班' in course_type:
             total_cost += COURSE_PRICES.get('個別班', 0)
 
-        return render(request, 'course_result.html', {'total_cost': total_cost, 'selected_courses': selected_courses})
+        if '樂齡班' in course_type:
+            total_cost += COURSE_PRICES.get('樂齡班', 0)
+
+        # 返回結果頁面，顯示總費用和選擇的課程
+        return render(request, 'course_result.html', {
+            'total_cost': total_cost,
+            'selected_courses': selected_courses,
+            'course_type': course_type,
+        })
 
     return render(request, 'course_Registration.html')
 

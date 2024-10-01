@@ -25,6 +25,15 @@
             <li>{{ course }}</li>
         {% endfor %}
     </ul>
+    
+    <ul>
+        {% for course in course_type %}
+            {% if course == "樂齡班" or course == "個別班" %}
+                <li>{{ course }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    
 
     <ul>
         {% for sub_course in selected_sub_courses %}
@@ -33,6 +42,7 @@
     </ul>
     
     <p>課程費用：<strong>{{ total_cost }}</strong> 元</p>
+
 
     <!-- 支付選項 -->
     <button class="nav-button" id="bank-transfer-button">銀行轉帳</button>
