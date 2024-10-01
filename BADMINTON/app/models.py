@@ -10,9 +10,6 @@ class CourseRegistration(models.Model):
     registration_date = models.DateField(auto_now_add=True)
     cost = models.DecimalField(max_digits=6, decimal_places=2)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.course_type} ({self.registration_date})"
-
 # app/models.py
 
 class UserManager(BaseUserManager):
