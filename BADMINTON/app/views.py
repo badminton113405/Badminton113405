@@ -19,61 +19,11 @@ def home(request):
     return render(request, 'home.html')
 
 # 新的 course_result 函數
-@csrf_protect
-def course_result(request):
-    if request.method == 'POST':
-        # 获取个人信息
-        name = request.POST.get('name')
-        gender = request.POST.get('gender')
-        phone = request.POST.get('phone')
-        email = request.POST.get('email')
-        birthday = request.POST.get('birthday')
-        
-        # 获取课程类型和子课程类型
-        selected_courses = request.POST.getlist('courseType')  # 获取多个课程类型
-        selected_sub_courses = request.POST.getlist('subCourseType')  # 获取多个子课程类型
 
-        # 计算总费用
-        total_cost = calculate_total_cost(selected_sub_courses)
-
-        # 将数据传递给模板
-        context = {
-            'name': name,
-            'gender': gender,
-            'phone': phone,
-            'email': email,
-            'birthday': birthday,
-            'selected_courses': selected_courses,
-            'selected_sub_courses': selected_sub_courses,
-            'total_cost': total_cost
-        }
-        return render(request, 'course_result.html', context)
-    
-    return render(request, 'course_Registration.html')
 
 
 # 费用计算函数
-def calculate_total_cost(sub_courses):
-    # 假设每个课程有不同的价格
-    prices = {
-        '兒童初階班(每週二14:00 - 15:30)': 4000,
-        '兒童初階班(每週二15:30 - 17:00)': 4000,
-        '成人初階班(每週一14:00 - 16:00)': 4000,
-        '成人初階班(每週一16:00 - 18:00)': 4000,
-        '一般競技班(每週二14:00 - 16:00)': 4000,
-        '一般競技班(每週四16:00 - 18:00)': 4000,
-        '進階競技班(每週四14:00 - 16:00)': 4000,
-        '進階競技班(每週四16:00 - 18:00)': 4000,
-        '基礎擊打班(每週五19:00 - 22:00)': 350,
-        '基礎擊打班(每週六19:00 - 22:00)': 350,
-        '進階擊打班(每週五19:00 - 22:00)': 350,
-        '進階擊打班(每週六19:00 - 22:00)': 350
-    }
-    
-    total = 0
-    for course in sub_courses:
-        total += prices.get(course, 0)
-    return total
+
 
 
 # 其他視圖函數
@@ -192,24 +142,9 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import CourseRegistration
 
-def course_registration(request):
-    if request.method == 'POST':
-        # 獲取表單資料
-        course_type = request.POST.get('courseType')
-        sub_course_type = request.POST.get('subCourseType')
-        cost = calculate_total_cost(course_type)  # 你可以寫一個函數來計算課程費用
 
-        # 儲存課程報名紀錄
-        CourseRegistration.objects.create(
-            user=request.user,
-            course_type=course_type,
-            sub_course_type=sub_course_type,
-            cost=cost
-        )
-        return redirect('course_result')  # 重定向到結果頁面
-    return render(request, 'course_Registration.html')
 
-#def registration_history(request):
+def registration_history(request):
     registrations = CourseRegistration.objects.filter(user=request.user)
     return render(request, 'history.html', {'registrations': registrations})
 
@@ -399,54 +334,7 @@ class CourseRegistrationView(View):
         """
 
 
-             
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_protect
 
-COURSE_PRICES = {
-    '兒童初階班(每週二14:00 - 15:30)': 4000,
-    '兒童初階班(每週二15:30 - 17:00)': 4000,
-    '成人初階班(每週一14:00 - 16:00)': 4000,
-    '成人初階班(每週一16:00 - 18:00)': 4000,
-    '一般競技班(每週二14:00 - 16:00)': 4000,
-    '一般競技班(每週四16:00 - 18:00)': 4000,
-    '進階競技班(每週四14:00 - 16:00)': 4000,
-    '進階競技班(每週四16:00 - 18:00)': 4000,
-    '基礎擊打班(每週五19:00 - 22:00)': 350,
-    '基礎擊打班(每週六19:00 - 22:00)': 350,
-    '進階擊打班(每週五19:00 - 22:00)': 350,
-    '進階擊打班(每週六19:00 - 22:00)': 350,
-    '個別班': 0,
-    '樂齡班': 3900,
-}
-
-@csrf_protect
-def course_Registration(request):
-    if request.method == 'POST':
-        # 獲取選擇的課程類型和子課程類型
-        selected_courses = request.POST.getlist('subCourseType') 
-        course_type = request.POST.getlist('courseType')
-        total_cost = 0
-
-        # 計算子課程的總費用
-        for course in selected_courses:
-            total_cost += COURSE_PRICES.get(course, 0)
-
-        # 處理「個別班」和「樂齡班」等直接選擇的課程
-        if '個別班' in course_type:
-            total_cost += COURSE_PRICES.get('個別班', 0)
-
-        if '樂齡班' in course_type:
-            total_cost += COURSE_PRICES.get('樂齡班', 0)
-
-        # 返回結果頁面，顯示總費用和選擇的課程
-        return render(request, 'course_result.html', {
-            'total_cost': total_cost,
-            'selected_courses': selected_courses,
-            'course_type': course_type,
-        })
-
-    return render(request, 'course_Registration.html')
 
 
 #編輯評論
@@ -573,3 +461,102 @@ def calculate_match(teacher, preferences):
 
 
 
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
+
+COURSE_PRICES = {
+    '兒童初階班(每週二14:00 - 15:30)': 4000,
+    '兒童初階班(每週二15:30 - 17:00)': 4000,
+    '成人初階班(每週一14:00 - 16:00)': 4000,
+    '成人初階班(每週一16:00 - 18:00)': 4000,
+    '一般競技班(每週二14:00 - 16:00)': 4000,
+    '一般競技班(每週四16:00 - 18:00)': 4000,
+    '進階競技班(每週四14:00 - 16:00)': 4000,
+    '進階競技班(每週四16:00 - 18:00)': 4000,
+    '基礎擊打班(每週五19:00 - 22:00)': 350,
+    '基礎擊打班(每週六19:00 - 22:00)': 350,
+    '進階擊打班(每週五19:00 - 22:00)': 350,
+    '進階擊打班(每週六19:00 - 22:00)': 350,
+    '個別班': 0  
+}
+
+@csrf_protect
+def course_Registration(request):
+    if request.method == 'POST':
+        selected_courses = request.POST.getlist('subCourseType') 
+        course_type = request.POST.getlist('courseType')
+        total_cost = 0
+
+        for course in selected_courses:
+            total_cost += COURSE_PRICES.get(course, 0)
+
+        if '個別班' in course_type:
+            total_cost += 0  
+
+        if '樂齡班' in course_type:
+            total_cost += 3900
+        
+        return render(request, 'course_result.html', {
+            'total_cost': total_cost, 
+            'selected_courses': selected_courses, 
+            'course_type': course_type
+        })
+
+    return render(request, 'course_Registration.html')
+
+
+@csrf_protect
+def course_result(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        gender = request.POST.get('gender')
+        phone = request.POST.get('phone')
+        email = request.POST.get('email')
+        birthday = request.POST.get('birthday')
+        
+        selected_courses = request.POST.getlist('subCourseType') 
+        selected_sub_courses = request.POST.getlist('subCourseType') 
+        course_type = request.POST.getlist('courseType')
+
+        
+        total_cost = 0
+        total_cost += calculate_total_cost(selected_sub_courses)
+        if '樂齡班' in course_type:
+            total_cost += 3900
+        
+        context = {
+            'name': name,
+            'gender': gender,
+            'phone': phone,
+            'email': email,
+            'birthday': birthday,
+            'selected_courses': selected_courses,
+            'selected_sub_courses': selected_sub_courses,
+            'total_cost': total_cost
+        }
+        return render(request, 'course_result.html', context)
+    
+    return render(request, 'course_Registration.html')
+
+
+
+def calculate_total_cost(sub_courses):
+    prices = {
+        '兒童初階班(每週二14:00 - 15:30)': 4000,
+        '兒童初階班(每週二15:30 - 17:00)': 4000,
+        '成人初階班(每週一14:00 - 16:00)': 4000,
+        '成人初階班(每週一16:00 - 18:00)': 4000,
+        '一般競技班(每週二14:00 - 16:00)': 4000,
+        '一般競技班(每週四16:00 - 18:00)': 4000,
+        '進階競技班(每週四14:00 - 16:00)': 4000,
+        '進階競技班(每週四16:00 - 18:00)': 4000,
+        '基礎擊打班(每週五19:00 - 22:00)': 350,
+        '基礎擊打班(每週六19:00 - 22:00)': 350,
+        '進階擊打班(每週五19:00 - 22:00)': 350,
+        '進階擊打班(每週六19:00 - 22:00)': 350
+    }
+    
+    total = 0
+    for course in sub_courses:
+        total += prices.get(course, 0)
+    return total

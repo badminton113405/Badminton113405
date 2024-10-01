@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment
+from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment,CourseRegistration
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -58,3 +58,8 @@ class DiscussionCommentAdmin(admin.ModelAdmin):
     search_fields = ('post__content', 'author__username', 'content')
 
 admin.site.register(DiscussionComment, DiscussionCommentAdmin)
+
+class CourseRegistrationAdmin(admin.ModelAdmin):
+    list_display = ('user', 'course_type', 'sub_course_type', 'registration_date','cost')
+
+admin.site.register(CourseRegistration, CourseRegistrationAdmin)
