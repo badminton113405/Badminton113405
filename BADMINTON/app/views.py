@@ -515,15 +515,25 @@ def course_result(request):
         birthday = request.POST.get('birthday')
         
         selected_courses = request.POST.getlist('subCourseType') 
-        selected_sub_courses = request.POST.getlist('subCourseType') 
         course_type = request.POST.getlist('courseType')
 
-        
-        total_cost = 0
-        total_cost += calculate_total_cost(selected_sub_courses)
+        total_cost = calculate_total_cost(selected_courses)
+
+        senior_class_cost = 3900
         if '樂齡班' in course_type:
-            total_cost += 3900
-        
+            total_cost += senior_class_cost
+            selected_courses = selected_courses + [f"樂齡班"]
+
+        '''registration = CourseRegistration(
+            user=request.user, 
+            course_type=', '.join(course_type), 
+            sub_course_type=', '.join(selected_courses), 
+            cost=total_cost
+        )
+        registration.save() 
+'''
+        messages.success(request, "報名成功")
+
         context = {
             'name': name,
             'gender': gender,
@@ -531,11 +541,10 @@ def course_result(request):
             'email': email,
             'birthday': birthday,
             'selected_courses': selected_courses,
-            'selected_sub_courses': selected_sub_courses,
             'total_cost': total_cost
         }
         return render(request, 'course_result.html', context)
-    
+
     return render(request, 'course_Registration.html')
 
 
