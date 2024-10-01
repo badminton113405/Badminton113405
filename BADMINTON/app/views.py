@@ -424,20 +424,28 @@ COURSE_PRICES = {
 def course_Registration(request):
     if request.method == 'POST':
         # 獲取選擇的課程類型和子課程類型
-        selected_courses = request.POST.getlist('subCourseType') 
         course_type = request.POST.getlist('courseType')
+        selected_courses = request.POST.getlist('subCourseType')
+        
+        # 調試輸出
+        print(f"課程類型 (courseType): {course_type}")  # 打印收到的課程類型
+        print(f"子課程類型 (subCourseType): {selected_courses}")  # 打印收到的子課程類型
+        
         total_cost = 0
 
         # 計算子課程的總費用
         for course in selected_courses:
             total_cost += COURSE_PRICES.get(course, 0)
+            print(f"子課程: {course}, 費用: {COURSE_PRICES.get(course, 0)}")  # 調試輸出費用
 
         # 處理「個別班」和「樂齡班」等直接選擇的課程
         if '個別班' in course_type:
             total_cost += COURSE_PRICES.get('個別班', 0)
+            print(f"個別班: 費用: {COURSE_PRICES.get('個別班', 0)}")  # 調試輸出費用
 
         if '樂齡班' in course_type:
             total_cost += COURSE_PRICES.get('樂齡班', 0)
+            print(f"樂齡班: 費用: {COURSE_PRICES.get('樂齡班', 0)}")  # 調試輸出費用
 
         # 返回結果頁面，顯示總費用和選擇的課程
         return render(request, 'course_result.html', {
@@ -445,8 +453,9 @@ def course_Registration(request):
             'selected_courses': selected_courses,
             'course_type': course_type,
         })
-
+    
     return render(request, 'course_Registration.html')
+
 
 
 #編輯評論
