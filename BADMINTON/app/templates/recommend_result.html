@@ -27,17 +27,18 @@
 </style>
 <div class="recommendation-result">
     <h1>分析結果</h1>
-    <h3 class="coach-recommend-score" >教練推薦分數()</h3>
+    <h3 class="coach-recommend-score">教練推薦分數</h3>
     {% if recommended_teachers %}
         <ul>
             {% for teacher, score in recommended_teachers %}
-                <li>{{ teacher }}</li>
-                <li>{{score}}</li>
+                <li><strong>教練姓名：</strong> {{ teacher }}</li>
+                <li><strong>推薦分數：</strong> {{ score }}</li>
             {% endfor %}
         </ul>
     {% else %}
         <p>沒有符合條件的老師。</p>
     {% endif %}
-    <a href="{% url 'recommend_teacher' %}">返回表單</a>
+    <a href="{% url 'recommend_teacher' %}" class="btn">返回表單</a>
 </div>
+
 {% endblock %}

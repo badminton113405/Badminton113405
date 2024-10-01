@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import payment
 
 urlpatterns = [
     # 主頁
@@ -43,6 +44,7 @@ urlpatterns = [
 
     # 商城與購物車
     path('mall/', views.mall, name='mall'),
+    path('payment/', views.payment, name='payment'),
     path('shopingcar/', views.shopingcar, name='shopingcar'),
     path('product01/', views.product01, name='product01'),
     path('product02/', views.product02, name='product02'),
@@ -63,4 +65,7 @@ urlpatterns = [
     path('course_Analysis_Registration/', views.course_Analysis_Registration, name='course_Analysis_Registration'),
     path('recommend/', views.recommend_teacher, name='recommend_teacher'),
     path('course_result/', views.course_result, name='course_result'),
+    path('history/', views.registration_history, name='registration_history'),
 ]
+
+

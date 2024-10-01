@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}<title>付款</title>{% endblock %}
+
+{% block content %}
+
+<style>
+    .container {
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .payment-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .payment-methods {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .payment-methods label {
+        cursor: pointer;
+        padding: 10px 20px;
+        background-color: #fff279;
+        border-radius: 16px;
+        font-family: "Zen Kurenaido", sans-serif;
+        transition: background-color 0.3s;
+    }
+
+    .payment-methods input[type="radio"] {
+        display: none;
+    }
+
+    .payment-methods input[type="radio"]:checked + label {
+        background-color: #777777;
+        color: #fff;
+    }
+
+    .payment-button {
+        display: block;
+        width: 100%;
+        background-color: #fff279;
+        color: #000;
+        border: none;
+        padding: 15px;
+        border-radius: 16px;
+        font-size: 18px;
+        font-family: "Zen Kurenaido", sans-serif;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    .payment-button:hover {
+        background-color: #777777;
+        color: #fff;
+    }
+
+    .total-price-input {
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        background-color: transparent;
+    }
+
+    /* Modal styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .close-button {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <div class="payment-title"><h1>付款</h1></div>
+
+    <form id="payment-form" method="POST">
+        {% csrf_token %}
+
+        <!-- 商品總額 -->
+        <div class="form-group">
+            <label for="total-amount">商品總額</label>
+            <input type="text" id="total-amount" class="total-price-input" value="0 元" readonly>
+        </div>
+
+        <!-- 付款人姓名 -->
+        <div class="form-group">
+            <label for="payer-name">付款人姓名</label>
+            <input type="text" id="payer-name" name="payer_name" required>
+        </div>
+
+        <!-- 付款人電話 -->
+        <div class="form-group">
+            <label for="payer-phone">付款人電話</label>
+            <input type="text" id="payer-phone" name="payer_phone" required>
+        </div>
+
+        <!-- 付款人信箱 -->
+        <div class="form-group">
+            <label for="payer-email">付款人信箱</label>
+            <input type="email" id="payer-email" name="payer_email" required>
+        </div>
+
+        <!-- 付款方式選擇 -->
+        <div class="form-group">
+            <label for="payment-method">付款方式</label>
+            <div class="payment-methods">
+                <input type="radio" id="bank-transfer" name="payment_method" value="bank_transfer" checked>
+                <label for="bank-transfer">銀行轉帳</label>
+
+                <input type="radio" id="cash" name="payment_method" value="cash">
+                <label for="cash">現金</label>
+            </div>
+        </div>
+
+        <button type="submit" class="payment-button">確認</button>
+    </form>
+</div>
+
+<!-- Modal for bank transfer -->
+<div id="bankTransferModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-button">&times;</span>
+        <h2>銀行轉帳資訊</h2>
+        <p>請將費用轉帳至以下賬戶：</p>
+        <p><strong>銀行名稱：</strong>合作金庫</p>
+        <p><strong>賬戶名稱：</strong>蔡元振</p>
+        <p><strong>賬戶號碼：</strong>0400765166568</p>
+        <p><strong>轉帳金額：</strong><span id="transfer-amount">{{ total_cost }} 元</span></p>
+        <p>完成後請點擊關閉按鈕。</p>
+    </div>
+</div>
+
+<!-- Modal for cash payment -->
+<div id="cashPaymentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="close-button-cash">&times;</span>
+        <h2>現金付款資訊</h2>
+        <p>請於一周內至現場付款。</p>
+        <p><strong>付款人姓名：</strong><span id="payer-name-display"></span></p>
+        <p><strong>付款人電話：</strong><span id="payer-phone-display"></span></p>
+        <p><strong>商品總金額：</strong><span id="cash-total-amount"></span></p>
+        <p><strong>地點：</strong>羽你同行羽球館</p>
+        <p>完成後請點擊關閉按鈕。</p>
+    </div>
+</div>
+
+<div class="button-container">
+    <a href="{% url 'shopingcar' %}"><button class="i-button">返回購物車</button></a>
+</div>
+
+<script>
+    // 計算商品總額
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let totalPrice = 0;
+
+    cart.forEach(item => {
+        totalPrice += item.price;
+    });
+
+    document.getElementById('total-amount').value = totalPrice + " 元";
+    document.getElementById('transfer-amount').textContent = totalPrice + " 元";
+    document.getElementById('cash-total-amount').textContent = totalPrice + " 元";
+
+    // Modal handling
+    const bankTransferModal = document.getElementById('bankTransferModal');
+    const cashPaymentModal = document.getElementById('cashPaymentModal');
+    const closeButtonBank = document.getElementById('close-button');
+    const closeButtonCash = document.getElementById('close-button-cash');
+    const paymentForm = document.getElementById('payment-form');
+
+    paymentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+        
+        if (selectedPaymentMethod === 'bank_transfer') {
+            bankTransferModal.style.display = 'block';
+        } else if (selectedPaymentMethod === 'cash') {
+            // Display user details for cash payment
+            document.getElementById('payer-name-display').textContent = document.getElementById('payer-name').value;
+            document.getElementById('payer-phone-display').textContent = document.getElementById('payer-phone').value;
+            cashPaymentModal.style.display = 'block';
+        }
+    });
+
+    closeButtonBank.onclick = function() {
+        bankTransferModal.style.display = 'none';
+    }
+
+    closeButtonCash.onclick = function() {
+        cashPaymentModal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == bankTransferModal) {
+            bankTransferModal.style.display = 'none';
+        } else if (event.target == cashPaymentModal) {
+            cashPaymentModal.style.display = 'none';
+        }
+    }
+</script>
+
+{% endblock %}
