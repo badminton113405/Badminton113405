@@ -15,6 +15,9 @@
     font-family: "Zen Kurenaido", sans-serif;
     color: #333;
     padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
 }
 
 .registration-form fieldset {
@@ -98,6 +101,10 @@ input[type="checkbox"] {
                 </select>
             </div>
             <div class="form-group">
+                <label for="birthday">生日</label>
+                <input type="date" id="birthday" name="birthday" value="{{ form.birthday.value }}" required>
+            </div>
+            <div class="form-group">
                 <label for="phone">聯絡電話</label>
                 <input type="text" id="phone" name="phone" value="{{ form.phone.value }}" required>
             </div>
@@ -105,15 +112,37 @@ input[type="checkbox"] {
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" value="{{ form.email.value }}" required>
             </div>
+            
         </fieldset>
 
         <!-- 學習經驗 -->
         <fieldset>
             <legend>您的羽球階級? <a href="https://2020badminton.blogspot.com/2021/06/blog-post_4.html" target="_blank">查看階級</a></legend>
             <div class="form-group">
-                <input type="number" name="grade" min="1" max="18" value="{{ form.grade.value }}" required>
+                <select name="grade" required>
+                    <option value="" disabled selected>選擇您的階級</option>
+                    <option value="1" {% if form.grade.value == 1 %}selected{% endif %}>1 - 剛接觸羽球學會比賽規則，並懂得比賽禮儀</option>
+                    <option value="2" {% if form.grade.value == 2 %}selected{% endif %}>2 - 在中場距離中高球來回10拍，發球有一半以上成功率</option>
+                    <option value="3" {% if form.grade.value == 3 %}selected{% endif %}>3 - 定點有一半可以打到2/3場後，發球有九成以上的成功率</option>
+                    <option value="4" {% if form.grade.value == 4 %}selected{% endif %}>4 - 清楚正確握拍法。長球男生定點可以打到後場，女生可以打到中後場；會基本平推；正反拍轉拍不順暢</option>
+                    <option value="5" {% if form.grade.value == 5 %}selected{% endif %}>5 - 清楚正確握拍法，略懂基本腳步，基本球路在非受迫時有一定的表現</option>
+                    <option value="6" {% if form.grade.value == 6 %}selected{% endif %}>6 - 清楚正確握拍法，略懂基本腳步，並懂得基本輪轉，尚不熟練，已開始會殺球及切球，非受迫時移動長球可至中後場</option>
+                    <option value="7" {% if form.grade.value == 7 %}selected{% endif %}>7 - 殺球、切球或長球不論是定點或移動，成功率及穩定性有七成以上。已有基本防守能力，但無變化</option>
+                    <option value="8" {% if form.grade.value == 8 %}selected{% endif %}>8 - 有基本戰略及打點，熟悉輪轉概念，切殺長吊均有七成以上準確性，防守有些微變化</option>
+                    <option value="9" {% if form.grade.value == 9 %}selected{% endif %}>9 - 切殺長吊中有三種球路有九成以上準確性及質量，發力及力道已有強度，防守要有一定程度的變化及穩定性</option>
+                    <option value="10" {% if form.grade.value == 10 %}selected{% endif %}>10 - 輪轉概念熟念並能活化運用，策略性戰略及打點皆能有效得分</option>
+                    <option value="11" {% if form.grade.value == 11 %}selected{% endif %}>11 - 切殺長吊皆具準確性，發力及速度、策略兼具，輕鬆完成反拍各種球路。防守具有威脅性</option>
+                    <option value="12" {% if form.grade.value == 12 %}selected{% endif %}>12 - 有高速度移位及靈敏地走位與步法，殺切吊都具有高強度侵略性，常有一擊必殺的球路</option>
+                    <option value="13" {% if form.grade.value == 13 %}selected{% endif %}>13 - 各種球路都穩定熟練，防守無死角、球速快質量高、戰略組織、爆發力都屬上等</option>
+                    <option value="14" {% if form.grade.value == 14 %}selected{% endif %}>14 - 各種球路都穩定熟練，防守無死角、球速快質量高、戰略組織、爆發力都屬上等</option>
+                    <option value="15" {% if form.grade.value == 15 %}selected{% endif %}>15 - 各種球路都穩定熟練，防守無死角、球速快質量高、戰略組織、爆發力都屬上等</option>
+                    <option value="16" {% if form.grade.value == 16 %}selected{% endif %}>16 - 各種球路、戰術、步法已爐火純青，且發展出個人獨特球路風格</option>
+                    <option value="17" {% if form.grade.value == 17 %}selected{% endif %}>17 - 各種球路、戰術、步法已爐火純青，且發展出個人獨特球路風格</option>
+                    <option value="18" {% if form.grade.value == 18 %}selected{% endif %}>18 - 各種球路、戰術、步法已爐火純青，且發展出個人獨特球路風格</option>
+                </select>
             </div>
         </fieldset>
+        
 
         <!-- 動機與目標 -->
         <fieldset>
