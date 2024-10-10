@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -154,16 +155,54 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, '註冊成功！')
-            return redirect('member_center')
+            # 儲存新用戶但不激活
+            user = form.save(commit=False)
+            user.is_active = False
+            user.save()
+            
+            # 發送驗證郵件
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = token_generator.make_token(user)
+            verification_link = request.build_absolute_uri(f'/verify-email/{uid}/{token}/')
+            
+            subject = '驗證您的電子信箱'
+            message = render_to_string('verify_email.html', {
+                'user': user,
+                'verification_link': verification_link,
+            })
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+            
+            # 跳轉到提示頁面，告知用戶檢查電子信箱
+            return redirect('email_verification_sent')
         else:
-            messages.error(request, '註冊失敗!!')
-            print(form.errors)  
+            # 表單無效，顯示錯誤訊息
+            messages.error(request, '註冊失敗，請檢查您的輸入。')
     else:
         form = UserRegistrationForm()
+    
     return render(request, 'register.html', {'form': form})
+
+
+def email_verification_sent(request):
+    return render(request, 'email_verification_sent.html')
+
+
+
+def verify_email(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, '您的電子信箱已驗證，請登入。')
+        return redirect('login')
+    else:
+        return HttpResponse('驗證鏈接無效或已過期。')
+
 
 
 
@@ -295,45 +334,9 @@ def add_comment(request, post_id):
             return redirect('community')
     return redirect('community')
 
-""""
-class CourseRegistrationView(View):
-    def get(self, request):
-        return render(request, 'course_Registration.html')  # 确保有一个与前端代码匹配的模板
-
-    def post(self, request):
-        # 获取表单数据
-        name = request.POST.get('name')
-        gender = request.POST.get('gender')
-        phone = request.POST.get('phone')
-        email = request.POST.get('email')
-        grade = request.POST.get('grade')
-        motivation = request.POST.getlist('motivation')
-        techniques = request.POST.getlist('techniques')
-        coach_gender = request.POST.get('coachGender')
-        coach_traits = request.POST.getlist('coachTraits')
-        course_type = request.POST.getlist('courseType')
-        sub_course_type = request.POST.getlist('subCourseType')
-
-        # 保存数据到数据库
-        reservation = Reservation(
-            name=name,
-            gender=gender,
-            phone=phone,
-            email=email,
-            grade=grade,
-            motivation=motivation,
-            techniques=techniques,
-            coach_gender=coach_gender,
-            coach_traits=coach_traits,
-            course_type=course_type,
-            sub_course_type=sub_course_type
-        )
-        reservation.save()
-
-        return redirect('success')  # 这里可以跳转到成功页面或其他页面
-        """
-
-
+             
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect
 
 
 

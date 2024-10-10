@@ -115,10 +115,7 @@
       <form method="post" action="{% url 'edit_member' %}">
         {% csrf_token %}
         <div class="profile-info">
-          <div class="input-group">
-            <label for="{{ form.username.id_for_label }}">Username</label>
-            {{ form.username }}
-          </div>
+     
           <div class="input-group">
             <label for="{{ form.full_name.id_for_label }}">姓名</label>
             {{ form.full_name }}

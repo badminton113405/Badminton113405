@@ -59,7 +59,8 @@
         <p><strong>賬戶名稱：</strong>蔡元振</p>
         <p><strong>賬戶號碼：</strong>0400765166568</p>
         <p><strong>轉帳金額：</strong>{{ total_cost }} 元</p>
-        <p>完成後請點擊關閉按鈕。</p>
+        <p>完成後請點擊確認按鈕。</p>
+        <a href="{% url 'course_Registration' %}"><button class="i-button">確認</button></a>
     </div>
 </div>
 
@@ -113,6 +114,20 @@
         color: black;
         text-decoration: none;
         cursor: pointer;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FBFF36;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #ffff;
+        background-color: #777777;
     }
 </style>
 

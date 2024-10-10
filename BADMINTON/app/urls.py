@@ -35,7 +35,9 @@ urlpatterns = [
     path('member_redirect/', views.member_redirect, name='member_redirect'),
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('reset-password/<uidb64>/<token>/', views.reset_password, name='reset_password'),
-
+    path('email-verification-sent/', views.email_verification_sent, name='email_verification_sent'),
+    path('verify-email/<uidb64>/<token>/', views.verify_email, name='verify_email'),
+    
     # 社群
     path('community/', views.community, name='community'),  
     path('add_comment/<int:post_id>/', views.add_comment, name='add_comment'),
