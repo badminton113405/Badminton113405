@@ -106,10 +106,25 @@
       </div>
 
       <div class="course-records">
-        <div>
-          <a href="{% url 'registration_history' %}">查詢歷史紀錄</a>
-        </div>
-        </div>
+        <h4>課程紀錄:</h4>
+        <ul>
+            {% for registration in request.user.courseregistration_set.all %}
+                <li>{{ registration.course_type }} - {{ registration.sub_course_type }} - NT$ {{ registration.cost }} - {{ registration.registration_date }}</li>
+            {% empty %}
+                <li>尚無紀錄</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="course-records">
+      <h4>購買紀錄:</h4>
+      <ul>
+          {% for orders in request.user.order_set.all %}
+              <li> - NT$ {{ orders.total_amount }} - Paid {{orders.paid}}</li>
+          {% empty %}
+              <li>尚無紀錄</li>
+          {% endfor %}
+      </ul>
+    </div>
     </div>
   </div>
 {% endblock %}

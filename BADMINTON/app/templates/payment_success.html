@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>訂單已成功建立</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>訂單已成功建立！</h1>
+
+    <div class="order-details">
+        <h2>訂單詳情</h2>
+        <p><strong>付款人姓名：</strong> {{ order.payer_name }}</p>
+        <p><strong>付款人電話：</strong> {{ order.payer_phone }}</p>
+        <p><strong>付款人信箱：</strong> {{ order.payer_email }}</p>
+        <p><strong>付款方式：</strong> {{ order.payment_method|capfirst }}</p>
+        <p><strong>商品總金額：</strong> {{ order.total_amount }} 元</p>
+        <p><strong>下單時間：</strong> {{ order.created_at }}</p>
+    </div>
+
+    <!-- Conditionally render bank transfer details -->
+    {% if order.payment_method == 'bank_transfer' %}
+    <div class="payment-info">
+        <h2>銀行轉帳資訊</h2>
+        <p>請將費用轉帳至以下賬戶：</p>
+        <p><strong>銀行名稱：</strong>合作金庫</p>
+        <p><strong>賬戶名稱：</strong>蔡元振</p>
+        <p><strong>賬戶號碼：</strong>0400765166568</p>
+        <p><strong>轉帳金額：</strong>{{ order.total_amount }} 元</p>
+        <p>完成轉帳後，請通知我們確認。</p>
+    </div>
+    {% endif %}
+
+    <!-- Conditionally render cash payment details -->
+    {% if order.payment_method == 'cash' %}
+    <div class="payment-info">
+        <h2>現金付款資訊</h2>
+        <p>請於一周內至現場付款：</p>
+        <p><strong>地點：</strong>羽你同行羽球館</p>
+        <p><strong>商品總金額：</strong>{{ order.total_amount }} 元</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .container {
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .order-details, .payment-info {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .order-details p, .payment-info p {
+        font-size: 18px;
+        margin: 10px 0;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FFF279;
+        padding: 10px 20px;
+        text-decoration: none;
+        margin: 20px;
+    }
+
+    .i-button:hover {
+        background-color: #777777;
+        color: #fff;
+    }
+
+    .button-container {
+        margin-top: 30px;
+    }
+</style>
+
+{% endblock %}

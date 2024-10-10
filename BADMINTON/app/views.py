@@ -73,6 +73,7 @@ def small_ball(request):
 def community(request):
     return render(request, 'community.html')
 
+@login_required(login_url='/login/')
 def mall(request):
     return render(request, 'mall.html')
 
@@ -527,14 +528,14 @@ def course_result(request):
             total_cost += senior_class_cost
             selected_courses = selected_courses + [f"樂齡班"]
 
-        '''registration = CourseRegistration(
+        registration = CourseRegistration(
             user=request.user, 
             course_type=', '.join(course_type), 
             sub_course_type=', '.join(selected_courses), 
             cost=total_cost
         )
         registration.save() 
-'''
+
         messages.success(request, "報名成功")
 
         context = {
@@ -572,3 +573,45 @@ def calculate_total_cost(sub_courses):
     for course in sub_courses:
         total += prices.get(course, 0)
     return total
+
+import uuid
+from decimal import Decimal
+from django.shortcuts import render, redirect
+from .models import Order
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+@login_required
+def create_order(request):
+    if request.method == 'POST':
+        # Get data from form
+        payer_name = request.POST.get('payer_name')
+        payer_phone = request.POST.get('payer_phone')
+        payer_email = request.POST.get('payer_email')
+        payment_method = request.POST.get('payment_method')
+        total_amount = request.POST.get('total_amount').replace(" 元", "")
+
+        total_amount = Decimal(total_amount)
+
+        # Create the order
+        order = Order.objects.create(
+            user=request.user,
+            payer_name=payer_name,
+            payer_phone=payer_phone,
+            payer_email=payer_email,
+            payment_method=payment_method,
+            total_amount=total_amount,
+            paid=False,
+        )
+
+        order.save()
+        
+        return render(request, 'payment_success.html', {'order': order})
+
+    return render(request, 'payment.html')
+
+
+def payment_success(request, order_id):
+    order = Order.objects.get(id=order_id)
+
+    return render(request, 'payment_success.html', {'order': order})

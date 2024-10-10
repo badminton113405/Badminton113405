@@ -144,12 +144,26 @@ class CourseReservation(models.Model):
     def __str__(self):
         return self.name
 
-class CourseSession(models.Model):
-    course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    instructor = models.CharField(max_length=100)
-    day_of_week = models.CharField(max_length=10)
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    payer_name = models.CharField(max_length=100)
+    payer_phone = models.CharField(max_length=15)
+    payer_email = models.EmailField()
+    payment_method = models.CharField(max_length=20) 
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    paid = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.course_type.name} - {self.day_of_week}"
+        return f"Order by {self.payer_name} - {self.total_amount}"
+    
+    
+#class CourseSession(models.Model):
+    #course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
+    #start_time = models.TimeField()
+    #end_time = models.TimeField()
+    #instructor = models.CharField(max_length=100)
+    #day_of_week = models.CharField(max_length=10)
+
+    #def __str__(self):
+        #return f"{self.course_type.name} - {self.day_of_week}"

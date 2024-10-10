@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment,CourseRegistration
+from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment,CourseRegistration,Order
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -63,3 +63,8 @@ class CourseRegistrationAdmin(admin.ModelAdmin):
     list_display = ('user', 'course_type', 'sub_course_type', 'registration_date','cost')
 
 admin.site.register(CourseRegistration, CourseRegistrationAdmin)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('payer_name', 'payer_phone', 'payer_email', 'total_amount', 'created_at', 'paid')
+    
+admin.site.register(Order, OrderAdmin)

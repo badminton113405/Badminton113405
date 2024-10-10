@@ -127,7 +127,7 @@
 <div class="container">
     <div class="payment-title"><h1>付款</h1></div>
 
-    <form id="payment-form" method="POST">
+    <form id="payment-form" method="POST" action="{% url 'create_order' %}">
         {% csrf_token %}
 
         <!-- 商品總額 -->
@@ -166,7 +166,9 @@
             </div>
         </div>
 
-        <button type="submit" class="payment-button">確認</button>
+        <input type="hidden" id="total-amount-hidden" name="total_amount" value="{{ total_cost }}">
+
+        <button type="submit" class="payment-button" id="payment-button">確認</button>
     </form>
 </div>
 
@@ -224,35 +226,15 @@
     const closeButtonCash = document.getElementById('close-button-cash');
     const paymentForm = document.getElementById('payment-form');
 
-    paymentForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const selectedPaymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-        
-        if (selectedPaymentMethod === 'bank_transfer') {
-            bankTransferModal.style.display = 'block';
-        } else if (selectedPaymentMethod === 'cash') {
-            // Display user details for cash payment
-            document.getElementById('payer-name-display').textContent = document.getElementById('payer-name').value;
-            document.getElementById('payer-phone-display').textContent = document.getElementById('payer-phone').value;
-            cashPaymentModal.style.display = 'block';
-        }
+    
+
+    document.getElementById('total-amount-hidden').value = totalPrice;
+
+    document.getElementById('payment-button').addEventListener('click', () => {
+        localStorage.removeItem('cart');
+        location.reload();
     });
 
-    closeButtonBank.onclick = function() {
-        bankTransferModal.style.display = 'none';
-    }
-
-    closeButtonCash.onclick = function() {
-        cashPaymentModal.style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-        if (event.target == bankTransferModal) {
-            bankTransferModal.style.display = 'none';
-        } else if (event.target == cashPaymentModal) {
-            cashPaymentModal.style.display = 'none';
-        }
-    }
 </script>
 
 {% endblock %}
