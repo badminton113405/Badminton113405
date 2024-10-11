@@ -13,7 +13,6 @@ urlpatterns = [
     path('zerodozen/', views.zerodozen, name='zerodozen'),
     path('summer/', views.summer, name='summer'),
     path('winter/', views.winter, name='winter'),
-    path('elder/', views.elder, name='elder'),
 
     # 教練頁面
     path('ZZT/', views.ZZT, name='ZZT'),
@@ -56,11 +55,7 @@ urlpatterns = [
     path('product06/', views.product06, name='product06'),
     path('product07/', views.product07, name='product07'),
     path('product08/', views.product08, name='product08'),
-    path('product09/', views.product09, name='product09'),
-    path('product10/', views.product10, name='product10'),
-    path('product11/', views.product11, name='product11'),
-    path('product12/', views.product12, name='product12'),
-     path('create_order/', views.create_order, name='create_order'),
+    path('create_order/', views.create_order, name='create_order'),
     path('payment_success/<int:order_id>/', views.payment_success, name='payment_success'),
 
     # 課程報名與分析

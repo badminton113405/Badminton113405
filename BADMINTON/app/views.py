@@ -15,128 +15,144 @@ from django.views import View
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 
+
 # 已有的視圖
 def home(request):
-    return render(request, 'home.html')
-
-# 新的 course_result 函數
-
-
-
-# 费用计算函数
-
+    return render(request, "home.html")
 
 
 # 其他視圖函數
 def beginner(request):
-    return render(request, 'beginner.html')
+    return render(request, "beginner.html")
+
 
 def competitive(request):
-    return render(request, 'competitive.html')
+    return render(request, "competitive.html")
+
 
 def onetoone(request):
-    return render(request, 'onetoone.html')
+    return render(request, "onetoone.html")
+
 
 def zerodozen(request):
-    return render(request, 'zerodozen.html')
+    return render(request, "zerodozen.html")
+
 
 def summer(request):
-    return render(request, 'summer.html')
+    return render(request, "summer.html")
+
 
 def winter(request):
-    return render(request, 'winter.html')
+    return render(request, "winter.html")
+
 
 def elder(request):
-    return render(request, 'elder.html')
+    return render(request, "elder.html")
+
 
 def ZZT(request):
-    return render(request, 'ZZT.html')
+    return render(request, "ZZT.html")
+
 
 def HWH(request):
-    return render(request, 'HWH.html')
+    return render(request, "HWH.html")
+
 
 def CYZ(request):
-    return render(request, 'CYZ.html')
+    return render(request, "CYZ.html")
+
 
 def ZBY(request):
-    return render(request, 'ZBY.html')
+    return render(request, "ZBY.html")
+
 
 def power_ball(request):
-    return render(request, 'power_ball.html')
+    return render(request, "power_ball.html")
+
 
 def left_right_ball(request):
-    return render(request, 'left_right_ball.html')
+    return render(request, "left_right_ball.html")
+
 
 def small_ball(request):
-    return render(request, 'small_ball.html')
+    return render(request, "small_ball.html")
+
 
 def community(request):
-    return render(request, 'community.html')
+    return render(request, "community.html")
 
-@login_required(login_url='/login/')
+
+@login_required(login_url="/login/")
 def mall(request):
-    return render(request, 'mall.html')
+    return render(request, "mall.html")
+
 
 def shopingcar(request):
-    return render(request, 'shopingcar.html')
+    return render(request, "shopingcar.html")
+
 
 def product01(request):
-    return render(request, 'product01.html')
+    return render(request, "product01.html")
+
 
 def product02(request):
-    return render(request, 'product02.html')
+    return render(request, "product02.html")
+
 
 def product03(request):
-    return render(request, 'product03.html')
+    return render(request, "product03.html")
+
 
 def product04(request):
-    return render(request, 'product04.html')
+    return render(request, "product04.html")
+
 
 def product05(request):
-    return render(request, 'product05.html')
+    return render(request, "product05.html")
+
 
 def product06(request):
-    return render(request, 'product06.html')
+    return render(request, "product06.html")
+
 
 def product07(request):
-    return render(request, 'product07.html')
+    return render(request, "product07.html")
+
 
 def product08(request):
-    return render(request, 'product08.html')
+    return render(request, "product08.html")
 
-def product09(request):
-    return render(request, 'product09.html')
-
-def product10(request):
-    return render(request, 'product10.html')
-
-def product11(request):
-    return render(request, 'product11.html')
-
-def product12(request):
-    return render(request, 'product12.html')
 
 def course_Analysis_Registration(request):
-    return render(request, 'course_Analysis_Registration.html')
+    return render(request, "course_Analysis_Registration.html")
+
 
 def course_Analysis(request):
-    return render(request, 'course_Analysis.html')
+    return render(request, "course_Analysis.html")
+
 
 def member_center(request):
-    return render(request, 'member_center.html')
+    return render(request, "member_center.html")
+
 
 def payment(request):
-    return render(request, 'payment.html')
+    return render(request, "payment.html")
+
 
 def registration_history(request):
     registrations = CourseRegistration.objects.filter(user=request.user)
-    return render(request, 'history.html')
-#----------------------------------------------------------
-# app/views.py
+    return render(request, "history.html")
+
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegistrationForm, UserLoginForm, UserProfileForm, MemberCenterForm
+from .forms import (
+    UserRegistrationForm,
+    UserLoginForm,
+    UserProfileForm,
+    MemberCenterForm,
+)
 from django.contrib import messages
 from django.http import JsonResponse
 
@@ -145,48 +161,50 @@ from django.shortcuts import render, redirect
 from .models import CourseRegistration
 
 
-
 def registration_history(request):
     registrations = CourseRegistration.objects.filter(user=request.user)
-    return render(request, 'history.html', {'registrations': registrations})
-
+    return render(request, "history.html", {"registrations": registrations})
 
 
 def register(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             # 儲存新用戶但不激活
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            
+
             # 發送驗證郵件
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_generator.make_token(user)
-            verification_link = request.build_absolute_uri(f'/verify-email/{uid}/{token}/')
-            
-            subject = '驗證您的電子信箱'
-            message = render_to_string('verify_email.html', {
-                'user': user,
-                'verification_link': verification_link,
-            })
+            verification_link = request.build_absolute_uri(
+                f"/verify-email/{uid}/{token}/"
+            )
+
+            subject = "驗證您的電子信箱"
+            message = render_to_string(
+                "verify_email.html",
+                {
+                    "user": user,
+                    "verification_link": verification_link,
+                },
+            )
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
-            
+
             # 跳轉到提示頁面，告知用戶檢查電子信箱
-            return redirect('email_verification_sent')
+            return redirect("email_verification_sent")
         else:
             # 表單無效，顯示錯誤訊息
-            messages.error(request, '註冊失敗，請檢查您的輸入。')
+            messages.error(request, "註冊失敗，請檢查您的輸入。")
     else:
         form = UserRegistrationForm()
-    
-    return render(request, 'register.html', {'form': form})
+
+    return render(request, "register.html", {"form": form})
 
 
 def email_verification_sent(request):
-    return render(request, 'email_verification_sent.html')
-
+    return render(request, "email_verification_sent.html")
 
 
 def verify_email(request, uidb64, token):
@@ -199,90 +217,94 @@ def verify_email(request, uidb64, token):
     if user is not None and token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, '您的電子信箱已驗證，請登入。')
-        return redirect('login')
+        messages.success(request, "您的電子信箱已驗證，請登入。")
+        return redirect("login")
     else:
-        return HttpResponse('驗證鏈接無效或已過期。')
-
-
+        return HttpResponse("驗證鏈接無效或已過期。")
 
 
 def user_login(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserLoginForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
 
             # 檢查使用者名稱是否存在
             if not User.objects.filter(username=username).exists():
-                messages.error(request, '此帳號尚未註冊，請先註冊。')
+                messages.error(request, "此帳號尚未註冊，請先註冊。")
             else:
                 # 嘗試驗證帳號和密碼
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    messages.success(request, '登入成功！')
-                    return redirect('member_center')
+                    messages.success(request, "登入成功！")
+                    return redirect("member_center")
                 else:
-                    messages.error(request, '帳號或密碼不正確，請再試一次。')
+                    messages.error(request, "帳號或密碼不正確，請再試一次。")
     else:
         form = UserLoginForm()
-    
-    return render(request, 'login.html', {'form': form})
+
+    return render(request, "login.html", {"form": form})
+
 
 @login_required
 def member_center(request):
     user = request.user
     form = MemberCenterForm(instance=user)
-    return render(request, 'member_center.html', {'form': form})
+    return render(request, "member_center.html", {"form": form})
+
 
 @login_required
 def edit_member(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            messages.success(request, '編輯成功！')
-            return redirect('member_center')
+            messages.success(request, "編輯成功！")
+            return redirect("member_center")
     else:
         form = UserProfileForm(instance=request.user)
-    return render(request, 'edit_member.html', {'form': form})
+    return render(request, "edit_member.html", {"form": form})
+
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect("login")
+
 
 def member_redirect(request):
     if request.user.is_authenticated:
-        return redirect('member_center')
+        return redirect("member_center")
     else:
-        return redirect('login')
-    
+        return redirect("login")
 
 
 User = get_user_model()
 
+
 def forgot_password(request):
-    if request.method == 'POST':
-        email = request.POST['email']
+    if request.method == "POST":
+        email = request.POST["email"]
         try:
             user = User.objects.get(email=email)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_generator.make_token(user)
-            reset_link = request.build_absolute_uri(
-                f"/reset-password/{uid}/{token}/"
+            reset_link = request.build_absolute_uri(f"/reset-password/{uid}/{token}/")
+            subject = "Reset your password"
+            message = render_to_string(
+                "reset_password_email.html",
+                {
+                    "reset_link": reset_link,
+                    "user": user,
+                },
             )
-            subject = 'Reset your password'
-            message = render_to_string('reset_password_email.html', {
-                'reset_link': reset_link,
-                'user': user,
-            })
-            send_mail(subject, message, 'admin@example.com', [user.email])
-            return render(request, 'forgot_password_done.html')
+            send_mail(subject, message, "admin@example.com", [user.email])
+            return render(request, "forgot_password_done.html")
         except User.DoesNotExist:
-            return render(request, 'forgot_password.html', {'error': 'Email not found'})
-    return render(request, 'forgot_password.html')
+            return render(request, "forgot_password.html", {"error": "Email not found"})
+    return render(request, "forgot_password.html")
+
 
 def reset_password(request, uidb64, token):
     try:
@@ -292,96 +314,128 @@ def reset_password(request, uidb64, token):
         user = None
 
     if user is not None and token_generator.check_token(user, token):
-        if request.method == 'POST':
+        if request.method == "POST":
             form = SetPasswordForm(user, request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, '重設成功!!')    
-                return redirect('login')
+                messages.success(request, "重設成功!!")
+                return redirect("login")
             else:
-                messages.error(request, '重設失敗!!')    
+                messages.error(request, "重設失敗!!")
         else:
             form = SetPasswordForm(user)
-        return render(request, 'reset_password.html', {'form': form})
+        return render(request, "reset_password.html", {"form": form})
     else:
-        return render(request, 'reset_password_invalid.html')
+        return render(request, "reset_password_invalid.html")
+
 
 def community(request):
-    posts = DiscussionPost.objects.all().order_by('-created_at')
-    if request.method == 'POST':
+    posts = DiscussionPost.objects.all().order_by("-created_at")
+    if request.method == "POST":
         if request.user.is_authenticated:
             form = DiscussionPostForm(request.POST)
             if form.is_valid():
                 post = form.save(commit=False)
                 post.author = request.user
                 post.save()
-                return redirect('community')
+                return redirect("community")
         else:
-            return redirect('login')
+            return redirect("login")
     else:
         form = DiscussionPostForm() if request.user.is_authenticated else None
-    return render(request, 'community.html', {'posts': posts, 'form': form})
+    return render(request, "community.html", {"posts": posts, "form": form})
+
 
 @login_required
 def add_comment(request, post_id):
     post = get_object_or_404(DiscussionPost, id=post_id)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = DiscussionCommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.author = request.user
             comment.save()
-            return redirect('community')
-    return redirect('community')
+            return redirect("community")
+    return redirect("community")
 
-             
+
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 
 
-
-#編輯評論
+# 編輯評論
 @login_required
 def edit_post(request, post_id):
     post = get_object_or_404(DiscussionPost, id=post_id, author=request.user)
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         form = DiscussionPostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('community')
+            return redirect("community")
     else:
         form = DiscussionPostForm(instance=post)
-    
-    return render(request, 'edit_post.html', {'form': form, 'post': post})
 
-#刪除評論
+    return render(request, "edit_post.html", {"form": form, "post": post})
+
+
+# 刪除評論
 @login_required
 def delete_post(request, post_id):
     post = get_object_or_404(DiscussionPost, id=post_id, author=request.user)
-    if request.method == 'POST':
+    if request.method == "POST":
         post.delete()
-        return redirect('community')  
-    
-    return render(request, 'confirm_delete.html', {'post': post})
+        return redirect("community")
+
+    return render(request, "confirm_delete.html", {"post": post})
+
 
 # 定義老師屬性
 teachers = [
-    {"name": "蔡元振", "gender": "男生", "skills": ["單打四角拉吊"], "skills2": ["發球與接發球"],"incentives": ["運動健身"], "traits": ["有經驗", "理論基礎"]},
-    {"name": "周仲庭", "gender": "女生", "skills": ["雙打輪轉"],"skills2": ["單打四角拉吊","其他"],"incentives": ["運動健身"], "traits": ["有技術", "專業"]},
-    {"name": "張秉洋", "gender": "男生", "skills": ["雙打後場組織進攻"],"skills2": ["發球與接發球","其他"],"incentives": ["提升技巧"], "traits": ["有經驗", "專業", "嚴厲"]},
-    {"name": "胡玟翰", "gender": "男生", "skills": ["發球與接發球"],"skills2": ["雙打後場組織進攻"],"incentives": ["參加比賽"], "traits": ["多元", "有技術"]},
+    {
+        "name": "蔡元振",
+        "gender": "男生",
+        "skills": ["單打四角拉吊"],
+        "skills2": ["發球與接發球"],
+        "incentives": ["運動健身"],
+        "traits": ["有經驗", "理論基礎"],
+    },
+    {
+        "name": "周仲庭",
+        "gender": "女生",
+        "skills": ["雙打輪轉"],
+        "skills2": ["單打四角拉吊", "其他"],
+        "incentives": ["運動健身"],
+        "traits": ["有技術", "專業"],
+    },
+    {
+        "name": "張秉洋",
+        "gender": "男生",
+        "skills": ["雙打後場組織進攻"],
+        "skills2": ["發球與接發球", "其他"],
+        "incentives": ["提升技巧"],
+        "traits": ["有經驗", "專業", "嚴厲"],
+    },
+    {
+        "name": "胡玟翰",
+        "gender": "男生",
+        "skills": ["發球與接發球"],
+        "skills2": ["雙打後場組織進攻"],
+        "incentives": ["參加比賽"],
+        "traits": ["多元", "有技術"],
+    },
 ]
+
 
 # 匹配度計算函數
 def calculate_match(teacher, preferences):
     score = 0
-    
+
     # 嚴格匹配性別，如果指定了性別且不符合，直接返回0分
     if preferences["gender"] != "不指定" and teacher["gender"] != preferences["gender"]:
         return 0
-    
+
     # 比較技術特長
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
@@ -392,21 +446,22 @@ def calculate_match(teacher, preferences):
         if skill2 in teacher["skills2"]:
             score += 1  # 技術匹配度給較高分
 
-   # 比較報名動機
+    # 比較報名動機
     for incentive in preferences["incentives"]:
         if incentive in teacher["incentives"]:
             score += 3  # 依照不同動機給分
-    
+
     # 比較教練特質
     for trait in preferences["traits"]:
         if trait in teacher["traits"]:
             score += 1
-    
+
     return score
+
 
 @csrf_protect
 def recommend_teacher(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         # 提取用戶提交的表單資料
         user_preferences = {
             "name": request.POST.get("name"),  # 姓名
@@ -415,37 +470,44 @@ def recommend_teacher(request):
             "gender": request.POST.get("coachGender", "不指定"),  # 需要的教練性別
             "skills": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
             # 合併處理，只使用 "skills" 而不再單獨定義 "skills2"
-            "traits": request.POST.getlist("coachTraits")  # 教練特質 (可能多選)
+            "traits": request.POST.getlist("coachTraits"),  # 教練特質 (可能多選)
         }
-        
+
         # 計算每位老師的匹配度
         teacher_scores = []
         for teacher in teachers:
             match_score = calculate_match(teacher, user_preferences)
             teacher_scores.append((teacher["name"], match_score))
-        
+
         # 根據匹配度進行排序
         sorted_teachers = sorted(teacher_scores, key=lambda x: x[1], reverse=True)
 
         # 返回推薦結果
-        recommended_teachers = [(teacher, score) for teacher, score in sorted_teachers if score > 0]
+        recommended_teachers = [
+            (teacher, score) for teacher, score in sorted_teachers if score > 0
+        ]
         for teacher, score in teacher_scores:
             print(f"{teacher}: {score}")
 
         # 渲染推薦結果
-        return render(request, 'recommend_result.html', {'recommended_teachers': recommended_teachers})
-    
+        return render(
+            request,
+            "recommend_result.html",
+            {"recommended_teachers": recommended_teachers},
+        )
+
     # 如果是 GET 請求，重定向到 course_Analysis_Registration.html
-    return redirect('course_Analysis_Registration')
+    return redirect("course_Analysis_Registration")
+
 
 # calculate_match 函數
 def calculate_match(teacher, preferences):
     score = 0
-    
+
     # 嚴格匹配性別
     if preferences["gender"] != "不指定" and teacher["gender"] != preferences["gender"]:
         return 0
-    
+
     # 比較技術特長
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
@@ -455,124 +517,120 @@ def calculate_match(teacher, preferences):
     for incentive in preferences["incentives"]:
         if incentive in teacher["incentives"]:
             score += 3  # 依照不同動機給分
-    
+
     # 比較教練特質
     for trait in preferences["traits"]:
         if trait in teacher["traits"]:
             score += 1
-    
-    return score
 
+    return score
 
 
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
 
 COURSE_PRICES = {
-    '兒童初階班(每週二14:00 - 15:30)': 4000,
-    '兒童初階班(每週二15:30 - 17:00)': 4000,
-    '成人初階班(每週一14:00 - 16:00)': 4000,
-    '成人初階班(每週一16:00 - 18:00)': 4000,
-    '一般競技班(每週二14:00 - 16:00)': 4000,
-    '一般競技班(每週四16:00 - 18:00)': 4000,
-    '進階競技班(每週四14:00 - 16:00)': 4000,
-    '進階競技班(每週四16:00 - 18:00)': 4000,
-    '基礎擊打班(每週五19:00 - 22:00)': 350,
-    '基礎擊打班(每週六19:00 - 22:00)': 350,
-    '進階擊打班(每週五19:00 - 22:00)': 350,
-    '進階擊打班(每週六19:00 - 22:00)': 350,
-    '個別班': 0  
+    "兒童初階班(每週二14:00 - 15:30)": 4000,
+    "兒童初階班(每週二15:30 - 17:00)": 4000,
+    "成人初階班(每週一14:00 - 16:00)": 4000,
+    "成人初階班(每週一16:00 - 18:00)": 4000,
+    "一般競技班(每週二14:00 - 16:00)": 4000,
+    "一般競技班(每週四16:00 - 18:00)": 4000,
+    "進階競技班(每週四14:00 - 16:00)": 4000,
+    "進階競技班(每週四16:00 - 18:00)": 4000,
+    "基礎擊打班(每週五19:00 - 22:00)": 350,
+    "基礎擊打班(每週六19:00 - 22:00)": 350,
+    "進階擊打班(每週五19:00 - 22:00)": 350,
+    "進階擊打班(每週六19:00 - 22:00)": 350,
+    "個別班": 0,
 }
+
 
 @csrf_protect
 def course_Registration(request):
-    if request.method == 'POST':
-        selected_courses = request.POST.getlist('subCourseType') 
-        course_type = request.POST.getlist('courseType')
+    if request.method == "POST":
+        selected_courses = request.POST.getlist("subCourseType")
+        course_type = request.POST.getlist("courseType")
         total_cost = 0
 
         for course in selected_courses:
             total_cost += COURSE_PRICES.get(course, 0)
 
-        if '個別班' in course_type:
-            total_cost += 0  
+        if "個別班" in course_type:
+            total_cost += 0
 
-        if '樂齡班' in course_type:
-            total_cost += 3900
-        
-        return render(request, 'course_result.html', {
-            'total_cost': total_cost, 
-            'selected_courses': selected_courses, 
-            'course_type': course_type
-        })
+        return render(
+            request,
+            "course_result.html",
+            {
+                "total_cost": total_cost,
+                "selected_courses": selected_courses,
+                "course_type": course_type,
+            },
+        )
 
-    return render(request, 'course_Registration.html')
+    return render(request, "course_Registration.html")
 
 
 @csrf_protect
 def course_result(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        gender = request.POST.get('gender')
-        phone = request.POST.get('phone')
-        email = request.POST.get('email')
-        birthday = request.POST.get('birthday')
-        
-        selected_courses = request.POST.getlist('subCourseType') 
-        course_type = request.POST.getlist('courseType')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        gender = request.POST.get("gender")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        birthday = request.POST.get("birthday")
+
+        selected_courses = request.POST.getlist("subCourseType")
+        course_type = request.POST.getlist("courseType")
 
         total_cost = calculate_total_cost(selected_courses)
 
-        senior_class_cost = 3900
-        if '樂齡班' in course_type:
-            total_cost += senior_class_cost
-            selected_courses = selected_courses + [f"樂齡班"]
-
         registration = CourseRegistration(
-            user=request.user, 
-            course_type=', '.join(course_type), 
-            sub_course_type=', '.join(selected_courses), 
-            cost=total_cost
+            user=request.user,
+            course_type=", ".join(course_type),
+            sub_course_type=", ".join(selected_courses),
+            cost=total_cost,
         )
-        registration.save() 
+        registration.save()
 
         messages.success(request, "報名成功")
 
         context = {
-            'name': name,
-            'gender': gender,
-            'phone': phone,
-            'email': email,
-            'birthday': birthday,
-            'selected_courses': selected_courses,
-            'total_cost': total_cost
+            "name": name,
+            "gender": gender,
+            "phone": phone,
+            "email": email,
+            "birthday": birthday,
+            "selected_courses": selected_courses,
+            "total_cost": total_cost,
         }
-        return render(request, 'course_result.html', context)
+        return render(request, "course_result.html", context)
 
-    return render(request, 'course_Registration.html')
-
+    return render(request, "course_Registration.html")
 
 
 def calculate_total_cost(sub_courses):
     prices = {
-        '兒童初階班(每週二14:00 - 15:30)': 4000,
-        '兒童初階班(每週二15:30 - 17:00)': 4000,
-        '成人初階班(每週一14:00 - 16:00)': 4000,
-        '成人初階班(每週一16:00 - 18:00)': 4000,
-        '一般競技班(每週二14:00 - 16:00)': 4000,
-        '一般競技班(每週四16:00 - 18:00)': 4000,
-        '進階競技班(每週四14:00 - 16:00)': 4000,
-        '進階競技班(每週四16:00 - 18:00)': 4000,
-        '基礎擊打班(每週五19:00 - 22:00)': 350,
-        '基礎擊打班(每週六19:00 - 22:00)': 350,
-        '進階擊打班(每週五19:00 - 22:00)': 350,
-        '進階擊打班(每週六19:00 - 22:00)': 350
+        "兒童初階班(每週二14:00 - 15:30)": 4000,
+        "兒童初階班(每週二15:30 - 17:00)": 4000,
+        "成人初階班(每週一14:00 - 16:00)": 4000,
+        "成人初階班(每週一16:00 - 18:00)": 4000,
+        "一般競技班(每週二14:00 - 16:00)": 4000,
+        "一般競技班(每週四16:00 - 18:00)": 4000,
+        "進階競技班(每週四14:00 - 16:00)": 4000,
+        "進階競技班(每週四16:00 - 18:00)": 4000,
+        "基礎擊打班(每週五19:00 - 22:00)": 350,
+        "基礎擊打班(每週六19:00 - 22:00)": 350,
+        "進階擊打班(每週五19:00 - 22:00)": 350,
+        "進階擊打班(每週六19:00 - 22:00)": 350,
     }
-    
+
     total = 0
     for course in sub_courses:
         total += prices.get(course, 0)
     return total
+
 
 import uuid
 from decimal import Decimal
@@ -580,16 +638,17 @@ from django.shortcuts import render, redirect
 from .models import Order
 from django.views.decorators.csrf import csrf_exempt
 
+
 @csrf_exempt
 @login_required
 def create_order(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         # Get data from form
-        payer_name = request.POST.get('payer_name')
-        payer_phone = request.POST.get('payer_phone')
-        payer_email = request.POST.get('payer_email')
-        payment_method = request.POST.get('payment_method')
-        total_amount = request.POST.get('total_amount').replace(" 元", "")
+        payer_name = request.POST.get("payer_name")
+        payer_phone = request.POST.get("payer_phone")
+        payer_email = request.POST.get("payer_email")
+        payment_method = request.POST.get("payment_method")
+        total_amount = request.POST.get("total_amount").replace(" 元", "")
 
         total_amount = Decimal(total_amount)
 
@@ -605,13 +664,57 @@ def create_order(request):
         )
 
         order.save()
-        
-        return render(request, 'payment_success.html', {'order': order})
 
-    return render(request, 'payment.html')
+        return render(request, "payment_success.html", {"order": order})
+
+    return render(request, "payment.html")
 
 
 def payment_success(request, order_id):
     order = Order.objects.get(id=order_id)
 
-    return render(request, 'payment_success.html', {'order': order})
+    return render(request, "payment_success.html", {"order": order})
+
+
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
+@login_required(login_url="/login/")
+def course_result(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        gender = request.POST.get("gender")
+        phone = request.POST.get("phone")
+        email = request.POST.get("email")
+        birthday = request.POST.get("birthday")
+
+        selected_courses = request.POST.getlist("subCourseType")
+        course_type = request.POST.getlist("courseType")
+
+        total_cost = calculate_total_cost(selected_courses)
+
+        # 确保用户已经登录
+        if request.user.is_authenticated:
+            registration = CourseRegistration(
+                user=request.user,  # 使用已登录的用户
+                course_type=", ".join(course_type),
+                sub_course_type=", ".join(selected_courses),
+                cost=total_cost,
+            )
+            registration.save()  # 保存注册信息
+
+            messages.success(request, "報名成功")
+
+            context = {
+                "name": name,
+                "gender": gender,
+                "phone": phone,
+                "email": email,
+                "birthday": birthday,
+                "selected_courses": selected_courses,
+                "total_cost": total_cost,
+            }
+            return render(request, "course_result.html", context)
+
+    return redirect("course_Registration")
