@@ -155,3 +155,6 @@ EMAIL_HOST_USER = 'm19035192@gmail.com'
 EMAIL_HOST_PASSWORD ='cgyt apbc pdhn nzjw'
 
 LOGIN_URL = '/login/'
+LANGUAGE_CODE = 'zh-hant'
+SIMPLEUI_HOME_INFO = False 
+SIMPLEUI_ANALYSIS = False 
