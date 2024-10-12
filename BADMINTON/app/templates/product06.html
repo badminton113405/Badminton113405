@@ -176,13 +176,10 @@
             const name = product.getAttribute('data-name');
             const price = parseInt(product.getAttribute('data-price'), 10);
 
-            // 從 localStorage 中獲取現有的購物車資料
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            // 新增商品到購物車
             cart.push({ id, name, price });
 
-            // 儲存購物車到 localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
 
             alert(`${name} 已加入購物車!`);

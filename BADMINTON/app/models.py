@@ -10,8 +10,6 @@ class CourseRegistration(models.Model):
     registration_date = models.DateField(auto_now_add=True)
     cost = models.DecimalField(max_digits=6, decimal_places=2)
 
-# app/models.py
-
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -58,8 +56,6 @@ class User(AbstractUser):
 
     objects = UserManager() 
 
-
-# Registration model
 class Registration(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
@@ -72,7 +68,6 @@ class Registration(models.Model):
     def __str__(self):
         return f"{self.name} - {self.preferred_course}"
 
-# CourseType model
 class CourseType(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -80,7 +75,6 @@ class CourseType(models.Model):
     def __str__(self):
         return self.name
 
-# CourseSession model
 class CourseSession(models.Model):
     course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
     start_time = models.TimeField()
@@ -99,7 +93,6 @@ class CourseSession(models.Model):
     def __str__(self):
         return f"{self.course_type.name} - {self.day_of_week}"
 
-# Coach model
 class Coach(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
@@ -134,12 +127,12 @@ class CourseReservation(models.Model):
     phone = models.CharField(max_length=20)
     email = models.EmailField()
     grade = models.IntegerField()
-    motivation = models.JSONField()  # 存储列表数据
-    techniques = models.JSONField()  # 存储列表数据
+    motivation = models.JSONField() 
+    techniques = models.JSONField() 
     coach_gender = models.CharField(max_length=20, blank=True)
-    coach_traits = models.JSONField()  # 存储列表数据
-    course_type = models.JSONField()  # 存储列表数据
-    sub_course_type = models.JSONField()  # 存储列表数据
+    coach_traits = models.JSONField() 
+    course_type = models.JSONField() 
+    sub_course_type = models.JSONField()  
 
     def __str__(self):
         return self.name
@@ -157,13 +150,3 @@ class Order(models.Model):
     def __str__(self):
         return f"Order by {self.payer_name} - {self.total_amount}"
     
-    
-#class CourseSession(models.Model):
-    #course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
-    #start_time = models.TimeField()
-    #end_time = models.TimeField()
-    #instructor = models.CharField(max_length=100)
-    #day_of_week = models.CharField(max_length=10)
-
-    #def __str__(self):
-        #return f"{self.course_type.name} - {self.day_of_week}"

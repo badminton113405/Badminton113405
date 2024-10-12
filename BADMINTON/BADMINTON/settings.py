@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'simpleui',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -152,3 +153,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'm19035192@gmail.com'
 EMAIL_HOST_PASSWORD ='cgyt apbc pdhn nzjw'
+
+LOGIN_URL = '/login/'

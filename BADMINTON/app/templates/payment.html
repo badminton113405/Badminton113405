@@ -86,7 +86,6 @@
         background-color: transparent;
     }
 
-    /* Modal styles */
     .modal {
         display: none;
         position: fixed;
@@ -130,31 +129,26 @@
     <form id="payment-form" method="POST" action="{% url 'create_order' %}">
         {% csrf_token %}
 
-        <!-- 商品總額 -->
         <div class="form-group">
             <label for="total-amount">商品總額</label>
             <input type="text" id="total-amount" class="total-price-input" value="0 元" readonly>
         </div>
 
-        <!-- 付款人姓名 -->
         <div class="form-group">
             <label for="payer-name">付款人姓名</label>
             <input type="text" id="payer-name" name="payer_name" required>
         </div>
 
-        <!-- 付款人電話 -->
         <div class="form-group">
             <label for="payer-phone">付款人電話</label>
             <input type="text" id="payer-phone" name="payer_phone" required>
         </div>
 
-        <!-- 付款人信箱 -->
         <div class="form-group">
             <label for="payer-email">付款人信箱</label>
             <input type="email" id="payer-email" name="payer_email" required>
         </div>
 
-        <!-- 付款方式選擇 -->
         <div class="form-group">
             <label for="payment-method">付款方式</label>
             <div class="payment-methods">
@@ -172,7 +166,7 @@
     </form>
 </div>
 
-<!-- Modal for bank transfer -->
+
 <div id="bankTransferModal" class="modal">
     <div class="modal-content">
         <span class="close-button" id="close-button">&times;</span>
@@ -187,7 +181,7 @@
     </div>
 </div>
 
-<!-- Modal for cash payment -->
+
 <div id="cashPaymentModal" class="modal">
     <div class="modal-content">
         <span class="close-button" id="close-button-cash">&times;</span>
@@ -207,7 +201,7 @@
 </div>
 
 <script>
-    // 計算商品總額
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let totalPrice = 0;
 
@@ -219,7 +213,6 @@
     document.getElementById('transfer-amount').textContent = totalPrice + " 元";
     document.getElementById('cash-total-amount').textContent = totalPrice + " 元";
 
-    // Modal handling
     const bankTransferModal = document.getElementById('bankTransferModal');
     const cashPaymentModal = document.getElementById('cashPaymentModal');
     const closeButtonBank = document.getElementById('close-button');
@@ -227,7 +220,6 @@
     const paymentForm = document.getElementById('payment-form');
 
     
-
     document.getElementById('total-amount-hidden').value = totalPrice;
 
     document.getElementById('payment-button').addEventListener('click', () => {

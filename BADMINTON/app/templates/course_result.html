@@ -139,27 +139,22 @@
     const closeButtonBank = document.getElementById('close-button');
     const closeButtonCash = document.getElementById('close-button-cash');
 
-    // Show bank transfer modal
     bankTransferButton.onclick = function() {
         bankModal.style.display = 'block';
     }
 
-    // Show cash payment modal
     cashPaymentButton.onclick = function() {
         cashModal.style.display = 'block';
     }
 
-    // Close bank modal
     closeButtonBank.onclick = function() {
         bankModal.style.display = 'none';
     }
 
-    // Close cash modal
     closeButtonCash.onclick = function() {
         cashModal.style.display = 'none';
     }
 
-    // Close modals when clicking outside of them
     window.onclick = function(event) {
         if (event.target == bankModal) {
             bankModal.style.display = 'none';

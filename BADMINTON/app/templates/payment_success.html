@@ -18,7 +18,6 @@
         <p><strong>下單時間：</strong> {{ order.created_at }}</p>
     </div>
 
-    <!-- Conditionally render bank transfer details -->
     {% if order.payment_method == 'bank_transfer' %}
     <div class="payment-info">
         <h2>銀行轉帳資訊</h2>
@@ -31,7 +30,6 @@
     </div>
     {% endif %}
 
-    <!-- Conditionally render cash payment details -->
     {% if order.payment_method == 'cash' %}
     <div class="payment-info">
         <h2>現金付款資訊</h2>

@@ -6,22 +6,20 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator as token_generator
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model,login, authenticate, logout
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
-from .models import DiscussionPost, DiscussionComment, Registration
-from .forms import DiscussionPostForm, DiscussionCommentForm
-from django.views import View
+from .models import DiscussionPost, Order,CourseRegistration
+from .forms import DiscussionPostForm, DiscussionCommentForm,UserRegistrationForm,UserLoginForm,UserProfileForm,MemberCenterForm
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect,csrf_exempt
+from django.contrib import messages
+from decimal import Decimal
 
-
-# 已有的視圖
 def home(request):
     return render(request, "home.html")
 
 
-# 其他視圖函數
 def beginner(request):
     return render(request, "beginner.html")
 
@@ -82,7 +80,6 @@ def community(request):
     return render(request, "community.html")
 
 
-@login_required(login_url="/login/")
 def mall(request):
     return render(request, "mall.html")
 
@@ -144,23 +141,6 @@ def registration_history(request):
     return render(request, "history.html")
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
-from .forms import (
-    UserRegistrationForm,
-    UserLoginForm,
-    UserProfileForm,
-    MemberCenterForm,
-)
-from django.contrib import messages
-from django.http import JsonResponse
-
-
-from django.shortcuts import render, redirect
-from .models import CourseRegistration
-
-
 def registration_history(request):
     registrations = CourseRegistration.objects.filter(user=request.user)
     return render(request, "history.html", {"registrations": registrations})
@@ -170,12 +150,11 @@ def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            # 儲存新用戶但不激活
+
             user = form.save(commit=False)
             user.is_active = False
             user.save()
 
-            # 發送驗證郵件
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_generator.make_token(user)
             verification_link = request.build_absolute_uri(
@@ -191,11 +170,8 @@ def register(request):
                 },
             )
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
-
-            # 跳轉到提示頁面，告知用戶檢查電子信箱
             return redirect("email_verification_sent")
         else:
-            # 表單無效，顯示錯誤訊息
             messages.error(request, "註冊失敗，請檢查您的輸入。")
     else:
         form = UserRegistrationForm()
@@ -230,11 +206,9 @@ def user_login(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
 
-            # 檢查使用者名稱是否存在
             if not User.objects.filter(username=username).exists():
                 messages.error(request, "此帳號尚未註冊，請先註冊。")
             else:
-                # 嘗試驗證帳號和密碼
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
@@ -360,9 +334,6 @@ def add_comment(request, post_id):
     return redirect("community")
 
 
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_protect
-
 
 # 編輯評論
 @login_required
@@ -390,8 +361,7 @@ def delete_post(request, post_id):
 
     return render(request, "confirm_delete.html", {"post": post})
 
-
-# 定義老師屬性
+#分析
 teachers = [
     {
         "name": "蔡元振",
@@ -428,30 +398,24 @@ teachers = [
 ]
 
 
-# 匹配度計算函數
 def calculate_match(teacher, preferences):
     score = 0
 
-    # 嚴格匹配性別，如果指定了性別且不符合，直接返回0分
     if preferences["gender"] != "不指定" and teacher["gender"] != preferences["gender"]:
         return 0
 
-    # 比較技術特長
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
-            score += 2  # 技術匹配度給較高分
+            score += 2  
 
-    # 比較技術特長2
     for skill2 in preferences["skills2"]:
         if skill2 in teacher["skills2"]:
-            score += 1  # 技術匹配度給較高分
+            score += 1  
 
-    # 比較報名動機
     for incentive in preferences["incentives"]:
         if incentive in teacher["incentives"]:
-            score += 3  # 依照不同動機給分
+            score += 3 
 
-    # 比較教練特質
     for trait in preferences["traits"]:
         if trait in teacher["traits"]:
             score += 1
@@ -462,73 +426,58 @@ def calculate_match(teacher, preferences):
 @csrf_protect
 def recommend_teacher(request):
     if request.method == "POST":
-        # 提取用戶提交的表單資料
         user_preferences = {
-            "name": request.POST.get("name"),  # 姓名
-            "birthday": request.POST.get("birthday"),  # 生日
-            "incentives": request.POST.getlist("motivation"),  # 動機
-            "gender": request.POST.get("coachGender", "不指定"),  # 需要的教練性別
-            "skills": request.POST.getlist("techniques"),  # 技術選擇 (可能多選)
-            # 合併處理，只使用 "skills" 而不再單獨定義 "skills2"
-            "traits": request.POST.getlist("coachTraits"),  # 教練特質 (可能多選)
+            "name": request.POST.get("name"),  
+            "birthday": request.POST.get("birthday"),  
+            "incentives": request.POST.getlist("motivation"),
+            "gender": request.POST.get("coachGender", "不指定"), 
+            "skills": request.POST.getlist("techniques"),  
+            "traits": request.POST.getlist("coachTraits"), 
         }
 
-        # 計算每位老師的匹配度
         teacher_scores = []
         for teacher in teachers:
             match_score = calculate_match(teacher, user_preferences)
             teacher_scores.append((teacher["name"], match_score))
 
-        # 根據匹配度進行排序
         sorted_teachers = sorted(teacher_scores, key=lambda x: x[1], reverse=True)
 
-        # 返回推薦結果
         recommended_teachers = [
             (teacher, score) for teacher, score in sorted_teachers if score > 0
         ]
         for teacher, score in teacher_scores:
             print(f"{teacher}: {score}")
 
-        # 渲染推薦結果
         return render(
             request,
             "recommend_result.html",
             {"recommended_teachers": recommended_teachers},
         )
-
-    # 如果是 GET 請求，重定向到 course_Analysis_Registration.html
+    
     return redirect("course_Analysis_Registration")
 
 
-# calculate_match 函數
 def calculate_match(teacher, preferences):
     score = 0
 
-    # 嚴格匹配性別
     if preferences["gender"] != "不指定" and teacher["gender"] != preferences["gender"]:
         return 0
 
-    # 比較技術特長
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
-            score += 2  # 技術匹配度給較高分
+            score += 2  
 
-    # 比較報名動機
     for incentive in preferences["incentives"]:
         if incentive in teacher["incentives"]:
-            score += 3  # 依照不同動機給分
+            score += 3  
 
-    # 比較教練特質
     for trait in preferences["traits"]:
         if trait in teacher["traits"]:
             score += 1
 
     return score
 
-
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_protect
-
+#課程金額
 COURSE_PRICES = {
     "兒童初階班(每週二14:00 - 15:30)": 4000,
     "兒童初階班(每週二15:30 - 17:00)": 4000,
@@ -548,6 +497,11 @@ COURSE_PRICES = {
 
 @csrf_protect
 def course_Registration(request):
+    
+    if not request.user.is_authenticated:
+        messages.warning(request, "請先登入後再進行報名")
+        return redirect('login')
+
     if request.method == "POST":
         selected_courses = request.POST.getlist("subCourseType")
         course_type = request.POST.getlist("courseType")
@@ -571,7 +525,7 @@ def course_Registration(request):
 
     return render(request, "course_Registration.html")
 
-
+#最終報名成功頁面
 @csrf_protect
 def course_result(request):
     if request.method == "POST":
@@ -631,19 +585,11 @@ def calculate_total_cost(sub_courses):
         total += prices.get(course, 0)
     return total
 
-
-import uuid
-from decimal import Decimal
-from django.shortcuts import render, redirect
-from .models import Order
-from django.views.decorators.csrf import csrf_exempt
-
-
+#報名付款
 @csrf_exempt
 @login_required
 def create_order(request):
     if request.method == "POST":
-        # Get data from form
         payer_name = request.POST.get("payer_name")
         payer_phone = request.POST.get("payer_phone")
         payer_email = request.POST.get("payer_email")
@@ -652,7 +598,6 @@ def create_order(request):
 
         total_amount = Decimal(total_amount)
 
-        # Create the order
         order = Order.objects.create(
             user=request.user,
             payer_name=payer_name,
@@ -676,10 +621,6 @@ def payment_success(request, order_id):
     return render(request, "payment_success.html", {"order": order})
 
 
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-
-
 @login_required(login_url="/login/")
 def course_result(request):
     if request.method == "POST":
@@ -694,15 +635,14 @@ def course_result(request):
 
         total_cost = calculate_total_cost(selected_courses)
 
-        # 确保用户已经登录
         if request.user.is_authenticated:
             registration = CourseRegistration(
-                user=request.user,  # 使用已登录的用户
+                user=request.user,
                 course_type=", ".join(course_type),
                 sub_course_type=", ".join(selected_courses),
                 cost=total_cost,
             )
-            registration.save()  # 保存注册信息
+            registration.save() 
 
             messages.success(request, "報名成功")
 

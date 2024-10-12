@@ -1,4 +1,3 @@
-# forms.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, DiscussionPost, DiscussionComment
@@ -40,8 +39,7 @@ class UserProfileForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'class': 'profile-info-input'}),
             'email': forms.EmailInput(attrs={'class': 'profile-info-input'}),
         }
-
-        
+     
 class MemberCenterForm(forms.ModelForm):
     class Meta:
         model = User
@@ -54,7 +52,6 @@ class MemberCenterForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'readonly': 'readonly'}),
             'email': forms.EmailInput(attrs={'readonly': 'readonly'}),
         }
-
 
 class DiscussionPostForm(forms.ModelForm):
     class Meta:
