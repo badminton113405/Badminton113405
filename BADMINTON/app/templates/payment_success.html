@@ -18,6 +18,17 @@
         <p><strong>下單時間：</strong> {{ order.created_at }}</p>
     </div>
 
+    <div class="order-items">
+        <h2>商品詳情</h2>
+        {% for item in order_items_with_totals %}
+        <p><strong>商品名稱：</strong> {{ item.product.name }}</p>
+        <p><strong>數量：</strong> {{ item.quantity }}</p>
+        <p><strong>單價：</strong> {{ item.price }} 元</p>
+        <p><strong>小計：</strong> {{ item.subtotal }} 元</p>
+        <hr>
+        {% endfor %}
+    </div>
+
     {% if order.payment_method == 'bank_transfer' %}
     <div class="payment-info">
         <h2>銀行轉帳資訊</h2>
@@ -33,11 +44,16 @@
     {% if order.payment_method == 'cash' %}
     <div class="payment-info">
         <h2>現金付款資訊</h2>
-        <p>請於一周內至現場付款：</p>
+        <p>請於一周內至現場付款。</p>
         <p><strong>地點：</strong>羽你同行羽球館</p>
         <p><strong>商品總金額：</strong>{{ order.total_amount }} 元</p>
     </div>
     {% endif %}
+
+    <!-- 確認鍵 -->
+    <div class="button-container">
+        <button class="i-button" id="confirm-button">確認</button>
+    </div>
 </div>
 
 <style>
@@ -48,14 +64,18 @@
         text-align: center;
     }
 
-    .order-details, .payment-info {
+    .order-details,
+    .order-items,
+    .payment-info {
         background-color: #f9f9f9;
         padding: 20px;
         border-radius: 8px;
         margin-top: 20px;
     }
 
-    .order-details p, .payment-info p {
+    .order-details p,
+    .order-items p,
+    .payment-info p {
         font-size: 18px;
         margin: 10px 0;
     }
@@ -79,5 +99,23 @@
         margin-top: 30px;
     }
 </style>
+
+<script>
+// 清空 localStorage 中的购物车数据
+localStorage.removeItem('cart');  // 清除购物车数据
+
+// 检查购物车数量元素是否存在
+const itemCountElement = document.getElementById('item-count');
+if (itemCountElement) {
+    // 如果存在购物车计数器元素，更新购物车数量显示为 0
+    itemCountElement.textContent = 0;
+}
+
+// 监听确认按钮的点击事件，跳转回商城
+document.getElementById('confirm-button').addEventListener('click', function () {
+    // 跳转到商城页面
+    window.location.href = "{% url 'mall' %}";
+});
+</script>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, DiscussionPost, DiscussionComment
+from .models import User, DiscussionPost, DiscussionComment,Product
 from django.forms.widgets import SelectDateWidget
 
 class UserRegistrationForm(UserCreationForm):
@@ -62,3 +62,8 @@ class DiscussionCommentForm(forms.ModelForm):
     class Meta:
         model = DiscussionComment
         fields = ['content']
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['name', 'price']

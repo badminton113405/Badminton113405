@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment,CourseRegistration,Order
+from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment,CourseRegistration,Order,Product
 
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
@@ -66,3 +66,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('payer_name', 'payer_phone', 'payer_email', 'total_amount', 'created_at', 'paid')
     
 admin.site.register(Order, OrderAdmin)
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price')

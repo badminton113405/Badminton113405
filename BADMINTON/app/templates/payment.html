@@ -121,10 +121,25 @@
     .close-button:focus {
         color: black;
     }
+
+    .order-items {
+        margin-bottom: 20px;
+    }
+
+    .order-items p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
 </style>
 
 <div class="container">
     <div class="payment-title"><h1>付款</h1></div>
+
+    <div class="order-items">
+        <h2>商品詳情</h2>
+        <div id="order-items-list"></div>
+    </div>
 
     <form id="payment-form" method="POST" action="{% url 'create_order' %}">
         {% csrf_token %}
@@ -160,71 +175,50 @@
             </div>
         </div>
 
-        <input type="hidden" id="total-amount-hidden" name="total_amount" value="{{ total_cost }}">
+        <input type="hidden" id="total-amount-hidden" name="total_amount" value="">
 
         <button type="submit" class="payment-button" id="payment-button">確認</button>
     </form>
 </div>
 
-
-<div id="bankTransferModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" id="close-button">&times;</span>
-        <h1>已完成下單！</h1>
-        <h2>銀行轉帳資訊</h2>
-        <p>請將費用轉帳至以下賬戶：</p>
-        <p><strong>銀行名稱：</strong>合作金庫</p>
-        <p><strong>賬戶名稱：</strong>蔡元振</p>
-        <p><strong>賬戶號碼：</strong>0400765166568</p>
-        <p><strong>轉帳金額：</strong><span id="transfer-amount">{{ total_cost }} 元</span></p>
-        <p>完成後請點擊關閉按鈕。</p>
-    </div>
-</div>
-
-
-<div id="cashPaymentModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" id="close-button-cash">&times;</span>
-        <h1>已完成下單！</h1>
-        <h2>現金付款資訊</h2>
-        <p>請於一周內至現場付款。</p>
-        <p><strong>付款人姓名：</strong><span id="payer-name-display"></span></p>
-        <p><strong>付款人電話：</strong><span id="payer-phone-display"></span></p>
-        <p><strong>商品總金額：</strong><span id="cash-total-amount"></span></p>
-        <p><strong>地點：</strong>羽你同行羽球館</p>
-        <p>完成後請點擊關閉按鈕。</p>
-    </div>
-</div>
-
-<div class="button-container">
-    <a href="{% url 'shopingcar' %}"><button class="i-button">返回購物車</button></a>
-</div>
-
 <script>
-
+    // 获取购物车数据
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let totalPrice = 0;
+    const orderItemsList = document.getElementById('order-items-list');
 
     cart.forEach(item => {
-        totalPrice += item.price;
+        totalPrice += item.price * item.quantity;
+
+        // 动态显示每个商品的信息
+        const itemElement = document.createElement('p');
+        itemElement.innerHTML = `<strong>商品名稱：</strong> ${item.name} | <strong>數量：</strong> ${item.quantity} | <strong>單價：</strong> ${item.price} 元 | <strong>小計：</strong> ${item.price * item.quantity} 元`;
+        orderItemsList.appendChild(itemElement);
     });
 
+    // 更新总金额
     document.getElementById('total-amount').value = totalPrice + " 元";
-    document.getElementById('transfer-amount').textContent = totalPrice + " 元";
-    document.getElementById('cash-total-amount').textContent = totalPrice + " 元";
-
-    const bankTransferModal = document.getElementById('bankTransferModal');
-    const cashPaymentModal = document.getElementById('cashPaymentModal');
-    const closeButtonBank = document.getElementById('close-button');
-    const closeButtonCash = document.getElementById('close-button-cash');
-    const paymentForm = document.getElementById('payment-form');
-
-    
     document.getElementById('total-amount-hidden').value = totalPrice;
 
-    document.getElementById('payment-button').addEventListener('click', () => {
-        localStorage.removeItem('cart');
-        location.reload();
+    // 提交表单时处理购物车数据
+    document.getElementById('payment-button').addEventListener('click', (event) => {
+        event.preventDefault(); // 阻止默认提交
+
+        // 序列化购物车数据
+        const cartJSON = JSON.stringify(cart);
+
+        // 创建隐藏的输入字段
+        const cartInput = document.createElement('input');
+        cartInput.type = 'hidden';
+        cartInput.name = 'cart';  // 传递给后端的 key
+        cartInput.value = cartJSON;
+
+        // 将隐藏字段添加到表单
+        const form = document.getElementById('payment-form');
+        form.appendChild(cartInput);
+
+        // 提交表单
+        form.submit();
     });
 
 </script>

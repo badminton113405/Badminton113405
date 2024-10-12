@@ -26,7 +26,7 @@
     .title {
         text-align: center;
     }
-    
+
     .cart-icon {
         position: absolute;
         top: 11%;
@@ -116,7 +116,9 @@
     }
 </style>
 
-<div class="title"><h1>購物車</h1></div>
+<div class="title">
+    <h1>購物車</h1>
+</div>
 <div class="container">
     <div id="cart-items">
 
@@ -143,10 +145,11 @@
     const cartMap = new Map();
 
     cart.forEach(item => {
+        // 如果商品已存在于 Map 中，则累加数量
         if (cartMap.has(item.id)) {
-            cartMap.get(item.id).quantity += 1; 
+            cartMap.get(item.id).quantity += item.quantity;
         } else {
-            cartMap.set(item.id, { ...item, quantity: 1 }); 
+            cartMap.set(item.id, { ...item }); // 否则，直接加入 Map
         }
     });
 
@@ -154,6 +157,39 @@
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
         cartItem.innerHTML = `
+        <span>${item.name}</span>
+        <span>${item.price} 元</span>
+        <div class="quantity-controls">
+            <button class="decrease" data-id="${item.id}">-</button>
+            <span class="quantity">${item.quantity}</span>
+            <button class="increase" data-id="${item.id}">+</button>
+        </div>
+    `;
+        cartItemsContainer.appendChild(cartItem);
+        totalPrice += item.price * item.quantity; // 计算总价
+    });
+
+    totalPriceElement.textContent = totalPrice;
+
+    function updateQuantity(id, change) {
+        const item = cartMap.get(id);
+        if (item) {
+            item.quantity += change;
+            if (item.quantity <= 0) {
+                cartMap.delete(id); // 如果数量为 0 或更少，删除该商品
+            }
+        }
+        updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+        cartItemsContainer.innerHTML = ''; // 清空现有内容
+        totalPrice = 0;
+
+        cartMap.forEach(item => {
+            const cartItem = document.createElement('div');
+            cartItem.classList.add('cart-item');
+            cartItem.innerHTML = `
             <span>${item.name}</span>
             <span>${item.price} 元</span>
             <div class="quantity-controls">
@@ -162,11 +198,33 @@
                 <button class="increase" data-id="${item.id}">+</button>
             </div>
         `;
-        cartItemsContainer.appendChild(cartItem);
-        totalPrice += item.price * item.quantity; 
-    });
+            cartItemsContainer.appendChild(cartItem);
+            totalPrice += item.price * item.quantity;  // 重新计算总价
+        });
 
-    totalPriceElement.textContent = totalPrice;
+        totalPriceElement.textContent = totalPrice;
+        saveCart(); // 保存最新购物车数据
+    }
+
+    function saveCart() {
+        const updatedCart = [];
+        cartMap.forEach(item => {
+            updatedCart.push({ id: item.id, name: item.name, price: item.price, quantity: item.quantity });
+        });
+        localStorage.setItem('cart', JSON.stringify(updatedCart));  // 存储购物车数据
+    }
+
+    // 清空购物车按钮
+    document.getElementById('clear-cart').addEventListener('click', () => {
+        // 清空 localStorage 中的购物车数据
+        localStorage.removeItem('cart');
+
+        // 清空 cartMap
+        cartMap.clear();
+
+        // 重新渲染购物车
+        updateCartDisplay();
+    });
 
     cartItemsContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('increase')) {
@@ -178,55 +236,5 @@
         }
     });
 
-    function updateQuantity(id, change) {
-        const item = cartMap.get(id);
-        if (item) {
-            item.quantity += change;
-            if (item.quantity <= 0) {
-                cartMap.delete(id); 
-            }
-        }
-        updateCartDisplay();
-    }
-
-    function updateCartDisplay() {
-        cartItemsContainer.innerHTML = '';
-        totalPrice = 0;
-
-        cartMap.forEach(item => {
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('cart-item');
-            cartItem.innerHTML = `
-                <span>${item.name}</span>
-                <span>${item.price} 元</span>
-                <div class="quantity-controls">
-                    <button class="decrease" data-id="${item.id}">-</button>
-                    <span class="quantity">${item.quantity}</span>
-                    <button class="increase" data-id="${item.id}">+</button>
-                </div>
-            `;
-            cartItemsContainer.appendChild(cartItem);
-            totalPrice += item.price * item.quantity; 
-        });
-
-        totalPriceElement.textContent = totalPrice;
-
-        saveCart();
-    }
-
-    function saveCart() {
-        const updatedCart = [];
-        cartMap.forEach(item => {
-            for (let i = 0; i < item.quantity; i++) {
-                updatedCart.push({ id: item.id, name: item.name, price: item.price });
-            }
-        });
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-    }
-
-    document.getElementById('clear-cart').addEventListener('click', () => {
-        localStorage.removeItem('cart');
-        location.reload();
-    });
 </script>
 {% endblock %}

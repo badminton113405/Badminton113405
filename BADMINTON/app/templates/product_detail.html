@@ -5,7 +5,6 @@
 {% block title %}<title>商城中心</title>{% endblock %}
 
 {% block content %}
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
     @media screen and (max-width: 320px) {
@@ -47,9 +46,10 @@
         text-align: left;
     }    
 
-    .title{
+    .title {
         text-align: center;
-   }
+    }
+
     .cart-icon {
         position: absolute;
         top: 11%;
@@ -57,7 +57,7 @@
         transform: translateY(-50%);
         font-size: 24px;
     }
-    
+
     .product {
         font-family: "Zen Kurenaido", sans-serif;
         margin-top: 25px;
@@ -82,7 +82,7 @@
 
     .price {
         font-size: 22px;
-         color: #333;
+        color: #333;
         margin: 10px 0;
     }
 
@@ -125,64 +125,54 @@
         border-radius: 16px;
         color: #fff;
         background-color: #777777;
-        }
-    .button-container{
+    }
+
+    .button-container {
         text-align: center;
     }
 </style>
 
 <div class="mall">
     <div class="title">
-        <h1>商城</h1>
+        <h1>{{ product.name }}</h1>
     </div>
-<div class="card">
-    <a href="{% url 'shopingcar' %}"><i class="fas fa-shopping-cart cart-icon"></i></a>
-    <div class="container">
-        <div class="product"data-id="7" data-name="VICTOR 球拍袋 羽球拍袋 1支裝" data-price="150">
-            <img src="{% static 'images/market-07.jpg' %}" alt="VICTOR 新手球拍">
-            <a href="{% url 'product07' %}"></a>
-            <div class="name">
-                VICTOR 球拍袋 羽球拍袋 1支裝
+
+    <div class="card">
+        <div class="container">
+            <div class="product">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <div class="name">
+                    {{ product.name }}
+                </div>
+                <div class="price">
+                    價格: ${{ product.price }}
+                </div>
+                <p class="description">{{ product.description }}</p>
+                <button class="shopcar">加入購物車</button>
             </div>
-            <div class="price">
-                $ 150 元
-            </div>
-            <button class="shopcar">加入購物車</button>
-            <div class="description">
-                VICTOR 1支裝羽球拍袋專為羽球愛好<br>
-                者設計，提供便捷的攜帶和卓越的保<br>
-                護效果。這款拍袋採用高品質耐用材<br>
-                料製作，能夠有效保護你的羽球拍免<br>
-                受損傷。
-            </div>
-        </div>    
+        </div>
     </div>
-</div>    
+
     <div class="button-container">
-        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
-        <a href="{% url 'mall' %}"><button class="i-button">回上頁</button></a>
-    </div>
+        <a href="{% url 'product_list' %}"><button class="i-button">返回商城</button></a>
     </div>
 </div>
 
 <script>
-    const addToCartButtons = document.querySelectorAll('.shopcar');
+    const addToCartButton = document.querySelector('.shopcar');
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const product = button.parentElement;
-            const id = product.getAttribute('data-id');
-            const name = product.getAttribute('data-name');
-            const price = parseInt(product.getAttribute('data-price'), 10);
+    addToCartButton.addEventListener('click', () => {
+        const productId = "{{ product.id }}";
+        const productName = "{{ product.name }}";
+        const productPrice = "{{ product.price }}";
 
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            cart.push({ id, name, price });
+        cart.push({ id: productId, name: productName, price: productPrice });
 
-            localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart));
 
-            alert(`${name} 已加入購物車!`);
-        });
+        alert(`${productName} 已加入購物車!`);
     });
 </script>
 {% endblock %}

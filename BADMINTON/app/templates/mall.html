@@ -146,169 +146,94 @@
     </div>
 
     <div class="container">
-        <div class="product" data-id="1" data-name="VICTOR 新手球拍 ARS3200" data-price="1250">
-            <a href="{% url 'product01' %}">
-                <img src="{% static 'images/market-01.jpg' %}" alt="VICTOR 新手球拍 ARS3200 球拍包含線">
-            </a>
-            <h3>VICTOR 新手球拍 ARS3200 球拍包含線</h3>
-            <p class="price">$1250元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="2" data-name="YONEX AC102 單入 握把布(隨機色)" data-price="35">
-            <a href="{% url 'product02' %}">
-                <img src="{%static 'images/market-02.jpg' %}" alt="YONEX AC102 單入 握把布(隨機色)">
-            </a>
-            <h3>YONEX AC102 單入 握把布(隨機色)</h3>
-            <p class="price">$35元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="3" data-name="Yonex 運動吸汗護腕AC492EX" data-price="90">
-            <a href="{% url 'product03' %}">
-                <img src="{%static 'images/market-03.jpg' %}" alt="Yonex 運動吸汗護腕AC492EX">
-            </a>
-            <h3>Yonex 運動吸汗護腕AC492EX (隨機色)</h3>
-            <p class="price">$90元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="4" data-name="VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球" data-price="410">
-            <a href="{% url 'product04' %}">
-                <img src="{%static 'images/market-04.jpg' %}" alt="VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球">
-            </a>
-            <h3>VICTOR 勝利 新碳音球 NCS 六入裝 羽毛球</h3>
-            <p class="price">$410元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="5" data-name="YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)" data-price="110">
-            <a href="{% url 'product05' %}">
-                <img src="{%static 'images/market-05.jpg' %}" alt="YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)">
-            </a>
-            <h3>YONEX 毛巾吸汗運動頭帶 AC259EX(隨機色)</h3>
-            <p class="price">$110元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="6" data-name="Victor 羽球拍保護半拍套 (內絨布)" data-price="60">
-            <a href="{% url 'product06' %}">
-                <img src="{%static 'images/market-06.jpg' %}" alt="Victor 羽球拍保護半拍套 (內絨布)">
-            </a>
-            <h3>Victor 羽球拍保護半拍套 (內絨布)</h3>
-            <p class="price">$60元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="7" data-name="VICTOR 球拍袋 羽球拍袋  1支裝" data-price="150">
-            <a href="{% url 'product07' %}">
-                <img src="{%static 'images/market-07.jpg' %}" alt="VICTOR 球拍袋 羽球拍袋  1支裝">
-            </a>
-            <h3>VICTOR 球拍袋 羽球拍袋 1支裝</h3>
-            <p class="price">$150元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
-        <div class="product" data-id="8" data-name="VICTOR 運動毛巾 C-4159 F (1入)" data-price="200">
-            <a href="{% url 'product08' %}">
-                <img src="{%static 'images/market-08.jpg' %}" alt="VICTOR 運動毛巾 C-4159 F (1入)">
-            </a>
-            <h3>VICTOR 運動毛巾 C-4159 F (1入)</h3>
-            <p class="price">$200元</p>
-            {% if user.is_authenticated %}
-            <a class="add-to-cart">加入購物車</a>
-            {% else %}
-            <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
-            {% endif %}
-        </div>
-
+        {% if products.exists %}
+            {% for product in products %}
+            <div class="product" data-id="{{ product.id }}" data-name="{{ product.name }}" data-price="{{ product.price }}">
+                <a href="{% url 'product_detail' product.id %}">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </a>
+                <h3>{{ product.name }}</h3>
+                <p class="price">${{ product.price }}</p>
+                {% if user.is_authenticated %}
+                <a class="add-to-cart">加入購物車</a>
+                {% else %}
+                <a href="{% url 'login' %}" class="login-to-cart">加入購物車</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>当前没有商品。</p>
+        {% endif %}
     </div>
+
     <div class="button-container">
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
     </div>
 </div>
 
 <script>
-    document.getElementById('cart-link').addEventListener('click', function () {
-        {% if user.is_authenticated %}
-        // 如果使用者已登入，則跳轉到購物車頁面
+const addToCartButtons = document.querySelectorAll('.add-to-cart');
+const loginToCartLinks = document.querySelectorAll('.login-to-cart');
+const itemCountElement = document.getElementById('item-count');  // 获取购物车数量的 DOM 元素
+
+// 更新购物车计数器
+function updateCartCounter() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);  // 计算购物车中的总数量
+    itemCountElement.textContent = totalQuantity;  // 更新计数器显示
+}
+
+// 为所有 "加入购物车" 按钮添加点击事件
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const product = button.parentElement;
+        const id = product.getAttribute('data-id');
+        const name = product.getAttribute('data-name');
+        const price = parseInt(product.getAttribute('data-price'), 10);
+        const quantity = 1; // 默認設置 quantity 為 1
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // 查找是否已存在該商品，若存在則增加数量
+        const existingProduct = cart.find(item => item.id === id);
+        if (existingProduct) {
+            existingProduct.quantity += 1;  // 若商品已在购物车中，增加数量
+        } else {
+            cart.push({ id, name, price, quantity });  // 新商品则添加到购物车
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // 更新购物车计数器
+        updateCartCounter();
+
+        // 提示用户商品已加入购物车
+        alert(`${name} 已加入購物車!`);
+    });
+});
+
+// 初始化时更新购物车计数器
+updateCartCounter();
+
+loginToCartLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        alert("請先登入才能加入購物車!");
+        window.location.href = "{% url 'login' %}";
+    });
+});
+
+// 监听购物车图标点击，跳转至购物车页面
+document.getElementById('cart-link').addEventListener('click', function () {
+    // 判断用户是否已登录
+    {% if user.is_authenticated %}
+        // 如果用户已登录，跳转到购物车页面
         window.location.href = "{% url 'shopingcar' %}";
-        {% else %}
-        // 如果使用者未登入，顯示提示並跳轉到登入頁面
+    {% else %}
+        // 如果用户未登录，提示需要登录并跳转到登录页面
         alert("請先登入以查看購物車");
         window.location.href = "{% url 'login' %}";
-        {% endif %}
-    });
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    const loginToCartLinks = document.querySelectorAll('.login-to-cart');
-
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const product = button.parentElement;
-            const id = product.getAttribute('data-id');
-            const name = product.getAttribute('data-name');
-            const price = parseInt(product.getAttribute('data-price'), 10);
-
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push({ id, name, price });
-            localStorage.setItem('cart', JSON.stringify(cart));
-
-            const cartIcon = document.querySelector('.cart-icon');
-            const itemCount = document.getElementById('item-count');
-
-            if (cart.length > 0) {
-                cartIcon.classList.add('has-items');
-                itemCount.textContent = cart.length;
-            } else {
-                cartIcon.classList.remove('has-items');
-                itemCount.textContent = 0;
-            }
-
-            alert(`${name} 已加入購物車!`);
-        });
-    });
-
-    loginToCartLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            alert("請先登入才能加入購物車!");
-            window.location.href = "{% url 'login' %}";
-        });
-    });
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartIcon = document.querySelector('.cart-icon');
-    if (cart.length > 0) {
-        cartIcon.classList.add('has-items');
-        document.getElementById('item-count').textContent = cart.length;
-    }
+    {% endif %}
+});
 </script>
 
 {% endblock %}

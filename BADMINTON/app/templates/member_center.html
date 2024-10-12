@@ -118,16 +118,18 @@
     <div class="course-records">
       <h4>購買紀錄:</h4>
       <ul>
-        {% for orders in request.user.order_set.all %}
-        <li> - NT$ {{ orders.total_amount }} - 付款狀態：
-          {% if orders.paid %}
-          已付款
-          {% else %}
-          未付款
-          {% endif %}
+        {% for order in request.user.order_set.all %}
+        <li>
+          訂單時間：{{ order.created_at }} - 總金額：NT$ {{ order.total_amount }} - 付款狀態：
+          {% if order.paid %} 已付款 {% else %} 未付款 {% endif %}
+          <ul>
+            {% for item in order.items.all %}
+            <li>{{ item.product.name }} - 數量：{{ item.quantity }}</li>
+            {% endfor %}
+          </ul>
         </li>
         {% empty %}
-        <li>尚無紀錄</li>
+        <li>尚無購買紀錄</li>
         {% endfor %}
       </ul>
     </div>

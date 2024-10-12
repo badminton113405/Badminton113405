@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
@@ -6,15 +7,23 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator as token_generator
-from django.contrib.auth import get_user_model,login, authenticate, logout
+from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
-from .models import DiscussionPost, Order,CourseRegistration
-from .forms import DiscussionPostForm, DiscussionCommentForm,UserRegistrationForm,UserLoginForm,UserProfileForm,MemberCenterForm
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_protect,csrf_exempt
+from .models import DiscussionPost, Order, CourseRegistration,Product,  OrderItem
+from .forms import (
+    DiscussionPostForm,
+    DiscussionCommentForm,
+    UserRegistrationForm,
+    UserLoginForm,
+    UserProfileForm,
+    MemberCenterForm,
+)
+from django.http import HttpResponse,JsonResponse
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib import messages
 from decimal import Decimal
+
 
 def home(request):
     return render(request, "home.html")
@@ -333,8 +342,6 @@ def add_comment(request, post_id):
             return redirect("community")
     return redirect("community")
 
-
-
 # 編輯評論
 @login_required
 def edit_post(request, post_id):
@@ -361,7 +368,8 @@ def delete_post(request, post_id):
 
     return render(request, "confirm_delete.html", {"post": post})
 
-#分析
+
+# 分析
 teachers = [
     {
         "name": "蔡元振",
@@ -406,15 +414,15 @@ def calculate_match(teacher, preferences):
 
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
-            score += 2  
+            score += 2
 
     for skill2 in preferences["skills2"]:
         if skill2 in teacher["skills2"]:
-            score += 1  
+            score += 1
 
     for incentive in preferences["incentives"]:
         if incentive in teacher["incentives"]:
-            score += 3 
+            score += 3
 
     for trait in preferences["traits"]:
         if trait in teacher["traits"]:
@@ -427,12 +435,12 @@ def calculate_match(teacher, preferences):
 def recommend_teacher(request):
     if request.method == "POST":
         user_preferences = {
-            "name": request.POST.get("name"),  
-            "birthday": request.POST.get("birthday"),  
+            "name": request.POST.get("name"),
+            "birthday": request.POST.get("birthday"),
             "incentives": request.POST.getlist("motivation"),
-            "gender": request.POST.get("coachGender", "不指定"), 
-            "skills": request.POST.getlist("techniques"),  
-            "traits": request.POST.getlist("coachTraits"), 
+            "gender": request.POST.get("coachGender", "不指定"),
+            "skills": request.POST.getlist("techniques"),
+            "traits": request.POST.getlist("coachTraits"),
         }
 
         teacher_scores = []
@@ -453,7 +461,7 @@ def recommend_teacher(request):
             "recommend_result.html",
             {"recommended_teachers": recommended_teachers},
         )
-    
+
     return redirect("course_Analysis_Registration")
 
 
@@ -465,11 +473,11 @@ def calculate_match(teacher, preferences):
 
     for skill in preferences["skills"]:
         if skill in teacher["skills"]:
-            score += 2  
+            score += 2
 
     for incentive in preferences["incentives"]:
         if incentive in teacher["incentives"]:
-            score += 3  
+            score += 3
 
     for trait in preferences["traits"]:
         if trait in teacher["traits"]:
@@ -477,7 +485,8 @@ def calculate_match(teacher, preferences):
 
     return score
 
-#課程金額
+
+# 課程金額
 COURSE_PRICES = {
     "兒童初階班(每週二14:00 - 15:30)": 4000,
     "兒童初階班(每週二15:30 - 17:00)": 4000,
@@ -497,10 +506,10 @@ COURSE_PRICES = {
 
 @csrf_protect
 def course_Registration(request):
-    
+
     if not request.user.is_authenticated:
         messages.warning(request, "請先登入後再進行報名")
-        return redirect('login')
+        return redirect("login")
 
     if request.method == "POST":
         selected_courses = request.POST.getlist("subCourseType")
@@ -525,7 +534,8 @@ def course_Registration(request):
 
     return render(request, "course_Registration.html")
 
-#最終報名成功頁面
+
+# 最終報名成功頁面
 @csrf_protect
 def course_result(request):
     if request.method == "POST":
@@ -585,7 +595,8 @@ def calculate_total_cost(sub_courses):
         total += prices.get(course, 0)
     return total
 
-#報名付款
+
+
 @csrf_exempt
 @login_required
 def create_order(request):
@@ -595,6 +606,14 @@ def create_order(request):
         payer_email = request.POST.get("payer_email")
         payment_method = request.POST.get("payment_method")
         total_amount = request.POST.get("total_amount").replace(" 元", "")
+        cart_data = request.POST.get("cart")  
+        if cart_data is None:
+            return HttpResponse("購物車資料未提供", status=400)
+
+        try:
+            cart = json.loads(cart_data)  
+        except json.JSONDecodeError:
+            return HttpResponse("無效的購物車資料", status=400)
 
         total_amount = Decimal(total_amount)
 
@@ -608,11 +627,47 @@ def create_order(request):
             paid=False,
         )
 
-        order.save()
+        order_items_with_totals = []  # 用来保存每个商品和小计
 
-        return render(request, "payment_success.html", {"order": order})
+        try:
+            for item in cart:
+                product_id = item['id']
+                quantity = item.get('quantity', 1)  
+
+                product = Product.objects.get(id=product_id)
+
+                # 计算商品小计
+                subtotal = product.price * quantity
+
+                # 保存订单项
+                order_item = OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=quantity,
+                )
+
+                # 保存商品信息和小计到列表
+                order_items_with_totals.append({
+                    'product': product,
+                    'quantity': quantity,
+                    'price': product.price,
+                    'subtotal': subtotal
+                })
+
+            order.save() 
+
+            return render(request, "payment_success.html", {
+                "order": order,
+                "order_items_with_totals": order_items_with_totals  # 传递每个商品及小计信息
+            })
+
+        except Product.DoesNotExist:
+            return HttpResponse("商品未找到", status=404)
+        except KeyError as e:
+            return JsonResponse({'status': 'error', 'message': f'Missing key: {str(e)}'}, status=400)
 
     return render(request, "payment.html")
+
 
 
 def payment_success(request, order_id):
@@ -642,7 +697,7 @@ def course_result(request):
                 sub_course_type=", ".join(selected_courses),
                 cost=total_cost,
             )
-            registration.save() 
+            registration.save()
 
             messages.success(request, "報名成功")
 
@@ -658,3 +713,11 @@ def course_result(request):
             return render(request, "course_result.html", context)
 
     return redirect("course_Registration")
+
+def mall(request):
+    products = Product.objects.all()  
+    return render(request, 'mall.html', {'products': products})
+
+def product_detail(request, product_id):
+    product = Product.objects.get(id=product_id)
+    return render(request, 'product_detail.html', {'product': product})

@@ -57,6 +57,8 @@ urlpatterns = [
     path('product08/', views.product08, name='product08'),
     path('create_order/', views.create_order, name='create_order'),
     path('payment_success/<int:order_id>/', views.payment_success, name='payment_success'),
+    path('products/', views.mall, name='product_list'),
+    path('products/<int:product_id>/', views.product_detail, name='product_detail'),
 
     # 課程報名與分析
     path('course_Registration/', views.course_Registration, name='course_Registration'),
