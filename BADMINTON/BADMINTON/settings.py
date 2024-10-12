@@ -155,6 +155,8 @@ EMAIL_HOST_USER = 'm19035192@gmail.com'
 EMAIL_HOST_PASSWORD ='cgyt apbc pdhn nzjw'
 
 LOGIN_URL = '/login/'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SIMPLEUI_HOME_INFO = False 
+SIMPLEUI_ANALYSIS = False 

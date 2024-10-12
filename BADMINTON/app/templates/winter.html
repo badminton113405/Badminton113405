@@ -84,6 +84,13 @@
         <p>指導老師:胡玟翰 教練、張秉洋 教練</p>
     </div>
         
-    <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+    <div class="button-container">
+        <a href="{% url 'onetoone' %}"><button class="i-button">個別班</button></a>
+        <a href="{% url 'beginner' %}"><button class="i-button">初階班</button></a>
+        <a href="{% url 'competitive' %}"><button class="i-button">競技班</button></a>
+        <a href="{% url 'zerodozen' %}"><button class="i-button">零打班</button></a>
+        <a href="{% url 'summer' %}"><button class="i-button">夏令營</button></a>
+        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+    </div>
 </div>
 {% endblock %}

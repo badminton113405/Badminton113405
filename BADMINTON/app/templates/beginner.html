@@ -86,7 +86,13 @@
         (成人)星期一下午2:00~4:00 & 4:00~6:00 以及 星期三 晚上5:00~7:00<br>
         <p>指導教練:蔡元振 教練、周仲庭 教練</p>
     </div>
-
-    <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+    <div class="button-container">
+        <a href="{% url 'competitive' %}"><button class="i-button">競技班</button></a>
+        <a href="{% url 'onetoone' %}"><button class="i-button">個別班</button></a>
+        <a href="{% url 'zerodozen' %}"><button class="i-button">零打班</button></a>
+        <a href="{% url 'summer' %}"><button class="i-button">夏令營</button></a>
+        <a href="{% url 'winter' %}"><button class="i-button">冬令營</button></a>
+        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+    </div>
 </div>
 {% endblock %}

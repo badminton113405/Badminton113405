@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment,CourseRegistration,Order,Product
 
+
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -70,3 +71,9 @@ admin.site.register(Order, OrderAdmin)
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
+
+admin.site.site_header = '羽你動資動'  # 設置header
+admin.site.site_title = '羽你動資動'   # 設置title
+admin.site.index_title = '羽你動資動'
+
+
