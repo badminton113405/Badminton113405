@@ -154,7 +154,6 @@ def registration_history(request):
     registrations = CourseRegistration.objects.filter(user=request.user)
     return render(request, "history.html", {"registrations": registrations})
 
-
 def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -573,7 +572,6 @@ def course_result(request):
 
     return render(request, "course_Registration.html")
 
-
 def calculate_total_cost(sub_courses):
     prices = {
         "兒童初階班(每週二14:00 - 15:30)": 4000,
@@ -589,13 +587,12 @@ def calculate_total_cost(sub_courses):
         "進階擊打班(每週五19:00 - 22:00)": 350,
         "進階擊打班(每週六19:00 - 22:00)": 350,
     }
-
+    
     total = 0
     for course in sub_courses:
         total += prices.get(course, 0)
+    
     return total
-
-
 
 @csrf_exempt
 @login_required
@@ -679,40 +676,33 @@ def payment_success(request, order_id):
 @login_required(login_url="/login/")
 def course_result(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        gender = request.POST.get("gender")
-        phone = request.POST.get("phone")
-        email = request.POST.get("email")
-        birthday = request.POST.get("birthday")
-
-        selected_courses = request.POST.getlist("subCourseType")
-        course_type = request.POST.getlist("courseType")
-
+        name = request.POST.get("name", "未提供")
+        gender = request.POST.get("gender", "未提供")
+        phone = request.POST.get("phone", "未提供")
+        email = request.POST.get("email", "未提供")
+        birthday = request.POST.get("birthday", "未提供")
+        selected_courses = request.POST.getlist("subCourseType", [])
         total_cost = calculate_total_cost(selected_courses)
 
         if request.user.is_authenticated:
             registration = CourseRegistration(
                 user=request.user,
-                course_type=", ".join(course_type),
+                course_type=", ".join(request.POST.getlist("courseType")),
                 sub_course_type=", ".join(selected_courses),
                 cost=total_cost,
             )
             registration.save()
 
-            messages.success(request, "報名成功")
-
-            context = {
-                "name": name,
-                "gender": gender,
-                "phone": phone,
-                "email": email,
-                "birthday": birthday,
-                "selected_courses": selected_courses,
-                "total_cost": total_cost,
-            }
-            return render(request, "course_result.html", context)
-
-    return redirect("course_Registration")
+        context = {
+            "name": name,
+            "gender": gender,
+            "phone": phone,
+            "email": email,
+            "birthday": birthday,
+            "selected_courses": selected_courses,
+            "total_cost": total_cost,
+        }
+        return render(request, "course_result.html", context)
 
 def mall(request):
     products = Product.objects.all()  
@@ -721,3 +711,26 @@ def mall(request):
 def product_detail(request, product_id):
     product = Product.objects.get(id=product_id)
     return render(request, 'product_detail.html', {'product': product})
+
+def course_success_page(request):
+    if request.method == "POST":
+        name = request.POST.get('name', '未提供')
+        gender = request.POST.get('gender', '未提供')
+        phone = request.POST.get('phone', '未提供')
+        email = request.POST.get('email', '未提供')
+        birthday = request.POST.get('birthday', '未提供')
+        selected_courses = request.POST.getlist('selected_courses', [])
+        total_cost = request.POST.get('total_cost', 0)
+
+        context = {
+            'name': name,
+            'gender': gender,
+            'phone': phone,
+            'email': email,
+            'birthday': birthday,
+            'selected_courses': selected_courses,
+            'total_cost': total_cost
+        }
+
+        return render(request, 'course_success.html', context)
+

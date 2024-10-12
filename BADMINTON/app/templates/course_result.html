@@ -7,7 +7,7 @@
 {% block content %}
 <div class="course-result">
 
-    <h1>報名成功</h1>
+    <h1>購課資訊</h1>
 
     <!-- 顯示個人資訊 -->
     <ul>
@@ -17,7 +17,7 @@
         <li><strong>Email：</strong> {{ email }}</li>
         <li><strong>生日：</strong> {{ birthday }}</li>
     </ul>
-    
+
     <!-- 顯示選擇的課程 -->
     <h3>選擇的課程</h3>
     <ul>
@@ -25,28 +25,25 @@
             <li>{{ course }}</li>
         {% endfor %}
     </ul>
-    
-    <ul>
-        {% for course in course_type %}
-            {% if course == "樂齡班" or course == "個別班" %}
-                <li>{{ course }}</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-    
 
-    <ul>
-        {% for sub_course in selected_sub_courses %}
-            <li>{{ sub_course }}</li>
-        {% endfor %}
-    </ul>
-    
     <p>課程費用：<strong>{{ total_cost }}</strong> 元</p>
-
 
     <!-- 支付選項 -->
     <button class="nav-button" id="bank-transfer-button">銀行轉帳</button>
     <button class="nav-button" id="cash-payment-button">現金</button>
+
+    <!-- 隱藏表單提交 -->
+    <form method="post" action="{% url 'course_success_page' %}" id="hiddenForm">
+        {% csrf_token %}
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="hidden" name="gender" value="{{ gender }}">
+        <input type="hidden" name="phone" value="{{ phone }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <input type="hidden" name="birthday" value="{{ birthday }}">
+        <input type="hidden" name="selected_courses" value="{{ selected_courses }}">
+        <input type="hidden" name="total_cost" value="{{ total_cost }}">
+        <input type="hidden" name="payment_type" id="paymentType">
+    </form>
 </div>
 
 <!-- Modal for Bank Transfer -->
@@ -60,7 +57,7 @@
         <p><strong>賬戶號碼：</strong>0400765166568</p>
         <p><strong>轉帳金額：</strong>{{ total_cost }} 元</p>
         <p>完成後請點擊確認按鈕。</p>
-        <a href="{% url 'course_Registration' %}"><button class="i-button">確認</button></a>
+        <a href="#"><button class="i-button" id="confirmButton">確認</button></a>
     </div>
 </div>
 
@@ -74,7 +71,17 @@
         <p><strong>付款人電話：</strong>{{ phone }}</p>
         <p><strong>商品總金額：</strong>{{ total_cost }} 元</p>
         <p><strong>地點：</strong>羽你同行羽球館</p>
-        <p>完成後請點擊關閉按鈕。</p>
+        <p>完成後請點擊確認按鈕。</p>
+        <a href="#"><button class="i-button">確認</button></a>
+    </div>
+</div>
+
+<!-- 報名成功的訊息彈窗 -->
+<div id="successMessageModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="successCloseButton">&times;</span>
+        <h2>報名成功！</h2>
+        <p>您已成功報名本課程，感謝您的轉帳。</p>
     </div>
 </div>
 
@@ -89,7 +96,6 @@
         width: 100%; 
         height: 100%; 
         overflow: auto; 
-        background-color: rgb(0,0,0); 
         background-color: rgba(0,0,0,0.4); 
     }
 
@@ -124,44 +130,47 @@
     }
 
     .i-button:hover {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #ffff;
+        color: #fff;
         background-color: #777777;
     }
 </style>
 
+<!-- JavaScript for Modal Actions -->
 <script>
     const bankTransferButton = document.getElementById('bank-transfer-button');
     const cashPaymentButton = document.getElementById('cash-payment-button');
-    const bankModal = document.getElementById('bankTransferModal');
-    const cashModal = document.getElementById('cashPaymentModal');
-    const closeButtonBank = document.getElementById('close-button');
-    const closeButtonCash = document.getElementById('close-button-cash');
+    const hiddenForm = document.getElementById('hiddenForm');
+    const paymentTypeInput = document.getElementById('paymentType');
 
+    // Handles modal and form submission
     bankTransferButton.onclick = function() {
-        bankModal.style.display = 'block';
-    }
+        paymentTypeInput.value = 'bank';
+        document.getElementById('bankTransferModal').style.display = 'block';
+    };
 
     cashPaymentButton.onclick = function() {
-        cashModal.style.display = 'block';
-    }
+        paymentTypeInput.value = 'cash';
+        hiddenForm.submit();
+    };
 
-    closeButtonBank.onclick = function() {
-        bankModal.style.display = 'none';
-    }
+    // Modal close button logic
+    document.getElementById('close-button').onclick = function() {
+        document.getElementById('bankTransferModal').style.display = 'none';
+    };
 
-    closeButtonCash.onclick = function() {
-        cashModal.style.display = 'none';
-    }
-
+    // Clicking outside the modal closes it
     window.onclick = function(event) {
-        if (event.target == bankModal) {
-            bankModal.style.display = 'none';
-        } else if (event.target == cashModal) {
-            cashModal.style.display = 'none';
+        if (event.target === document.getElementById('bankTransferModal')) {
+            document.getElementById('bankTransferModal').style.display = 'none';
         }
-    }
+    };
+
+    // Confirm button logic for bank transfer
+    document.getElementById('confirmButton').onclick = function(event) {
+        event.preventDefault();  
+        document.getElementById('bankTransferModal').style.display = 'none';
+        hiddenForm.submit();
+    };
 </script>
 
 {% endblock %}

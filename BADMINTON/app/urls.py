@@ -67,6 +67,7 @@ urlpatterns = [
     path('recommend/', views.recommend_teacher, name='recommend_teacher'),
     path('course_result/', views.course_result, name='course_result'),
     path('history/', views.registration_history, name='registration_history'),
+    path('course_success/', views.course_success_page, name='course_success_page'),
 ]
 
 
