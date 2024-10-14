@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>{{ course.name }}</title>{% endblock %}
+
+{% block content %}
+<style>
+    @media screen and (max-width: 320px) {
+        .g-header-container.fixed {
+            padding: 5px;
+        }
+
+        .g-footer-container {
+            padding: 5px;
+        }
+
+        .m-button {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+    }
+
+    .course-detail {
+        font-family: "Zen Kurenaido", sans-serif;
+        margin-top: 30px;
+        margin-left: 50px;
+        margin-right: 50px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .course-detail h2 {
+        margin-top: 5px;
+    }
+
+    .i-button {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #000;
+        background-color: #FBFF36;
+    }
+
+    .i-button:hover {
+        font-family: "Zen Kurenaido", sans-serif;
+        border-radius: 16px;
+        color: #ffff;
+        background-color: #777777;
+    }
+
+    .title {
+        display: flex;
+    }
+
+    .title1 {
+        margin-top: 28pt;
+        margin-left: 5pt;
+    }
+
+    .time {
+        font-size: 12pt;
+    }
+
+    .about {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="course-detail">
+    <div class="title">
+        <h1>{{ course.name }}</h1>
+        {% if course.applicable_level %}
+            <div class="title1">(適合 {{ course.applicable_level }})</div>
+        {% endif %}
+    </div>
+
+    <img src="{{ course.image.url }}" alt="{{ course.name }}" class="class-img">
+
+    <div class="about">
+        <p>{{ course.description }}</p>
+
+        {% if course.additional_description_1 %}
+            <h2>班級</h2>
+            <p>{{ course.additional_description_1 }}</p>
+        {% endif %}
+
+        {% if course.additional_description_2 %}
+            <h2>時間</h2>
+            <p>{{ course.additional_description_2 }}</p>
+        {% endif %}
+
+        <h2>課程費用</h2>
+        <p>價格: {{ course.price|floatformat:0 }} /堂</p>
+    </div>
+
+    <div class="time">
+        <h2>指導教練:</h2>
+        <ul>
+            {% for coach in course.coaches.all %}
+                <li><a href="{{ coach.get_absolute_url }}">{{ coach.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="button-container">
+        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+    </div>
+</div>
+
+{% endblock %}

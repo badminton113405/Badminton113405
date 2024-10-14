@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission,BaseUserManager
 from django.conf import settings
+from django.urls import reverse
 
 
 class CourseRegistration(models.Model):
@@ -69,11 +70,21 @@ class Registration(models.Model):
         return f"{self.name} - {self.preferred_course}"
 
 class CourseType(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    name = models.CharField(max_length=100)  # 班级名称
+    applicable_level = models.CharField(max_length=100, blank=True, null=True)  # 适用阶级（选填）
+    description = models.TextField(blank=True, null=True)  # 班级介绍 1
+    additional_description_1 = models.TextField(blank=True, null=True)  # 班级介绍 2
+    additional_description_2 = models.TextField(blank=True, null=True)  # 班级介绍 3
+    price = models.DecimalField(max_digits=6, decimal_places=2)  # 价格
+    image = models.ImageField(upload_to='courses/', blank=True, null=True)  # 照片
+    coaches = models.ManyToManyField('Coach', blank=True)  # 指導教練
+    slug = models.SlugField(unique=True, default='default-slug')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('course_detail', kwargs={'slug': self.slug})
 
 class CourseSession(models.Model):
     course_type = models.ForeignKey(CourseType, on_delete=models.CASCADE)
@@ -81,13 +92,13 @@ class CourseSession(models.Model):
     end_time = models.TimeField()
     instructor = models.CharField(max_length=100)
     day_of_week = models.CharField(max_length=10, choices=[
-        ('Monday', 'Monday'), 
-        ('Tuesday', 'Tuesday'), 
-        ('Wednesday', 'Wednesday'),
-        ('Thursday', 'Thursday'),
-        ('Friday', 'Friday'),
-        ('Saturday', 'Saturday'),
-        ('Sunday', 'Sunday')
+        ('Monday', '星期一'), 
+        ('Tuesday', '星期二'), 
+        ('Wednesday', '星期三'),
+        ('Thursday', '星期四'),
+        ('Friday', '星期五'),
+        ('Saturday', '星期六'),
+        ('Sunday', '星期日')
     ])
 
     def __str__(self):
@@ -95,14 +106,20 @@ class CourseSession(models.Model):
 
 class Coach(models.Model):
     name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=10, choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
+    gender = models.CharField(max_length=10, choices=[('male', '男'), ('female', '女'), ('other', '其他')])
+    personal_traits = models.CharField(max_length=255, blank=True, null=True)  # 添加个人特质字段
     specialization = models.CharField(max_length=100)
     experience = models.TextField()
+    teaching_method = models.TextField(blank=True, null=True)  # 添加教学方式字段
     contact_number = models.CharField(max_length=20)
-    photo = models.ImageField(upload_to='instructors/')
+    photo = models.ImageField(upload_to='coaches/')
+    slug = models.SlugField(unique=True, default='default-slug')  # 添加slug字段用于友好的URL
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('coach_detail', kwargs={'slug': self.slug})
 
 class DiscussionPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)

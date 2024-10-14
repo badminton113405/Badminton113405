@@ -2,9 +2,9 @@
 
 {% load static %}
 
-{% block title %}<title>教練團隊</title>{% endblock %}
-{% block content %}
+{% block title %}<title>{{ coach.name }} - 教練團隊</title>{% endblock %}
 
+{% block content %}
 <style>
     @media screen and (max-width: 320px) {
         .g-header-container.fixed {
@@ -21,7 +21,7 @@
         }
     }
 
-    .zzt {
+    .cyz {
         font-family: "Zen Kurenaido", sans-serif;
         margin-top: 30px;
         margin-left: 10px;
@@ -32,7 +32,7 @@
         max-width: 500px;
     }
 
-    .zzt img {
+    .cyz img {
         border-radius: 5pt;
         object-fit: cover;
     }
@@ -56,7 +56,8 @@
     }
 
     .gender {
-        font-size: 18px;
+        font-size: 16px;
+        display: flex;
         margin-right: -2pt;
         margin-left: 5pt;
     }
@@ -64,7 +65,7 @@
     .specialty {
         background-color: rgba(255, 255, 255, 0.8);
         padding: 10px;
-        border-radius: 8px;
+        border-radius: 10px;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         text-align: center;
         justify-content: space-between;
@@ -118,52 +119,43 @@
         background-color: #777777;
     }
 </style>
-<div class="zzt">
-    <h2>教練團隊</h2>
-    <img src="{% static 'images/co-zhozhongting.jpg' %}" alt="周仲庭">
+
+<div class="cyz">
+    <img src="{{ coach.photo.url }}" alt="{{ coach.name }}">
     <div class="name-gender-specialty">
         <div class="name-gender">
-            <div class="name">周仲庭</div>
-            <div class="gender">/女</div>
+            <div class="name">{{ coach.name }}</div>
+            <div class="gender">/ {{ coach.get_gender_display }}</div>
         </div>
         <div class="specialty">
             <span>特質</span>
-            <br>活潑、外向<br>
+            <br>{{ coach.personal_traits }}<br>
             <span>專長項目</span>
-            <br>雙打輪轉<br>
+            <br>{{ coach.specialization }}<br>
         </div>
     </div>
     <div class="experience">
         <span>經歷：</span>
         <ul>
-            <li>中華羽協A級教練</li>
-            <li>中華民國羽球協會甲組球員</li>
-            <li>恆耀羽球學院A及專業教練</li>
+            {{ coach.experience|linebreaks }}
         </ul>
     </div>
     <div class="teaching-methods-contact-info">
         <div class="teaching-methods">
             <span>教學方式：</span>
             <ul>
-                <li>基礎動作教學</li>
-                <li>階段式訓練</li>
-                <li>體能訓練</li>
-                <li>實戰教學</li>
+                {{ coach.teaching_method|linebreaks }}
             </ul>
         </div>
         <div class="contact-info">
             <span>聯絡資訊：</span>
-            <br>0987569423<br>
+            <br>{{ coach.contact_number }}<br>
             <img src="{% static 'images/LINE.jpg' %}" alt="QR Code" width="100">
         </div>
     </div>
     <div class="button-container">
-        <a href="{% url 'CYZ' %}"><button class="i-button">蔡元振</button></a>
-        <a href="{% url 'ZBY' %}"><button class="i-button">張秉洋</button></a>
-        <a href="{% url 'HWH' %}"><button class="i-button">胡玟翰</button></a>
-        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+                <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
     </div>
 </div>
-
 
 {% endblock %}

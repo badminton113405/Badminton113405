@@ -10,7 +10,7 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
-from .models import DiscussionPost, Order, CourseRegistration,Product,  OrderItem
+from .models import DiscussionPost, Order, CourseRegistration,Product,  OrderItem,CourseType, Coach
 from .forms import (
     DiscussionPostForm,
     DiscussionCommentForm,
@@ -26,8 +26,17 @@ from decimal import Decimal
 
 
 def home(request):
-    return render(request, "home.html")
+    courses = CourseType.objects.all()
+    coaches = Coach.objects.all()
+    return render(request, 'home.html', {'courses': courses, 'coaches': coaches})
 
+def course_detail(request, slug):
+    course = get_object_or_404(CourseType, slug=slug)
+    return render(request, 'course_detail.html', {'course': course})
+
+def coach_detail(request, slug):
+    coach = get_object_or_404(Coach, slug=slug)
+    return render(request, 'coach_detail.html', {'coach': coach})
 
 def beginner(request):
     return render(request, "beginner.html")
@@ -95,39 +104,6 @@ def mall(request):
 
 def shopingcar(request):
     return render(request, "shopingcar.html")
-
-
-def product01(request):
-    return render(request, "product01.html")
-
-
-def product02(request):
-    return render(request, "product02.html")
-
-
-def product03(request):
-    return render(request, "product03.html")
-
-
-def product04(request):
-    return render(request, "product04.html")
-
-
-def product05(request):
-    return render(request, "product05.html")
-
-
-def product06(request):
-    return render(request, "product06.html")
-
-
-def product07(request):
-    return render(request, "product07.html")
-
-
-def product08(request):
-    return render(request, "product08.html")
-
 
 def course_Analysis_Registration(request):
     return render(request, "course_Analysis_Registration.html")

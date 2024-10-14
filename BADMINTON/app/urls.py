@@ -5,21 +5,9 @@ from .views import payment
 urlpatterns = [
     # 主頁
     path('', views.home, name='home'),
-
-    # 課程頁面
-    path('beginner/', views.beginner, name='beginner'),
-    path('competitive/', views.competitive, name='competitive'),
-    path('onetoone/', views.onetoone, name='onetoone'),
-    path('zerodozen/', views.zerodozen, name='zerodozen'),
-    path('summer/', views.summer, name='summer'),
-    path('winter/', views.winter, name='winter'),
-
-    # 教練頁面
-    path('ZZT/', views.ZZT, name='ZZT'),
-    path('CYZ/', views.CYZ, name='CYZ'),
-    path('ZBY/', views.ZBY, name='ZBY'),
-    path('HWH/', views.HWH, name='HWH'),
-
+    path('course/<slug:slug>/', views.course_detail, name='course_detail'),
+    path('coach/<slug:slug>/', views.coach_detail, name='coach_detail'),
+    
     # 特殊球類訓練頁面
     path('power_ball/', views.power_ball, name='power_ball'),
     path('left_right_ball/', views.left_right_ball, name='left_right_ball'),
@@ -47,14 +35,6 @@ urlpatterns = [
     path('mall/', views.mall, name='mall'),
     path('payment/', views.payment, name='payment'),
     path('shopingcar/', views.shopingcar, name='shopingcar'),
-    path('product01/', views.product01, name='product01'),
-    path('product02/', views.product02, name='product02'),
-    path('product03/', views.product03, name='product03'),
-    path('product04/', views.product04, name='product04'),
-    path('product05/', views.product05, name='product05'),
-    path('product06/', views.product06, name='product06'),
-    path('product07/', views.product07, name='product07'),
-    path('product08/', views.product08, name='product08'),
     path('create_order/', views.create_order, name='create_order'),
     path('payment_success/<int:order_id>/', views.payment_success, name='payment_success'),
     path('products/', views.mall, name='product_list'),

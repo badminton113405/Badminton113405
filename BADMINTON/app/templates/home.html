@@ -84,9 +84,12 @@
 
     .coach {
         display: flex;
+        flex-wrap: wrap; 
+        justify-content: space-between; 
     }
 
     .coach-item {
+        flex-basis: 23%;
         margin-right: 20px;
         text-align: center;
     }
@@ -103,9 +106,12 @@
 
     .class {
         display: flex;
+        flex-wrap: wrap; 
+        justify-content: space-between; 
     }
 
     .class-item {
+        flex-basis: 23%;
         margin-right: 20px;
         text-align: center;
     }
@@ -203,89 +209,34 @@
                     allowfullscreen></iframe>
             </div>
         </div>
-
+        
         <div class="courses">
             <h2>課程展示</h2>
-
             <div class="class">
-                <div class="class-item">
-                    <a href="{% url 'beginner' %}"><img src="{% static 'images/c-beginner.jpg' %}" alt="初階班"
-                            class="class-img">
-                        <p><button class="c-button">初階班</button></p>
-                    </a>
-                </div>
-                <div class="class-item">
-                    <a href="{% url 'competitive' %}"><img src="{% static 'images/c-competitive.jpg' %}" alt="競技班"
-                            class="class-img">
-                        <p><button class="c-button">競技班</button></p>
-                    </a>
-                </div>
-            </div>
-
-            <div class="class">
-                <div class="class-item">
-                    <a href="{% url 'onetoone' %}"><img src="{% static 'images/c-onetoone.jpg' %}" alt="個別班"
-                            class="class-img">
-                        <p><button class="c-button">個別班</button></p>
-                    </a>
-                </div>
-                <div class="class-item">
-                    <a href="{% url 'zerodozen' %}"><img src="{% static 'images/c-zerodozen.jpg' %}" alt="零打班"
-                            class="class-img">
-                        <p><button class="c-button">零打班</button></p>
-                    </a>
-                </div>
-            </div>
-
-            <div class="class">
-                <div class="class-item">
-                    <a href="{% url 'summer' %}"><img src="{% static 'images/夏令營.jpg' %}" alt="個別班"
-                            class="class-img">
-                        <p><button class="c-button">夏令營</button></p>
-                    </a>
-                </div>
-                <div class="class-item">
-                    <a href="{% url 'winter' %}"><img src="{% static 'images/冬令營.jpg' %}" alt="零打班"
-                            class="class-img">
-                        <p><button class="c-button">冬令營</button></p>
-                    </a>
-                </div>
+                {% for course in courses %}
+                    <div class="class-item">
+                        <a href="{{ course.get_absolute_url }}">
+                            <img src="{{ course.image.url }}" alt="{{ course.name }}" class="class-img">
+                            <p><button class="c-button">{{ course.name }}</button></p>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-
+        
         <div id="about">
             <h2>教練團隊</h2>
             <div class="coach">
-                <div class="coach-item">
-                    <a href="{% url 'CYZ' %}"><img src="{% static 'images/co-chaiyuanzheng.jpg' %}" alt="蔡元振"
-                            class="coach-img">
-                        <p><button class="co-button">蔡元振</button></p>
-                    </a>
-                </div>
-                <div class="coach-item">
-                    <a href="{% url 'ZZT' %}"><img src="{% static 'images/co-zhozhongting.jpg' %}" alt="周仲庭"
-                            class="coach-img">
-                        <p><button class="co-button">周仲庭</button></p>
-                    </a>
-                </div>
-            </div>
-
-            <div class="coach">
-                <div class="coach-item">
-                    <a href="{% url 'ZBY' %}"><img src="{% static 'images/co-zhangbingying.jpg' %}" alt="張秉洋"
-                            class="coach-img">
-                        <p><button class="co-button">張秉洋</button></p>
-                    </a>
-                </div>
-                <div class="coach-item">
-                    <a href="{% url 'HWH' %}"><img src="{% static 'images/co-huwenhan.jpg' %}" alt="胡玟翰"
-                            class="coach-img">
-                        <p><button class="co-button">胡玟翰</button></p>
-                    </a>
-                </div>
+                {% for coach in coaches %}
+                    <div class="coach-item">
+                        <a href="{{ coach.get_absolute_url }}">
+                            <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="coach-img">
+                            <p><button class="co-button">{{ coach.name }}</button></p>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-
         <div class="teach">
             <h2>羽球教學</h2>
             <a href="{% url 'power_ball' %}"><img src="{% static 'images/t-sq.jpg' %}" alt="殺球" class="teach-img"><button
