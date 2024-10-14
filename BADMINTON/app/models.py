@@ -138,22 +138,7 @@ class DiscussionComment(models.Model):
     def __str__(self):
         return f"Comment by {self.author.username} on {self.post}"
     
-class CourseReservation(models.Model):
-    name = models.CharField(max_length=100)
-    gender = models.CharField(max_length=10)
-    phone = models.CharField(max_length=20)
-    email = models.EmailField()
-    grade = models.IntegerField()
-    motivation = models.JSONField() 
-    techniques = models.JSONField() 
-    coach_gender = models.CharField(max_length=20, blank=True)
-    coach_traits = models.JSONField() 
-    course_type = models.JSONField() 
-    sub_course_type = models.JSONField()  
-
-    def __str__(self):
-        return self.name
-    
+   
 class Product(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)

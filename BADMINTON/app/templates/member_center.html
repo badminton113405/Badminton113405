@@ -99,7 +99,15 @@
     <div class="profile-info">
       <p>姓名: {{ form.full_name.value }}</p>
       <p>暱稱: {{ form.nickname.value }}</p>
-      <p>性別: {{ form.gender.value }}</p>
+      <p>性別: 
+        {% if form.gender.value == "male" %}
+          男
+        {% elif form.gender.value == "female" %}
+          女
+        {% elif form.gender.value == "other" %}
+          其他
+        {% endif %}
+      </p>
       <p>出生年月日: {{ form.birth_date.value }}</p>
       <p>聯絡電話: {{ form.phone.value }}</p>
       <p>Email: {{ form.email.value }}</p>

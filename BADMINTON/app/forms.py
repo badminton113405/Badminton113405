@@ -1,9 +1,16 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, DiscussionPost, DiscussionComment,Product
+from .models import User, DiscussionPost, DiscussionComment, Product
 from django.forms.widgets import SelectDateWidget
 
 class UserRegistrationForm(UserCreationForm):
+    GENDER_CHOICES = [
+        ('male', '男'),
+        ('female', '女'),
+        ('other', '其他'),
+    ]
+
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
     birth_date = forms.DateField(widget=forms.SelectDateWidget(years=range(1990, 2024)))
 
     class Meta:
@@ -12,7 +19,6 @@ class UserRegistrationForm(UserCreationForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'full_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'gender': forms.Select(attrs={'class': 'form-control'}),
             'birth_date': forms.SelectDateWidget(attrs={'class': 'dob'}),
             'nickname': forms.TextInput(attrs={'class': 'form-control'}),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
@@ -26,6 +32,13 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 class UserProfileForm(forms.ModelForm):
+    GENDER_CHOICES = [
+        ('male', '男'),
+        ('female', '女'),
+        ('other', '其他'),
+    ]
+
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'profile-info-select'}))
     birth_date = forms.DateField(widget=forms.SelectDateWidget(years=range(1990, 2024)))
 
     class Meta:
@@ -33,13 +46,12 @@ class UserProfileForm(forms.ModelForm):
         fields = ['full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email']
         widgets = {
             'full_name': forms.TextInput(attrs={'class': 'profile-info-input'}),
-            'gender': forms.Select(attrs={'class': 'profile-info-select'}),
             'birth_date': forms.SelectDateWidget(attrs={'class': 'dob'}),
             'nickname': forms.TextInput(attrs={'class': 'profile-info-input'}),
             'phone': forms.TextInput(attrs={'class': 'profile-info-input'}),
             'email': forms.EmailInput(attrs={'class': 'profile-info-input'}),
         }
-     
+
 class MemberCenterForm(forms.ModelForm):
     class Meta:
         model = User
