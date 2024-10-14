@@ -4,7 +4,14 @@ from .models import User, DiscussionPost, DiscussionComment,Product
 from django.forms.widgets import SelectDateWidget
 
 class UserRegistrationForm(UserCreationForm):
+    GENDER_CHOICES = [
+        ('M', '男'),
+        ('F', '女'),
+        ('O', '其他'),
+    ]
+
     birth_date = forms.DateField(widget=forms.SelectDateWidget(years=range(1990, 2024)))
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
@@ -26,7 +33,14 @@ class UserLoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
 class UserProfileForm(forms.ModelForm):
+    GENDER_CHOICES = [
+        ('M', '男'),
+        ('F', '女'),
+        ('O', '其他'),
+    ]
+
     birth_date = forms.DateField(widget=forms.SelectDateWidget(years=range(1990, 2024)))
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.Select(attrs={'class': 'profile-info-select'}))
 
     class Meta:
         model = User
@@ -39,14 +53,20 @@ class UserProfileForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'class': 'profile-info-input'}),
             'email': forms.EmailInput(attrs={'class': 'profile-info-input'}),
         }
-     
+
 class MemberCenterForm(forms.ModelForm):
+    GENDER_CHOICES = [
+        ('M', '男'),
+        ('F', '女'),
+        ('O', '其他'),
+    ]
+    
     class Meta:
         model = User
         fields = ['full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email']
         widgets = {
             'full_name': forms.TextInput(attrs={'readonly': 'readonly'}),
-            'gender': forms.Select(attrs={'disabled': 'disabled'}),
+            'gender': forms.Select(attrs={'disabled': 'disabled'}, choices=[('M', '男'), ('F', '女'), ('O', '其他')]),
             'birth_date': forms.DateInput(attrs={'readonly': 'readonly'}),
             'nickname': forms.TextInput(attrs={'readonly': 'readonly'}),
             'phone': forms.TextInput(attrs={'readonly': 'readonly'}),
@@ -67,3 +87,4 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'price']
+
