@@ -34,7 +34,7 @@
   }
 
   .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
     padding: 20px;
     border-radius: 10px;
@@ -48,7 +48,7 @@
 
   .profile-info {
     text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: px;
   }
 
   .profile-info p {
@@ -116,13 +116,16 @@
     <div class="course-records">
       <h4>課程紀錄:</h4>
       <ul>
-        {% for registration in request.user.courseregistration_set.all %}
-        <li>{{registration.registration_date }}：{{ registration.course_type }} - {{ registration.sub_course_type }} - NT$ {{ registration.cost }} </li>
-        {% empty %}
-        <li>尚無紀錄</li>
-        {% endfor %}
+          {% for registration in request.user.courseregistration_set.all %}
+          <li>
+              {{ registration.registration_date }}：{{ registration.course_type }} - {{ registration.sub_course_type }} - NT$ {{ registration.cost }} 
+              {{ registration.payment_status }} <!-- 顯示付款狀態 -->
+          </li>
+          {% empty %}
+          <li>尚無紀錄</li>
+          {% endfor %}
       </ul>
-    </div>
+    </div>   
     <div class="course-records">
       <h4>購買紀錄:</h4>
       <ul>

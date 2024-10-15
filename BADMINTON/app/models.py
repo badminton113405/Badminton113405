@@ -10,6 +10,10 @@ class CourseRegistration(models.Model):
     sub_course_type = models.CharField(max_length=100, blank=True, null=True)
     registration_date = models.DateField(auto_now_add=True)
     cost = models.DecimalField(max_digits=6, decimal_places=2)
+    is_paid = models.BooleanField(default=False)  # 新增付款狀態字段
+
+    def payment_status(self):
+        return "已付款" if self.is_paid else "未付款"
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
