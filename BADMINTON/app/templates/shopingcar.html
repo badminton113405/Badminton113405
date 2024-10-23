@@ -145,11 +145,11 @@
     const cartMap = new Map();
 
     cart.forEach(item => {
-        // 如果商品已存在于 Map 中，则累加数量
+        
         if (cartMap.has(item.id)) {
             cartMap.get(item.id).quantity += item.quantity;
         } else {
-            cartMap.set(item.id, { ...item }); // 否则，直接加入 Map
+            cartMap.set(item.id, { ...item });
         }
     });
 
@@ -166,7 +166,7 @@
         </div>
     `;
         cartItemsContainer.appendChild(cartItem);
-        totalPrice += item.price * item.quantity; // 计算总价
+        totalPrice += item.price * item.quantity; 
     });
 
     totalPriceElement.textContent = totalPrice;
@@ -176,14 +176,14 @@
         if (item) {
             item.quantity += change;
             if (item.quantity <= 0) {
-                cartMap.delete(id); // 如果数量为 0 或更少，删除该商品
+                cartMap.delete(id); 
             }
         }
         updateCartDisplay();
     }
 
     function updateCartDisplay() {
-        cartItemsContainer.innerHTML = ''; // 清空现有内容
+        cartItemsContainer.innerHTML = ''; 
         totalPrice = 0;
 
         cartMap.forEach(item => {
@@ -199,11 +199,11 @@
             </div>
         `;
             cartItemsContainer.appendChild(cartItem);
-            totalPrice += item.price * item.quantity;  // 重新计算总价
+            totalPrice += item.price * item.quantity;  
         });
 
         totalPriceElement.textContent = totalPrice;
-        saveCart(); // 保存最新购物车数据
+        saveCart(); 
     }
 
     function saveCart() {
@@ -211,18 +211,18 @@
         cartMap.forEach(item => {
             updatedCart.push({ id: item.id, name: item.name, price: item.price, quantity: item.quantity });
         });
-        localStorage.setItem('cart', JSON.stringify(updatedCart));  // 存储购物车数据
+        localStorage.setItem('cart', JSON.stringify(updatedCart));  
     }
 
-    // 清空购物车按钮
+    
     document.getElementById('clear-cart').addEventListener('click', () => {
-        // 清空 localStorage 中的购物车数据
+        
         localStorage.removeItem('cart');
 
-        // 清空 cartMap
+        
         cartMap.clear();
 
-        // 重新渲染购物车
+       
         updateCartDisplay();
     });
 

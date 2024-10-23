@@ -162,7 +162,7 @@
             </div>
             {% endfor %}
         {% else %}
-            <p>当前没有商品。</p>
+            <p>當前没有商品。</p>
         {% endif %}
     </div>
 
@@ -174,45 +174,45 @@
 <script>
 const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const loginToCartLinks = document.querySelectorAll('.login-to-cart');
-const itemCountElement = document.getElementById('item-count');  // 获取购物车数量的 DOM 元素
+const itemCountElement = document.getElementById('item-count');  
 
-// 更新购物车计数器
+// 更新購物車計數器
 function updateCartCounter() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);  // 计算购物车中的总数量
-    itemCountElement.textContent = totalQuantity;  // 更新计数器显示
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);  
+    itemCountElement.textContent = totalQuantity;  
 }
 
-// 为所有 "加入购物车" 按钮添加点击事件
+// 為所有"加入購物車"按鈕增加點擊事件
 addToCartButtons.forEach(button => {
     button.addEventListener('click', () => {
         const product = button.parentElement;
         const id = product.getAttribute('data-id');
         const name = product.getAttribute('data-name');
         const price = parseInt(product.getAttribute('data-price'), 10);
-        const quantity = 1; // 默認設置 quantity 為 1
+        const quantity = 1; 
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         // 查找是否已存在該商品，若存在則增加数量
         const existingProduct = cart.find(item => item.id === id);
         if (existingProduct) {
-            existingProduct.quantity += 1;  // 若商品已在购物车中，增加数量
+            existingProduct.quantity += 1;  
         } else {
-            cart.push({ id, name, price, quantity });  // 新商品则添加到购物车
+            cart.push({ id, name, price, quantity });  
         }
 
         localStorage.setItem('cart', JSON.stringify(cart));
 
-        // 更新购物车计数器
+        
         updateCartCounter();
 
-        // 提示用户商品已加入购物车
+        
         alert(`${name} 已加入購物車!`);
     });
 });
 
-// 初始化时更新购物车计数器
+// 初始化時更新購物車計數器
 updateCartCounter();
 
 loginToCartLinks.forEach(link => {
@@ -222,14 +222,14 @@ loginToCartLinks.forEach(link => {
     });
 });
 
-// 监听购物车图标点击，跳转至购物车页面
+
 document.getElementById('cart-link').addEventListener('click', function () {
-    // 判断用户是否已登录
+    
     {% if user.is_authenticated %}
-        // 如果用户已登录，跳转到购物车页面
+       
         window.location.href = "{% url 'shopingcar' %}";
     {% else %}
-        // 如果用户未登录，提示需要登录并跳转到登录页面
+        
         alert("請先登入以查看購物車");
         window.location.href = "{% url 'login' %}";
     {% endif %}

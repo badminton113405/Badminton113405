@@ -204,7 +204,7 @@
 </div>
 
 <script>
-    // 获取购物车数据
+    
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let totalPrice = 0;
     const orderItemsList = document.getElementById('order-items-list');
@@ -212,34 +212,34 @@
     cart.forEach(item => {
         totalPrice += item.price * item.quantity;
 
-        // 动态显示每个商品的信息
+        
         const itemElement = document.createElement('p');
         itemElement.innerHTML = `<strong>商品名稱：</strong> ${item.name} | <strong>數量：</strong> ${item.quantity} | <strong>單價：</strong> ${item.price} 元 | <strong>小計：</strong> ${item.price * item.quantity} 元`;
         orderItemsList.appendChild(itemElement);
     });
 
-    // 更新总金额
+    
     document.getElementById('total-amount').value = totalPrice + " 元";
     document.getElementById('total-amount-hidden').value = totalPrice;
 
-    // 提交表单时处理购物车数据
+    
     document.getElementById('payment-button').addEventListener('click', (event) => {
-        event.preventDefault(); // 阻止默认提交
+        event.preventDefault(); 
 
-        // 序列化购物车数据
+        
         const cartJSON = JSON.stringify(cart);
 
-        // 创建隐藏的输入字段
+        
         const cartInput = document.createElement('input');
         cartInput.type = 'hidden';
-        cartInput.name = 'cart';  // 传递给后端的 key
+        cartInput.name = 'cart'; 
         cartInput.value = cartJSON;
 
-        // 将隐藏字段添加到表单
+        
         const form = document.getElementById('payment-form');
         form.appendChild(cartInput);
 
-        // 提交表单
+        
         form.submit();
     });
 

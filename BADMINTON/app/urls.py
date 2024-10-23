@@ -8,12 +8,12 @@ urlpatterns = [
     path('course/<slug:slug>/', views.course_detail, name='course_detail'),
     path('coach/<slug:slug>/', views.coach_detail, name='coach_detail'),
     
-    # 特殊球類訓練頁面
+    # 羽球教學
     path('power_ball/', views.power_ball, name='power_ball'),
     path('left_right_ball/', views.left_right_ball, name='left_right_ball'),
     path('small_ball/', views.small_ball, name='small_ball'),
 
-    # 用戶註冊與登錄
+    # 註冊 登入
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
