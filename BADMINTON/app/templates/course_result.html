@@ -56,7 +56,7 @@
         <p><strong>賬戶名稱：</strong>蔡元振</p>
         <p><strong>賬戶號碼：</strong>0400765166568</p>
         <p><strong>轉帳金額：</strong>{{ total_cost }} 元</p>
-        <p>完成後請點擊確認按鈕。</p>
+        <p>完成轉帳後請加官方Line，並出示帳號後五碼，以便確認。</p>
         <a href="#"><button class="i-button" id="confirmButton">確認</button></a>
     </div>
 </div>
@@ -66,7 +66,7 @@
     <div class="modal-content">
         <span class="close-button" id="close-button-cash">&times;</span>
         <h2>現金付款資訊</h2>
-        <p>請於一周內至現場付款。</p>
+        <p>請於一周內至現場繳費，若有問題請再與我們聯繫。</p>
         <p><strong>付款人姓名：</strong>{{ name }}</p>
         <p><strong>付款人電話：</strong>{{ phone }}</p>
         <p><strong>商品總金額：</strong>{{ total_cost }} 元</p>
@@ -85,7 +85,7 @@
     </div>
 </div>
 
-<!-- Styles for Modal -->
+
 <style>
     .modal {
         display: none; 
@@ -135,14 +135,12 @@
     }
 </style>
 
-<!-- JavaScript for Modal Actions -->
 <script>
     const bankTransferButton = document.getElementById('bank-transfer-button');
     const cashPaymentButton = document.getElementById('cash-payment-button');
     const hiddenForm = document.getElementById('hiddenForm');
     const paymentTypeInput = document.getElementById('paymentType');
 
-    // Handles modal and form submission
     bankTransferButton.onclick = function() {
         paymentTypeInput.value = 'bank';
         document.getElementById('bankTransferModal').style.display = 'block';
@@ -153,19 +151,18 @@
         hiddenForm.submit();
     };
 
-    // Modal close button logic
+
     document.getElementById('close-button').onclick = function() {
         document.getElementById('bankTransferModal').style.display = 'none';
     };
 
-    // Clicking outside the modal closes it
+
     window.onclick = function(event) {
         if (event.target === document.getElementById('bankTransferModal')) {
             document.getElementById('bankTransferModal').style.display = 'none';
         }
     };
 
-    // Confirm button logic for bank transfer
     document.getElementById('confirmButton').onclick = function(event) {
         event.preventDefault();  
         document.getElementById('bankTransferModal').style.display = 'none';
