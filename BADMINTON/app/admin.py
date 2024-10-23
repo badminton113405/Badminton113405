@@ -2,12 +2,12 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment, CourseRegistration, Order, Product
 
-# 自定义UserAdmin
+# 自定義UserAdmin
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('个人信息', {'fields': ('full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email')}),
-        ('权限', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('個人資訊', {'fields': ('full_name', 'gender', 'birth_date', 'nickname', 'phone', 'email')}),
+        ('權限', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('重要日期', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
@@ -31,11 +31,11 @@ admin.site.register(Registration, RegistrationAdmin)
 
 # CourseType管理
 class CourseTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price')  # 显示课程名称和价格
-    search_fields = ('name',)  # 添加搜索功能，可以通过课程名称搜索
-    filter_horizontal = ('coaches',)  # 使用水平多选框来选择多个教练
+    list_display = ('name', 'price')  
+    search_fields = ('name',)  
+    filter_horizontal = ('coaches',)  
 
-# 注册 CourseType 模型到管理后台
+# 註冊 CourseType 模型到管理後台
 admin.site.register(CourseType, CourseTypeAdmin)
 
 # CourseSession管理
@@ -87,7 +87,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
     search_fields = ('name',)
 
-# 自定义后台页面标题和标题栏
-admin.site.site_header = '羽你動資動'  # 设置header
-admin.site.site_title = '羽你動資動'   # 设置title
+# 自定義後台頁面標題和標題欄自
+admin.site.site_header = '羽你動資動' 
+admin.site.site_title = '羽你動資動'   
 admin.site.index_title = '羽你動資動管理'

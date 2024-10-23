@@ -180,7 +180,7 @@ def verify_email(request, uidb64, token):
         messages.success(request, "您的電子信箱已驗證，請登入。")
         return redirect("login")
     else:
-        return HttpResponse("驗證鏈接無效或已過期。")
+        return HttpResponse("驗證連結無效或已過期。")
 
 
 def user_login(request):
@@ -510,7 +510,7 @@ def course_Registration(request):
     return render(request, "course_Registration.html")
 
 
-# 最終報名成功頁面
+
 @csrf_protect
 def course_result(request):
     if request.method == "POST":
@@ -600,7 +600,7 @@ def create_order(request):
             paid=False,
         )
 
-        order_items_with_totals = []  # 用来保存每个商品和小计
+        order_items_with_totals = []  
 
         try:
             for item in cart:
@@ -609,17 +609,17 @@ def create_order(request):
 
                 product = Product.objects.get(id=product_id)
 
-                # 计算商品小计
+                
                 subtotal = product.price * quantity
 
-                # 保存订单项
+                
                 order_item = OrderItem.objects.create(
                     order=order,
                     product=product,
                     quantity=quantity,
                 )
 
-                # 保存商品信息和小计到列表
+                
                 order_items_with_totals.append({
                     'product': product,
                     'quantity': quantity,
@@ -631,7 +631,7 @@ def create_order(request):
 
             return render(request, "payment_success.html", {
                 "order": order,
-                "order_items_with_totals": order_items_with_totals  # 传递每个商品及小计信息
+                "order_items_with_totals": order_items_with_totals  
             })
 
         except Product.DoesNotExist:

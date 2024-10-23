@@ -10,7 +10,7 @@ class CourseRegistration(models.Model):
     sub_course_type = models.CharField(max_length=100, blank=True, null=True)
     registration_date = models.DateField(auto_now_add=True)
     cost = models.DecimalField(max_digits=6, decimal_places=2)
-    is_paid = models.BooleanField(default=False)  # 新增付款狀態字段
+    is_paid = models.BooleanField(default=False)  
 
     def payment_status(self):
         return "已付款" if self.is_paid else "未付款"
@@ -74,14 +74,14 @@ class Registration(models.Model):
         return f"{self.name} - {self.preferred_course}"
 
 class CourseType(models.Model):
-    name = models.CharField(max_length=100)  # 班级名称
-    applicable_level = models.CharField(max_length=100, blank=True, null=True)  # 适用阶级（选填）
-    description = models.TextField(blank=True, null=True)  # 班级介绍 1
-    additional_description_1 = models.TextField(blank=True, null=True)  # 班级介绍 2
-    additional_description_2 = models.TextField(blank=True, null=True)  # 班级介绍 3
-    price = models.DecimalField(max_digits=6, decimal_places=2)  # 价格
-    image = models.ImageField(upload_to='courses/', blank=True, null=True)  # 照片
-    coaches = models.ManyToManyField('Coach', blank=True)  # 指導教練
+    name = models.CharField(max_length=100)  
+    applicable_level = models.CharField(max_length=100, blank=True, null=True)  
+    description = models.TextField(blank=True, null=True)  
+    additional_description_1 = models.TextField(blank=True, null=True)  
+    additional_description_2 = models.TextField(blank=True, null=True)  
+    price = models.DecimalField(max_digits=6, decimal_places=2)  
+    image = models.ImageField(upload_to='courses/', blank=True, null=True)  
+    coaches = models.ManyToManyField('Coach', blank=True)  
     slug = models.SlugField(unique=True, default='default-slug')
 
     def __str__(self):
@@ -111,13 +111,13 @@ class CourseSession(models.Model):
 class Coach(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=[('male', '男'), ('female', '女'), ('other', '其他')])
-    personal_traits = models.CharField(max_length=255, blank=True, null=True)  # 添加个人特质字段
+    personal_traits = models.CharField(max_length=255, blank=True, null=True)  
     specialization = models.CharField(max_length=100)
     experience = models.TextField()
-    teaching_method = models.TextField(blank=True, null=True)  # 添加教学方式字段
+    teaching_method = models.TextField(blank=True, null=True)  
     contact_number = models.CharField(max_length=20)
     photo = models.ImageField(upload_to='coaches/')
-    slug = models.SlugField(unique=True, default='default-slug')  # 添加slug字段用于友好的URL
+    slug = models.SlugField(unique=True, default='default-slug')  
 
     def __str__(self):
         return self.name
