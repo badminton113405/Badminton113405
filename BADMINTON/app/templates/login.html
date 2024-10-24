@@ -21,25 +21,48 @@
         margin-right: 5px;
         font-size: 12px;
       }
+
+      .input-group input {
+        width: 100%;
+        font-size: 14px;
+      }
+
+      .button-group button {
+        font-size: 14px;
+      }
     }
 
+    /* 主要容器靠上并居中 */
     .Login {
       font-family: 'Zen Kurenaido', sans-serif;
       margin-top: 30px;
       margin-left: 10px;
       margin-right: 10px;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start; /* 靠上对齐 */
+      align-items: center; /* 水平居中 */
+      min-height: 100vh; /* 保持高度，防止内容过短 */
       flex-direction: column;
     }
 
     .container {
-      margin-top: 50px;
+      max-width: 700px;
+      width: 100%; /* 使容器适应宽度 */
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center; /* 文本居中 */
     }
 
     .title {
-      font-weight: bold;
       font-size: 24px;
+      font-weight: bold;
       margin-bottom: 20px;
     }
 
@@ -51,26 +74,31 @@
 
     .input-group {
       margin-bottom: 15px;
+      text-align: center;
+      width: 100%;
     }
 
     .input-group label {
       display: block;
+      font-size: 16px;
       margin-bottom: 5px;
+      font-weight: bold;
     }
 
     .input-group input {
-      width: 80%;
+      width: 90%;
       padding: 10px;
       font-size: 16px;
       border: 1px solid #ccc;
       border-radius: 5px;
-      margin: 0 auto;
     }
 
     .button-group {
       margin-top: 20px;
       display: flex;
       justify-content: center;
+      gap: 10px;
+      width: 100%;
     }
 
     .button-group button {
@@ -79,31 +107,19 @@
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
-      margin: 5px;
       border-radius: 16px;
       color: #000;
-      background-color: #ffecd5;
+      background-color: #fff279;
+      width: auto;
     }
 
     .button-group button:hover {
-      background-color: #fde0a6;
-    }
-
-    .primary {
-      background-color: #ffecd5;
-    }
-
-    .button-group .success {
-      background-color: #a8e6cf;
-    }
-
-    .button-group .confirm {
-      background-color: #ffecd5;
+      background-color: #777777;
+      color: #fff;
     }
 
     .forgot-password {
-      margin-top: 10px;
-      text-align: center;
+      margin-top: 20px;
     }
 
     .forgot-password a {
@@ -144,11 +160,15 @@
           <input type="password" id="password" name="password" placeholder="請輸入密碼" />
         </div>
         <div class="button-group">
-          <a href="{% url 'forgot_password' %}"><button type="button" class="success">忘記密碼</button></a>
-          <a href="{% url 'register' %}"><button type="button" class="success">註冊會員</button></a>
-          <button type="submit" class="confirm">登入</button>
+          <a href="{% url 'forgot_password' %}"><button type="button">忘記密碼</button></a>
+          <a href="{% url 'register' %}"><button type="button">註冊會員</button></a>
+          <button type="submit">登入</button>
         </div>
       </form>
+
+      <div class="forgot-password">
+        <a href="{% url 'forgot_password' %}">忘記密碼？</a>
+      </div>
     </div>
   </div>
 {% endblock %}
