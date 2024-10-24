@@ -67,7 +67,6 @@
 
     <p>恭喜您，您的課程報名已成功提交！</p>
 
-    <!-- 顯示個人資訊 -->
     <ul>
         <li><strong>姓名：</strong> {{ name }}</li>
         <li><strong>性別：</strong> {{ gender }}</li>
@@ -76,7 +75,6 @@
         <li><strong>生日：</strong> {{ birthday }}</li>
     </ul>
 
-    <!-- 顯示已報名的課程資訊 -->
     <h3>您報名的課程</h3>
     <ul>
         {% for course in selected_courses %}
@@ -84,13 +82,12 @@
         {% endfor %}
     </ul>
 
-    <!-- 顯示課程總費用 -->
+
     <p><strong>總費用：</strong> {{ total_cost }} 元</p>
 
     <p>感謝您的報名，請於一周內至現場付款，若有任何問題，請隨時與我們聯繫！ <p>地點：羽你同行羽球館</p></p>
     
 
-    <!-- 返回首頁按鈕 -->
     <a href="{% url 'course_Analysis_Registration' %}"><button class="i-button">返回報名&分析</button></a>
 
 </div>

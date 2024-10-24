@@ -119,7 +119,7 @@
           {% for registration in request.user.courseregistration_set.all %}
           <li>
               {{ registration.registration_date }}：{{ registration.course_type }} - {{ registration.sub_course_type }} - NT$ {{ registration.cost }} 
-              {{ registration.payment_status }} <!-- 顯示付款狀態 -->
+              {{ registration.payment_status }} 
           </li>
           {% empty %}
           <li>尚無紀錄</li>

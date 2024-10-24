@@ -176,14 +176,14 @@ const addToCartButtons = document.querySelectorAll('.add-to-cart');
 const loginToCartLinks = document.querySelectorAll('.login-to-cart');
 const itemCountElement = document.getElementById('item-count');  
 
-// 更新購物車計數器
+//計數器
 function updateCartCounter() {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);  
     itemCountElement.textContent = totalQuantity;  
 }
 
-// 為所有"加入購物車"按鈕增加點擊事件
+//增加點擊事件
 addToCartButtons.forEach(button => {
     button.addEventListener('click', () => {
         const product = button.parentElement;
@@ -194,7 +194,7 @@ addToCartButtons.forEach(button => {
 
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-        // 查找是否已存在該商品，若存在則增加数量
+        // 存在商品，增加数量
         const existingProduct = cart.find(item => item.id === id);
         if (existingProduct) {
             existingProduct.quantity += 1;  
@@ -212,7 +212,7 @@ addToCartButtons.forEach(button => {
     });
 });
 
-// 初始化時更新購物車計數器
+// 初始化購物車
 updateCartCounter();
 
 loginToCartLinks.forEach(link => {
