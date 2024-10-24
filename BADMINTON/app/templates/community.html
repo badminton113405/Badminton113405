@@ -17,23 +17,18 @@
       }
     }
     
-    .reservation {
-      font-family: 'Zen Kurenaido', sans-serif;
-      margin-top: 30px;
-      margin-left: 10px;
-      margin-right: 10px;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-    }
-    
     .comment-board {
       font-family: 'Zen Kurenaido', sans-serif;
       margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
     h1 {
       color: #333;
+      font-size: 24px;
+      margin-bottom: 20px;
     }
     
     .comment-input {
@@ -41,37 +36,42 @@
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 10px;
+      width: 100%;
+      max-width: 700px;
     }
     
     .comment-input h2 {
-      margin: 0;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
     
     .comment-input textarea {
-      width: 100%;
+      width: 98%;
       height: 100px;
-      margin: 10px 0;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      margin-bottom: 10px;
     }
     
     .comment-input button {
       font-family: "Zen Kurenaido", sans-serif;
       background-color: #fff279;
       color: #000;
-      padding: 10px 15px;
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
     
     .comment-input button:hover {
-      font-family: "Zen Kurenaido", sans-serif;
       background-color: #777777;
+      color: #fff;
     }
     
     .comment-list {
+      width: 100%;
+      max-width: 700px;
       background-color: #f9f9f9;
       padding: 20px;
       border-radius: 10px;
@@ -81,74 +81,81 @@
     .comment-item {
       background-color: white;
       padding: 15px;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
     
     .comment-header {
-      font-family: "Zen Kurenaido", sans-serif;
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin-bottom: 10px;
+      font-size: 14px;
     }
     
     .button-group {
-      font-family: "Zen Kurenaido", sans-serif;
-      display: flex; 
-      gap: 10px; 
+      display: flex;
+      gap: 10px;
     }
 
     .edit-button, .delete-button {
-      font-family: "Zen Kurenai", sans-serif;
+      font-family: "Zen Kurenaido", sans-serif;
       text-decoration: none;
       background-color: #fff279;
-      border: none;
       padding: 5px 10px;
+      border: none;
       border-radius: 5px;
       cursor: pointer;
     }
 
     .delete-button {
-      font-family: "Zen Kurenaido", sans-serif;
       background-color: #ff5555;
     }
 
     .edit-button:hover, .delete-button:hover {
-      font-family: "Zen Kurenaido", sans-serif;
       background-color: #777777;
       color: #fff;
     }
     
     .comment-footer {
       display: flex;
-      align-items: center;
+      margin-top: 10px;
     }
     
     .comment-footer textarea {
       flex-grow: 1;
       height: 40px;
-      margin-right: 10px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      margin-right: 10px;
     }
     
     .comment-footer button {
       font-family: "Zen Kurenaido", sans-serif;
       background-color: #fff279;
-      color: #000;
-      padding: 10px 15px;
+      padding: 10px 20px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
     
     .comment-footer button:hover {
-      font-family: "Zen Kurenaido", sans-serif;
-      color: #fff;
       background-color: #777777;
+      color: #fff;
+    }
+    
+    .comment-reply {
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+    }
+
+    .comment-reply span {
+      font-size: 12px;
+      color: #555;
     }
   </style>
 
@@ -203,29 +210,28 @@
       {% endfor %}
     </section>
   {% else %}
-  <section class="comment-list">
-    {% for post in posts %}
-      <div class="comment-item">
-        <div class="comment-header">
-          <span>{{ post.author.username }}</span>
-          <span>{{ post.created_at }}</span>
+    <section class="comment-list">
+      {% for post in posts %}
+        <div class="comment-item">
+          <div class="comment-header">
+            <span>{{ post.author.username }}</span>
+            <span>{{ post.created_at }}</span>
+          </div>
+          <div class="comment-text">
+            <p>{{ post.content }}</p>
+          </div>
+          <div class="comment-replies">
+            {% for comment in post.comments.all %}
+              <div class="comment-reply">
+                <span>{{ comment.author.username }}</span>
+                <span>{{ comment.created_at }}</span>
+                <p>{{ comment.content }}</p>
+              </div>
+            {% endfor %}
+          </div>
         </div>
-        <div class="comment-text">
-          <p>{{ post.content }}</p>
-        </div>
-        
-        <div class="comment-replies">
-          {% for comment in post.comments.all %}
-            <div class="comment-reply">
-              <span>{{ comment.author.username }}</span>
-              <span>{{ comment.created_at }}</span>
-              <p>{{ comment.content }}</p>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    {% endfor %}
-  </section>
+      {% endfor %}
+    </section>
   {% endif %}
 </div>
 {% endblock %}
