@@ -21,60 +21,78 @@
     }
 
     .SQ {
-        font-family: "Zen Kurenaido", sans-serif;
         margin-top: 30px;
         margin-left: 10px;
         margin-right: 10px;
         display: flex;
-        justify-content: center;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     .video-container {
-        width: 100%;
-        max-width: 800px;
+        width: 100%; /* 调整为占满父容器的宽度 */
+        max-width: 800px; /* 设置最大宽度 */
         aspect-ratio: 16 / 9;
+        margin: 20px auto; /* 上下间距20px，左右居中 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-right: 290px;
     }
 
     iframe {
         width: 100%;
         height: 100%;
-        border-radius: 10pt;
-    }
-
-    .video-teach {
-        margin-bottom: 20px;
-        padding: 10px 0px 10px 0px;
+        border: none;
     }
 
     .video {
         margin-bottom: 20px;
     }
 
-    video {
-        width: 100%;
-        height: auto;
+    .video-teach {
+        padding: 10px 0;
+    }
+
+    h1, h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    p {
+       font-family: 'Zen Kurenaido', sans-serif;
+       font-size: 16px; /* 設定段落字體大小 */
+       color: #555; /* 設定段落字體顏色 */
+       line-height: 1.6; /* 設定行距 */
+       margin: 10px 0;
+       max-width: 800px;
+       letter-spacing: 0.5px; /* 設定字母間距 */
     }
 
     .button-container {
         display: flex;
         justify-content: center;
-        margin-top: 10px;
+        gap: 10px;
+        margin-top: 20px;
     }
 
     .i-button {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #000;
+        font-family: 'Zen Kurenaido', sans-serif;
+        padding: 10px 20px;
         background-color: #FFF279;
-        margin: 0 5px;
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     .i-button:hover {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #fff;
         background-color: #777777;
+        color: #fff;
     }
 </style>
 
@@ -86,7 +104,6 @@
                 <iframe src="https://www.youtube.com/embed/NzJzkENB7GE" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
-
             </div>
         </div>
     </div>
@@ -98,7 +115,5 @@
         <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
     </div>
 </div>
-
-
 
 {% endblock %}
