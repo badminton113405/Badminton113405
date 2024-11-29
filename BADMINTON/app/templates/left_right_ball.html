@@ -1,105 +1,117 @@
-{% extends 'base.html' %}
-
-{% load static %}
-
-{% block title %}<title>左右/正反平球</title>{% endblock %}
-{% block content %}
 <style>
     @media screen and (max-width: 320px) {
-        .g-header-container.fixed {
-            padding: 5px;
-        }
-
-        .g-footer-container {
-            padding: 5px;
-        }
-
-        .i-button {
-            margin-right: 5px;
-            font-size: 12px;
-        }
+      .g-header-container.fixed {
+        padding: 5px;
+      }
+  
+      .g-footer-container {
+        padding: 5px;
+      }
+  
+      .i-button {
+        margin-right: 5px;
+        font-size: 12px;
+      }
     }
-
+  
     .SQ {
-        font-family: "Zen Kurenaido", sans-serif;
-        margin-top: 30px;
-        margin-left: 10px;
-        margin-right: 10px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
+      margin-top: 30px;
+      margin-left: 10px;
+      margin-right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
-
+  
     .video-container {
-        width: 100%;
-        max-width: 800px;
-        aspect-ratio: 16 / 9;
+      width: 100%; /* 调整为占满父容器的宽度 */
+      max-width: 800px; /* 设置最大宽度 */
+      aspect-ratio: 16 / 9;
+      margin: 20px auto; /* 上下间距20px，左右居中 */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-right: 290px;
     }
-
+  
     iframe {
-        width: 100%;
-        height: 100%;
-        border-radius: 10pt;
+      width: 100%;
+      height: 100%;
+      border: none;
     }
-
-    .video-teach {
-        margin-bottom: 20px;
-        padding: 10px 0px 10px 0px;
-    }
-
+  
     .video {
-        margin-bottom: 20px;
+      margin-bottom: 20px;
     }
-
-    video {
-        width: 100%;
-        height: auto;
+  
+    .video-teach {
+      padding: 10px 0;
     }
-
+  
+    h1, h2 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.6;
+      margin: 10px 0;
+      max-width: 800px;
+    }
+  
     .button-container {
-        display: flex;
-        justify-content: center;
-        margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
     }
-
+  
     .i-button {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #000;
-        background-color: #FFF279;
-        margin: 0 5px;
+      font-family: 'Zen Kurenaido', sans-serif;
+      padding: 10px 20px;
+      background-color: #FFF279;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-
+  
     .i-button:hover {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #fff;
-        background-color: #777777;
+      background-color: #777777;
+      color: #fff;
     }
-</style>
-
-<div class="HY">
+  </style>
+  
+  <div class="SQ">
     <h2>羽球教學</h2>
     <div class="video">
-        <div class="video-teach">
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/ppYeUspjgVY" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
+      <div class="video-teach">
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/ppYeUspjgVY" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
         </div>
+      </div>
     </div>
     <h1>左右/正反平球</h1>
     <p>左右/正反 平球是羽球當中最長出現的球路之一，擊球後球會以跟球網差不多的高度飛過。</p>
     <div class="button-container">
-        <a href="{% url 'power_ball' %}"><button class="i-button">殺球</button></a>
-        <a href="{% url 'small_ball' %}"><button class="i-button">小球/挑球</button></a>
-        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+      <a href="{% url 'power_ball' %}">
+        <button class="i-button">殺球</button>
+      </a>
+      <a href="{% url 'small_ball' %}">
+        <button class="i-button">小球/挑球</button>
+      </a>
+      <a href="{% url 'home' %}">
+        <button class="i-button">回首頁</button>
+      </a>
     </div>
-</div>
-
-
-
-{% endblock %}
+  </div>
+  
