@@ -108,22 +108,30 @@ class CourseSession(models.Model):
     def __str__(self):
         return f"{self.course_type.name} - {self.day_of_week}"
 
+from django.utils.text import slugify
+
 class Coach(models.Model):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=[('male', '男'), ('female', '女'), ('other', '其他')])
-    personal_traits = models.CharField(max_length=255, blank=True, null=True)  
+    personal_traits = models.CharField(max_length=255, blank=True, null=True)
     specialization = models.CharField(max_length=100)
     experience = models.TextField()
-    teaching_method = models.TextField(blank=True, null=True)  
+    teaching_method = models.TextField(blank=True, null=True)
     contact_number = models.CharField(max_length=20)
     photo = models.ImageField(upload_to='coaches/')
-    slug = models.SlugField(unique=True, default='default-slug')  
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse('coach_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
 
 class DiscussionPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('course/<slug:slug>/', views.course_detail, name='course_detail'),
     path('coach/<slug:slug>/', views.coach_detail, name='coach_detail'),
+    path('coaches/', views.coach_list, name='coach_list'),
     
     # 羽球教學
     path('power_ball/', views.power_ball, name='power_ball'),
@@ -48,6 +49,7 @@ urlpatterns = [
     path('course_result/', views.course_result, name='course_result'),
     path('history/', views.registration_history, name='registration_history'),
     path('course_success/', views.course_success_page, name='course_success_page'),
+    path('reservation_list/', views.reservation_list, name='reservation_list'),
 ]
 
 

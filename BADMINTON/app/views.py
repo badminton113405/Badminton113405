@@ -34,6 +34,10 @@ def course_detail(request, slug):
     course = get_object_or_404(CourseType, slug=slug)
     return render(request, 'course_detail.html', {'course': course})
 
+def coach_list(request):
+    coaches = Coach.objects.all()  # 查询所有教练
+    return render(request, 'coach_list.html', {'coaches': coaches})
+
 def coach_detail(request, slug):
     coach = get_object_or_404(Coach, slug=slug)
     return render(request, 'coach_detail.html', {'coach': coach})
@@ -119,6 +123,10 @@ def member_center(request):
 
 def payment(request):
     return render(request, "payment.html")
+
+def reservation_list(request):
+    return render(request, "reservation_list.html")
+
 
 
 def registration_history(request):
