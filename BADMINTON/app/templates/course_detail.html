@@ -1,109 +1,145 @@
-{% extends 'base.html' %}
-
-{% block title %}<title>{{ course.name }}</title>{% endblock %}
-
-{% block content %}
 <style>
     @media screen and (max-width: 320px) {
-        .g-header-container.fixed {
-            padding: 5px;
-        }
-
-        .g-footer-container {
-            padding: 5px;
-        }
-
-        .m-button {
-            margin-right: 5px;
-            font-size: 12px;
-        }
+      .g-header-container.fixed {
+        padding: 5px;
+      }
+      .g-footer-container {
+        padding: 5px;
+      }
+      .m-button {
+        margin-right: 5px;
+        font-size: 12px;
+      }
     }
-
+  
     .course-detail {
-        font-family: "Zen Kurenaido", sans-serif;
-        margin-top: 30px;
-        margin-left: 50px;
-        margin-right: 50px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
+      font-family: 'Zen Kurenaido', sans-serif;
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-
-    .course-detail h2 {
-        margin-top: 5px;
+  
+    .course-detail h1 {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 10px;
     }
-
-    .i-button {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #000;
-        background-color: #FBFF36;
+  
+    .course-detail img {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 10px;
+      margin: 20px 0;
     }
-
-    .i-button:hover {
-        font-family: "Zen Kurenaido", sans-serif;
-        border-radius: 16px;
-        color: #ffff;
-        background-color: #777777;
-    }
-
-    .title {
-        display: flex;
-    }
-
-    .title1 {
-        margin-top: 28pt;
-        margin-left: 5pt;
-    }
-
-    .time {
-        font-size: 12pt;
-    }
-
+  
     .about {
-        margin-top: 20px;
+      width: 100%;
+      max-width: 700px;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
     }
-</style>
-
-<div class="course-detail">
-    <div class="title">
-        <h1>{{ course.name }}</h1>
-        {% if course.applicable_level %}
-            <div class="title1">(適合 {{ course.applicable_level }})</div>
-        {% endif %}
-    </div>
-
+  
+    .about h2 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    .about p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #555;
+    }
+  
+    .time {
+      width: 100%;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+  
+    .time h2 {
+      font-size: 20px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+  
+    .time ul {
+      padding-left: 20px;
+    }
+  
+    .time ul li {
+      list-style: disc;
+      margin-bottom: 10px;
+    }
+  
+    .time ul li a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+  
+    .time ul li a:hover {
+      text-decoration: underline;
+      color: #0056b3;
+    }
+  
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+  
+    .i-button {
+      font-family: 'Zen Kurenaido', sans-serif;
+      background-color: #FBFF36;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .i-button:hover {
+      background-color: #777777;
+      color: #fff;
+    }
+  </style>
+  
+  <div class="course-detail">
+    <h1>{{ course.name }}</h1>
+    {% if course.applicable_level %}
+      <div class="subtitle">(適合 {{ course.applicable_level }})</div>
+    {% endif %}
+  
     <img src="{{ course.image.url }}" alt="{{ course.name }}" class="class-img">
-
+  
     <div class="about">
-        <p>{{ course.description }}</p>
-
-        {% if course.additional_description_1 %}
-            <h2>班級</h2>
-            <p>{{ course.additional_description_1 }}</p>
-        {% endif %}
-
-        {% if course.additional_description_2 %}
-            <h2>時間</h2>
-            <p>{{ course.additional_description_2 }}</p>
-        {% endif %}
-
-        <h2>課程費用</h2>
-        <p>價格: {{ course.price|floatformat:0 }} /堂</p>
+      <p>{{ course.description }}</p>
+      {% if course.additional_description_1 %}
+        <h2>班級</h2>
+        <p>{{ course.additional_description_1 }}</p>
+      {% endif %}
+      {% if course.additional_description_2 %}
+        <h2>時間</h2>
+        <p>{{ course.additional_description_2 }}</p>
+      {% endif %}
+      <h2>課程費用</h2>
+      <p>價格: {{ course.price|floatformat:0 }} /堂</p>
     </div>
-
+  
     <div class="time">
-        <h2>指導教練:</h2>
-        <ul>
-            {% for coach in course.coaches.all %}
-                <li><a href="{{ coach.get_absolute_url }}">{{ coach.name }}</a></li>
-            {% endfor %}
-        </ul>
+      <h2>指導教練:</h2>
+      <ul>
+        {% for coach in course.coaches.all %}
+          <li><a href="{{ coach.get_absolute_url }}">{{ coach.name }}</a></li>
+        {% endfor %}
+      </ul>
     </div>
-
+  
     <div class="button-container">
-        <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
+      <a href="{% url 'home' %}"><button class="i-button">回首頁</button></a>
     </div>
-</div>
-
-{% endblock %}
+  </div>
+  
