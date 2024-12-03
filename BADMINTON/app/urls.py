@@ -50,6 +50,7 @@ urlpatterns = [
     path('history/', views.registration_history, name='registration_history'),
     path('course_success/', views.course_success_page, name='course_success_page'),
     path('reservation_list/', views.reservation_list, name='reservation_list'),
+    path('list/', views.list, name='list'),
 ]
 
 

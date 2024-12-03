@@ -116,7 +116,10 @@
     <img src="{{ course.image.url }}" alt="{{ course.name }}" class="class-img">
   
     <div class="about">
+      {% if course.description %}
+        <h2>招生對象</h2>
       <p>{{ course.description }}</p>
+      {% endif %}
       {% if course.additional_description_1 %}
         <h2>班級</h2>
         <p>{{ course.additional_description_1 }}</p>

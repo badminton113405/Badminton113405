@@ -124,6 +124,10 @@ def member_center(request):
 def payment(request):
     return render(request, "payment.html")
 
+def list(request):
+    return render(request, "list.html")
+
+
 def reservation_list(request):
     return render(request, "reservation_list.html")
 
