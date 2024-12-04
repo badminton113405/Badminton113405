@@ -132,6 +132,19 @@ class Coach(models.Model):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
+class CoachAvailability(models.Model):
+    coach = models.ForeignKey(Coach, on_delete=models.CASCADE, related_name="availability")
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    is_reserved = models.BooleanField(default=False)
+    reserved_by = models.CharField(max_length=100, blank=True, null=True) 
+    contact_info = models.CharField(max_length=100, blank=True, null=True) 
+
+    def __str__(self):
+        status = "已預約" if self.is_reserved else "空閒"
+        return f"{self.coach.name} - {self.date} {self.start_time}-{self.end_time} ({status})"
+
 
 class DiscussionPost(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -183,4 +196,5 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} (x{self.quantity})"
+
 

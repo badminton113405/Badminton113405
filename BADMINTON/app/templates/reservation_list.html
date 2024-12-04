@@ -3,127 +3,170 @@
 {% load static %}
 
 {% block title %}
-  <title>新增教練時段預約表</title>
+  <title>教練時段篩選與預約</title>
 {% endblock %}
 
 {% block content %}
   <style>
     .Reservation {
       font-family: 'Zen Kurenaido', sans-serif;
-      margin-top: 30px;
-      margin-left: 10px;
-      margin-right: 10px;
-      display: flex;
-      justify-content: flex-start; /* 靠上对齐 */
-      align-items: center; /* 水平居中 */
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    .container {
-      max-width: 700px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 30px 10px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
       text-align: center;
     }
 
-    .title {
-      font-size: 24px;
-      font-weight: bold;
+    .filter-form {
       margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
-    .input-group {
-      margin-bottom: 15px;
-      text-align: center;
-      width: 100%;
-    }
-
-    .input-group label {
-      display: block;
+    .filter-form label {
       font-size: 16px;
-      margin-bottom: 5px;
+      margin-right: 5px;
       font-weight: bold;
     }
 
-    .input-group input, .input-group select {
-      width: 90%;
-      padding: 10px;
-      font-size: 16px;
+    .filter-form select, .filter-form input {
+      padding: 8px 12px;
+      font-size: 14px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
 
-    .button-group {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .button-group button {
+    .filter-form button {
       font-family: 'Zen Kurenaido', sans-serif;
+      padding: 8px 16px;
+      font-size: 14px;
       border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 16px;
-      color: #000;
+      border-radius: 5px;
       background-color: #fff279;
+      cursor: pointer;
     }
 
-    .button-group button:hover {
+    .filter-form button:hover {
+      background-color: #777777;
+      color: #fff;
+    }
+
+    .table-container {
+      width: 100%;
+      max-width: 900px;
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    table th, table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #0073b7;
+      color: #fff;
+    }
+
+    table tbody tr:nth-child(odd) {
+      background-color: #f9f9f9;
+    }
+
+    .reservation-form input {
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .reservation-form button {
+      font-family: 'Zen Kurenaido', sans-serif;
+      padding: 8px 16px;
+      font-size: 14px;
+      border: none;
+      border-radius: 5px;
+      background-color: #fff279;
+      cursor: pointer;
+    }
+
+    .reservation-form button:hover {
       background-color: #777777;
       color: #fff;
     }
   </style>
 
   <div class="Reservation">
-    <div class="container">
-      <div class="title">新增教練時段預約表</div>
+    <h2>教練時段篩選與預約</h2>
 
-      <form method="post" action="{% url 'reservation_list' %}">
-        {% csrf_token %}
-        <div class="input-group">
-          <label for="coach-name">教練姓名</label>
-          <select id="coach-name" name="coach_name" required>
-            <option value="" disabled selected>請選擇教練</option>
-            {% for coach in coaches %}
-              <option value="{{ coach.id }}">{{ coach.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class="input-group">
-          <label for="date">預約日期</label>
-          <input type="date" id="date" name="date" required />
-        </div>
-        <div class="input-group">
-          <label for="time">預約時間</label>
-          <input type="time" id="time" name="time" required />
-        </div>
-        <div class="input-group">
-          <label for="student-name">學生姓名</label>
-          <input type="text" id="student-name" name="student_name" placeholder="請輸入學生姓名" required />
-        </div>
-        <div class="input-group">
-          <label for="contact">聯絡方式</label>
-          <input type="text" id="contact" name="contact" placeholder="請輸入聯絡方式" required />
-        </div>
-        <div class="button-group">
-          <button type="submit">新增預約</button>
-          <a href="{% url 'reservation_list' %}"><button type="button">返回列表</button></a>
-          <a href="{% url 'list' %}"><button type="button">查看預約表</button></a>
-        </div>
-      </form>
+    <form class="filter-form" method="get" action="{% url 'reservation_list' %}">
+      <div>
+        <label for="coach">選擇教練:</label>
+        <select id="coach" name="coach_id">
+          <option value="">全部教練</option>
+          {% for coach in coaches %}
+            <option value="{{ coach.id }}" {% if coach.id|stringformat:"s" == selected_coach_id %}selected{% endif %}>
+              {{ coach.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="date">選擇日期:</label>
+        <input type="date" id="date" name="date" value="{{ selected_date|default:'' }}">
+      </div>
+      <button type="submit">篩選</button>
+    </form>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>教練</th>
+            <th>日期</th>
+            <th>時間</th>
+            <th>狀態</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for availability in availabilities %}
+            <tr>
+              <td>{{ availability.coach.name }}</td>
+              <td>{{ availability.date }}</td>
+              <td>{{ availability.start_time }} - {{ availability.end_time }}</td>
+              <td>
+                {% if availability.is_reserved %}
+                  已預約
+                {% else %}
+                  空閒
+                {% endif %}
+              </td>
+              <td>
+                {% if not availability.is_reserved %}
+                  <form class="reservation-form" method="post" action="{% url 'book_reservation' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="availability_id" value="{{ availability.id }}">
+                    <input type="text" name="student_name" placeholder="學生姓名" required>
+                    <input type="text" name="contact_info" placeholder="聯絡方式" required>
+                    <button type="submit">預約</button>
+                  </form>
+                {% else %}
+                  已預約
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 {% endblock %}

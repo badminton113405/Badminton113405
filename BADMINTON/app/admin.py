@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Registration, CourseType, CourseSession, Coach, DiscussionPost, DiscussionComment, CourseRegistration, Order, Product
+from .models import (
+    User, Registration, CourseType, CourseSession, 
+    Coach, DiscussionPost, DiscussionComment, 
+    CourseRegistration, Order, Product, CoachAvailability
+)
 
 # UserAdmin
 class CustomUserAdmin(UserAdmin):
@@ -31,9 +35,9 @@ admin.site.register(Registration, RegistrationAdmin)
 
 # CourseType
 class CourseTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price')  
-    search_fields = ('name',)  
-    filter_horizontal = ('coaches',)  
+    list_display = ('name', 'price')
+    search_fields = ('name',)
+    filter_horizontal = ('coaches',)
 
 admin.site.register(CourseType, CourseTypeAdmin)
 
@@ -45,11 +49,10 @@ class CourseSessionAdmin(admin.ModelAdmin):
 admin.site.register(CourseSession, CourseSessionAdmin)
 
 # Coach
+@admin.register(Coach)
 class CoachAdmin(admin.ModelAdmin):
-    list_display = ('name', 'gender', 'specialization', 'experience', 'contact_number')
-    search_fields = ('name', 'specialization')
-
-admin.site.register(Coach, CoachAdmin)
+    list_display = ('name', 'gender', 'specialization', 'contact_number')
+    search_fields = ('name', 'specialization', 'contact_number')
 
 # DiscussionPost
 class DiscussionPostAdmin(admin.ModelAdmin):
@@ -86,6 +89,15 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price')
     search_fields = ('name',)
 
-admin.site.site_header = '羽你動資動' 
-admin.site.site_title = '羽你動資動'   
+# CoachAvailability
+@admin.register(CoachAvailability)
+class CoachAvailabilityAdmin(admin.ModelAdmin):
+    list_display = ('coach', 'date', 'start_time', 'end_time', 'is_reserved', 'reserved_by')
+    list_filter = ('coach', 'date', 'is_reserved')
+    search_fields = ('coach__name', 'reserved_by')
+    ordering = ('date', 'start_time')  # 可選：按日期和時間排序
+
+# Custom Admin Site Branding
+admin.site.site_header = '羽你動資動'
+admin.site.site_title = '羽你動資動'
 admin.site.index_title = '羽你動資動管理'

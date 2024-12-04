@@ -10,7 +10,7 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 from django.contrib.auth import get_user_model, login, authenticate, logout
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.decorators import login_required
-from .models import DiscussionPost, Order, CourseRegistration,Product,  OrderItem,CourseType, Coach
+from .models import DiscussionPost, Order, CourseRegistration,Product,  OrderItem,CourseType, Coach,CoachAvailability
 from .forms import (
     DiscussionPostForm,
     DiscussionCommentForm,
@@ -23,6 +23,7 @@ from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib import messages
 from decimal import Decimal
+from datetime import date, timedelta
 
 
 def home(request):
@@ -722,3 +723,76 @@ def course_success_page(request):
 
         return render(request, 'course_success.html', context)
 
+def reservation_list(request):
+    coaches = Coach.objects.all()
+    selected_coach_id = request.GET.get('coach_id')
+    selected_date = request.GET.get('date')
+
+    availabilities = CoachAvailability.objects.all()
+    if selected_coach_id:
+        availabilities = availabilities.filter(coach_id=selected_coach_id)
+    if selected_date:
+        availabilities = availabilities.filter(date=selected_date)
+
+    return render(request, 'reservation_list.html', {
+        'coaches': coaches,
+        'availabilities': availabilities,
+        'selected_coach_id': selected_coach_id,
+        'selected_date': selected_date,
+    })
+
+def book_reservation(request):
+    if request.method == 'POST':
+        availability_id = request.POST.get('availability_id')
+        student_name = request.POST.get('student_name')
+        contact_info = request.POST.get('contact_info')
+
+        availability = get_object_or_404(CoachAvailability, id=availability_id)
+        if not availability.is_reserved:
+            availability.is_reserved = True
+            availability.reserved_by = student_name
+            availability.contact_info = contact_info
+            availability.save()
+            messages.success(request, "預約成功！")
+        else:
+            messages.error(request, "該時段已被預約！")
+
+    return redirect('reservation_list')
+
+
+def book_time(request):
+    coaches = Coach.objects.all()
+    selected_coach_id = request.GET.get('coach_id')
+    available_times = None
+
+    # 設置過濾日期：今天之後
+    filter_date = date.today() + timedelta(days=1)
+
+    if selected_coach_id:
+        available_times = CoachAvailability.objects.filter(
+            coach_id=selected_coach_id,
+            is_reserved=False,
+            date__gte=filter_date  # 僅顯示明天及以後的時間
+        )
+
+    if request.method == 'POST':
+        availability_id = request.POST.get('availability_id')
+        student_name = request.POST.get('student_name')
+        contact_info = request.POST.get('contact_info')
+
+        availability = get_object_or_404(CoachAvailability, id=availability_id)
+        if not availability.is_reserved:
+            availability.is_reserved = True
+            availability.reserved_by = student_name
+            availability.contact_info = contact_info
+            availability.save()
+            messages.success(request, "預約成功！")
+            return redirect('reservation_list')
+        else:
+            messages.error(request, "該時段已被預約！")
+
+    return render(request, 'book_time.html', {
+        'coaches': coaches,
+        'available_times': available_times,
+        'selected_coach_id': selected_coach_id,
+    })
